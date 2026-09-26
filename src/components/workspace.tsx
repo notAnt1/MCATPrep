@@ -56,6 +56,14 @@ const topics = [
   "Membrane transport",
   "Circuits",
   "Learning & memory",
+  "Acids & bases",
+  "Thermodynamics & equilibrium",
+  "Fluids & gases",
+  "Amino acids & proteins",
+  "Genetics & gene expression",
+  "Cellular metabolism",
+  "Social psychology",
+  "Research methods",
 ];
 const date = (s: string) =>
   new Date(s).toLocaleDateString(undefined, { month: "short", day: "numeric" });
@@ -1101,9 +1109,10 @@ export default function Workspace() {
                 </div>
               )}
               <p className="fine-print">
-                Starter bank: 36 original foundational questions across six
-                topics. Not a full MCAT simulation; CARS and passage-based
-                practice are not yet included.
+                Practice bank: 84 original foundational questions across 14
+                topics. Timing targets are estimates. Not a full MCAT
+                simulation; CARS and passage-based practice are not yet
+                included.
               </p>
             </>
           ) : view === "analysis" ? (

@@ -57,7 +57,9 @@ The dashboard loads up to 100,000 oldest attempts and 1,000 most recent sessions
 
 ## Question content
 
-36 original AI-authored foundational questions across six topics. **Not a complete MCAT bank, calibrated assessment, or official material.** CARS, full passages, book imports, and conversational AI tutoring are not included yet. Hints and explanations are curated text. Review seed content before relying on it for preparation.
+84 original AI-authored foundational questions across 14 topics. **Not a complete MCAT bank, calibrated assessment, or official material.** Timing targets are estimates. CARS, full passages, book imports, and conversational AI tutoring are not included yet. Hints and explanations are curated text. Review seed content before relying on it for preparation.
+
+For an existing installation with the original 36 questions, run `supabase/expansion-01.sql` in the Supabase SQL Editor. It adds 48 questions across eight topics and is safe to rerun. Existing question versions and user results are preserved. New installations can use `supabase/setup.sql` for all 84 questions.
 
 Local PDFs, study records, extracted book text, and credentials are excluded from Git. No books are uploaded to an AI provider or distributed with the app. Import only content authorized for the intended use. Preserve question IDs/versions and mark incomplete extractions unpublished. Attempts snapshot the original topic, version, timing target, and results.
 

@@ -1,4 +1,5 @@
 import { FullQuestion } from "./types";
+import { expandedQuestions } from "./expanded-questions";
 
 // Original, AI-authored foundational practice. These are not official or calibrated MCAT items.
 const rows: [
@@ -471,19 +472,23 @@ rows.push(
     45,
   ],
 );
-export const questions: FullQuestion[] = rows.map((r, i) => ({
-  id: `sample-${String(i + 1).padStart(2, "0")}`,
-  topic: r[0],
-  section: r[1],
-  skill: r[8] >= 75 ? "Quantitative reasoning" : "Concept application",
-  difficulty: "Foundational",
-  prompt: r[2],
-  options: r[3],
-  answer: r[4],
-  explanation: r[5],
-  hints: [r[6], r[7]],
-  target_seconds: r[8],
-  version: 1,
-  source: "Original AI-authored starter question · not official MCAT material",
-  passage: null,
-}));
+export const questions: FullQuestion[] = [
+  ...rows.map((r, i) => ({
+    id: `sample-${String(i + 1).padStart(2, "0")}`,
+    topic: r[0],
+    section: r[1],
+    skill: r[8] >= 75 ? "Quantitative reasoning" : "Concept application",
+    difficulty: "Foundational",
+    prompt: r[2],
+    options: r[3],
+    answer: r[4],
+    explanation: r[5],
+    hints: [r[6], r[7]],
+    target_seconds: r[8],
+    version: 1,
+    source:
+      "Original AI-authored starter question · not official MCAT material",
+    passage: null,
+  })),
+  ...expandedQuestions,
+];

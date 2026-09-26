@@ -4,7 +4,7 @@ The application is ready to import into Vercel after the first push to main.
 
 ## 1. Create the Supabase tables
 
-In your existing Supabase project, open **SQL Editor > New query**. Paste the complete contents of `supabase/setup.sql` and run it. This creates the app's tables, privacy rules, scoring functions, and 36 original starter questions. It does not upload or import the local books.
+In your existing Supabase project, open **SQL Editor > New query**. Paste the complete contents of `supabase/setup.sql` and run it. This creates the app's tables, privacy rules, scoring functions, and 84 original practice questions. It does not upload or import the local books.
 
 ## 2. Fund the OpenAI API
 
