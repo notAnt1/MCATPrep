@@ -1,0 +1,17 @@
+# Local credentials
+.env
+.env.*
+!.env.example
+
+# Local source books and study records
+*.pdf
+
+# Dependencies, builds, and local deployment settings
+node_modules/
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+tmp/
+output/
+*.log
