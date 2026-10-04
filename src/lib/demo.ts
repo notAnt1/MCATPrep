@@ -1,10 +1,13 @@
 import { questions } from "./questions";
+import { pilotQuestions } from './pilot-questions';
+import { chooseUnits } from './practice-units';
 import { Attempt, Feedback, Mode, StudySession } from "./types";
 type DemoData = {
   sessions: StudySession[];
   attempts: Attempt[];
   hints: number;
   started: number;
+  unitHints?: Record<string,number>;
 };
 const key = "mcat-demo-v1";
 export function demoData(): DemoData {
@@ -21,20 +24,14 @@ export function demoData(): DemoData {
     return { sessions: [], attempts: [], hints: 0, started: 0 };
   }
 }
-const save = (d: DemoData) => localStorage.setItem(key, JSON.stringify(d));
-export function demoStart(mode: Mode, topic: string | null) {
+export const demoSave = (d: DemoData) => localStorage.setItem(key, JSON.stringify(d));
+const save = demoSave;
+export function demoStart(mode: Mode, topic: string | null, skill = "", section = "") {
   const d = demoData(),
     active = d.sessions.find((s) => !s.completed_at);
   if (active) return active.id;
-  const q = questions
-    .filter((q) => !topic || q.topic === topic)
-    .map((q) => ({
-      q,
-      seen: d.attempts.filter((a) => a.question_id === q.id).length,
-      rand: Math.random(),
-    }))
-    .sort((a, b) => a.seen - b.seen || a.rand - b.rand)
-    .slice(0, 10);
+  const q = chooseUnits(pilotQuestions,d.attempts,topic,mode==='training'?skill:'',mode==='training'?section:'').map(q=>({q}));
+  if (!q.length) throw new Error("No questions match these tags. Try a different topic, section, or question type.");
   const s: StudySession = {
     id: crypto.randomUUID(),
     mode,
@@ -47,6 +44,7 @@ export function demoStart(mode: Mode, topic: string | null) {
   d.sessions.unshift(s);
   d.hints = 0;
   d.started = 0;
+  d.unitHints = {};
   save(d);
   return s.id;
 }
@@ -144,4 +142,10 @@ export function demoFinish(id: string) {
     s = d.sessions.find((s) => s.id === id)!;
   s.completed_at ||= new Date().toISOString();
   save(d);
+}
+export function demoReview(id: string) {
+  const d = demoData();
+  const s = d.sessions.find(s => s.id === id && s.completed_at);
+  if (!s) throw new Error("Completed session not found");
+  return [...questions,...pilotQuestions].filter(q => d.attempts.some(a => a.session_id === id && a.question_id === q.id && a.question_version === q.version));
 }

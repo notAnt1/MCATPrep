@@ -11,6 +11,10 @@ export type Question = {
   version: number;
   source: string;
   passage?: string | null;
+  passage_id?: string;
+  passage_title?: string;
+  passage_order?: number;
+  figures?: { id: string; src: string; caption: string; alt: string; width: number; height: number }[];
 };
 export type FullQuestion = Question & {
   answer: number;
@@ -51,6 +55,13 @@ export type Feedback = {
   explanation: string;
   points: number;
 };
+export type PracticeUnit = {
+  session: StudySession;
+  question: Question | null;
+  questions: Question[];
+  hints: Record<string, string[]>;
+};
+export type UnitFeedback = Record<string, Feedback>;
 export type Report = {
   session_summary: string;
   overall_summary: string;

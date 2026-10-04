@@ -1,0 +1,232 @@
+[
+  {
+    "id": "ollama-pr-bio-ch4-b001-q01",
+    "topic": "Enzyme kinetics",
+    "section": "Biological and Biochemical Foundations of Living Systems",
+    "skill": "Scientific Reasoning and Problem-Solving",
+    "difficulty": "medium",
+    "prompt": "A researcher tests two reversible inhibitors of a single-substrate enzyme under identical conditions. The uninhibited enzyme has Vmax = 40 µmol/min and apparent Km = 4 µM. With X, these values are 40 µmol/min and 8 µM; with Y, they are 20 µmol/min and 2 µM. Considering competitive, pure noncompetitive, and uncompetitive inhibition, which assignment is consistent with both results?",
+    "options": [
+      "X is competitive; Y is pure noncompetitive.",
+      "X is competitive; Y is uncompetitive.",
+      "X is pure noncompetitive; Y is competitive.",
+      "X is uncompetitive; Y is pure noncompetitive."
+    ],
+    "answer": 1,
+    "explanation": "Correct answer: B. X increases apparent Km without changing Vmax. Y lowers both by the same factor, consistent with uncompetitive inhibition.\n\nA: Pure noncompetitive inhibition reduces Vmax while leaving apparent Km unchanged; Y lowers both.\nC: X has unchanged Vmax and increased Km, whereas pure noncompetitive inhibition produces the opposite parameter pattern.\nD: Uncompetitive inhibition lowers both Vmax and apparent Km; X instead leaves Vmax unchanged and raises Km.",
+    "hints": [
+      "Compare how each inhibitor changes Vmax and apparent Km."
+    ],
+    "target_seconds": 100,
+    "version": 1,
+    "source": "Princeton Review, MCAT Biology and Biochemistry Review (2015), Chapter 4, PDF page positions 123, 125, 126. Original local Qwen3.5 9B draft, substantively reviewed and edited by Codex. Difficulty calibrated against PDF pages 157–163; not empirically validated.",
+    "passage": null
+  },
+  {
+    "id": "ollama-pr-bio-ch4-b001-q02",
+    "topic": "Enzyme kinetics",
+    "section": "Biological and Biochemical Foundations of Living Systems",
+    "skill": "Scientific Reasoning and Problem-Solving",
+    "difficulty": "medium",
+    "prompt": "Two enzyme preparations A and B obey Michaelis–Menten kinetics and have the same Vmax of 6 µmol/min. At a substrate concentration of 5 µM, their initial velocities are 2 and 1 µmol/min, respectively. Temperature, pH, and active enzyme concentrations are identical. Using v = Vmax[S]/(Km + [S]), what are the apparent Km values for A and B?",
+    "options": [
+      "A: 15 µM; B: 30 µM",
+      "A: 25 µM; B: 10 µM",
+      "A: 5 µM; B: 10 µM",
+      "A: 10 µM; B: 25 µM"
+    ],
+    "answer": 3,
+    "explanation": "Correct answer: D. Rearranging gives Km = [S](Vmax/v − 1): A = 5(3 − 1) = 10 µM; B = 5(6 − 1) = 25 µM.\n\nA: These values produce velocities of 1.5 and approximately 0.86 µmol/min, not 2 and 1.\nB: This reverses the correct assignments. With the same Vmax and [S], the slower preparation must have the higher apparent Km.\nC: Substituting these values gives velocities of 3 and 2 µmol/min, which do not match the observations.",
+    "hints": [
+      "Rearrange the supplied equation to isolate Km."
+    ],
+    "target_seconds": 120,
+    "version": 1,
+    "source": "Princeton Review, MCAT Biology and Biochemistry Review (2015), Chapter 4, PDF page positions 120, 123. Original local Qwen3.5 9B draft, substantively reviewed and edited by Codex. Difficulty calibrated against PDF pages 157–163; not empirically validated.",
+    "passage": null
+  },
+  {
+    "id": "ollama-pr-bio-ch4-b001-q03",
+    "topic": "Oxidative phosphorylation",
+    "section": "Biological and Biochemical Foundations of Living Systems",
+    "skill": "Scientific Reasoning and Problem-Solving",
+    "difficulty": "medium",
+    "prompt": "An isolated mitochondrial preparation has adequate oxygen, ADP, phosphate, and oxidizable substrates. Its respiratory chain is intact and is not initially operating at its maximum rate. A compound increases inner-membrane proton permeability without directly inhibiting the respiratory chain or ATP synthase. Which combination is most likely shortly after addition?",
+    "options": [
+      "Increased oxygen consumption, decreased proton gradient, and increased heat dissipation.",
+      "No oxygen consumption, decreased proton gradient, and increased ATP production.",
+      "Unchanged proton gradient, decreased heat dissipation, and increased ATP production.",
+      "Decreased oxygen consumption, increased proton gradient, and increased ATP production."
+    ],
+    "answer": 0,
+    "explanation": "Correct answer: A. Uncoupling relieves respiratory backpressure. Electron flow and oxygen consumption can increase while the gradient declines and more energy is dissipated as heat.\n\nB: The compound does not block electron transfer; a collapsing gradient reduces rather than increases oxidative ATP production.\nC: Increased permeability changes the gradient and promotes heat loss, contradicting both claimed effects.\nD: A proton leak dissipates rather than increases the gradient and reduces the efficiency of oxidative ATP synthesis.",
+    "hints": [
+      "Separate electron transfer from the use of the proton gradient to make ATP."
+    ],
+    "target_seconds": 120,
+    "version": 1,
+    "source": "Princeton Review, MCAT Biology and Biochemistry Review (2015), Chapter 4, PDF page positions 143, 165. Original local Qwen3.5 9B draft, substantively reviewed and edited by Codex. Difficulty calibrated against PDF pages 157–163; not empirically validated.",
+    "passage": null
+  },
+  {
+    "id": "ollama-pr-bio-ch4-b001-q04",
+    "topic": "Oxidative phosphorylation",
+    "section": "Biological and Biochemical Foundations of Living Systems",
+    "skill": "Scientific Reasoning and Problem-Solving",
+    "difficulty": "medium",
+    "prompt": "A mitochondrial preparation pumps 10 protons per matrix NADH oxidized. Electrons from a cytosolic NADH enter through a shuttle that bypasses the first proton pump, allowing 6 protons to be pumped. Assume ATP synthesis plus phosphate transport costs 4 protons per ATP. What are the theoretical ATP yields per NADH for matrix entry and shuttle entry, respectively?",
+    "options": [
+      "2.5 ATP and 1.0 ATP",
+      "1.5 ATP and 2.5 ATP",
+      "2.5 ATP and 1.5 ATP",
+      "10 ATP and 6 ATP"
+    ],
+    "answer": 2,
+    "explanation": "Correct answer: C. Dividing by the stated proton cost gives 10/4 = 2.5 and 6/4 = 1.5 ATP.\n\nA: The shuttle entry pumps six protons, sufficient for 1.5 rather than 1.0 ATP under the stated assumptions.\nB: The yields are reversed; entry that pumps more protons supports the greater ATP yield.\nD: These are proton counts. Each ATP requires four protons, so proton counts cannot be used directly as ATP yields.",
+    "hints": [
+      "Convert protons pumped into ATP using the stated proton cost."
+    ],
+    "target_seconds": 90,
+    "version": 1,
+    "source": "Princeton Review, MCAT Biology and Biochemistry Review (2015), Chapter 4, PDF page positions 143, 144. Original local Qwen3.5 9B draft, substantively reviewed and edited by Codex. Difficulty calibrated against PDF pages 157–163; not empirically validated.",
+    "passage": null
+  },
+  {
+    "id": "ollama-pr-bio-ch4-b001-q05",
+    "topic": "Fatty acid metabolism and NADPH",
+    "section": "Biological and Biochemical Foundations of Living Systems",
+    "skill": "Scientific Reasoning and Problem-Solving",
+    "difficulty": "medium",
+    "prompt": "A saturated 18-carbon fatty acyl-CoA undergoes complete beta-oxidation. Each cycle produces one NADH and one FADH2. All but the final cycle release one acetyl-CoA; the final four-carbon intermediate yields two acetyl-CoA. Excluding the Krebs cycle and the ATP cost of activation, how many beta-oxidation cycles and acetyl-CoA molecules result?",
+    "options": [
+      "9 cycles and 9 acetyl-CoA",
+      "9 cycles and 10 acetyl-CoA",
+      "8 cycles and 8 acetyl-CoA",
+      "8 cycles and 9 acetyl-CoA"
+    ],
+    "answer": 3,
+    "explanation": "Correct answer: D. The chain contains nine two-carbon units. Seven initial cleavages plus one final cleavage give eight cycles and nine acetyl-CoA.\n\nA: The final cycle releases two acetyl-CoA simultaneously, so the number of cycles is one less than the number of acetyl-CoA.\nB: Ten acetyl-CoA would contain 20 carbons, exceeding the original 18-carbon chain; nine cycles are also excessive.\nC: Eight cycles occur, but seven release one acetyl-CoA and the final cycle releases two, giving nine total.",
+    "hints": [
+      "Account for the two acetyl-CoA released in the final cleavage."
+    ],
+    "target_seconds": 100,
+    "version": 1,
+    "source": "Princeton Review, MCAT Biology and Biochemistry Review (2015), Chapter 4, PDF page positions 152. Original local Qwen3.5 9B draft, substantively reviewed and edited by Codex. Difficulty calibrated against PDF pages 157–163; not empirically validated.",
+    "passage": null
+  },
+  {
+    "id": "ollama-pr-bio-ch4-b001-q06",
+    "topic": "Fatty acid metabolism and NADPH",
+    "section": "Biological and Biochemical Foundations of Living Systems",
+    "skill": "Scientific Reasoning and Problem-Solving",
+    "difficulty": "medium",
+    "prompt": "In a cytosolic cell-free preparation, an inhibitor selectively reduces NADPH production by the oxidative pentose phosphate pathway. ATP, acetyl-CoA, malonyl-CoA, and fatty acid synthase remain available. Fatty acid synthesis slows. Adding which molecule would most directly restore the missing reducing power?",
+    "options": [
+      "ATP, an energy donor that is already maintained at its control concentration.",
+      "NADH, the reduced carrier commonly supplying electrons for oxidative phosphorylation.",
+      "NADPH, the reduced carrier used in fatty acid synthase reduction steps.",
+      "Ribose-5-phosphate, a sugar precursor used in nucleotide synthesis."
+    ],
+    "answer": 2,
+    "explanation": "Correct answer: C. NADPH restores the reducing equivalents lost when its production by the oxidative pentose phosphate pathway is inhibited.\n\nA: ATP supplies energy rather than the missing electron donor, and ATP availability was not reduced.\nB: The fatty acid synthase reduction steps require NADPH; NADH is not interchangeable with it in this preparation.\nD: Ribose-5-phosphate supports nucleotide synthesis but does not supply the reducing equivalents required by fatty acid synthase.",
+    "hints": [
+      "Distinguish a source of energy from a source of reducing equivalents."
+    ],
+    "target_seconds": 100,
+    "version": 1,
+    "source": "Princeton Review, MCAT Biology and Biochemistry Review (2015), Chapter 4, PDF page positions 147, 153. Original local Qwen3.5 9B draft, substantively reviewed and edited by Codex. Difficulty calibrated against PDF pages 157–163; not empirically validated.",
+    "passage": null
+  },
+  {
+    "id": "ollama-pr-bio-ch4-b001-q07",
+    "topic": "Hepatic metabolic regulation",
+    "section": "Biological and Biochemical Foundations of Living Systems",
+    "skill": "Scientific Reasoning and Problem-Solving",
+    "difficulty": "medium",
+    "prompt": "After wild-type cells are shifted to the fed mixture, which combination of changes is predicted from the regulatory system described in the passage?",
+    "options": [
+      "Fructose-2,6-bisphosphate rises; PFK-1 activity rises; fructose-1,6-bisphosphatase activity falls.",
+      "Fructose-2,6-bisphosphate falls; PFK-1 activity rises; fructose-1,6-bisphosphatase activity falls.",
+      "Fructose-2,6-bisphosphate rises; PFK-1 activity falls; fructose-1,6-bisphosphatase activity rises.",
+      "Fructose-2,6-bisphosphate falls; PFK-1 activity falls; fructose-1,6-bisphosphatase activity rises."
+    ],
+    "answer": 0,
+    "explanation": "Correct answer: A. Fed signaling favors PFK-2, increasing fructose-2,6-bisphosphate; this activates PFK-1 while inhibiting the opposing gluconeogenic enzyme.\n\nB: The downstream enzyme effects are appropriate, but the fed mixture increases rather than decreases fructose-2,6-bisphosphate.\nC: This reverses the allosteric effects of fructose-2,6-bisphosphate on the two pathway enzymes.\nD: This describes the fasting regulatory direction, not the response to the fed mixture.",
+    "hints": [
+      "Follow the signal through PFK-2 to fructose-2,6-bisphosphate and the two pathway enzymes."
+    ],
+    "target_seconds": 140,
+    "version": 1,
+    "source": "Princeton Review, MCAT Biology and Biochemistry Review (2015), Chapter 4, PDF page positions 149, 150. Original local Qwen3.5 9B draft, substantively reviewed and edited by Codex. Difficulty calibrated against PDF pages 157–163; not empirically validated.",
+    "passage": "Researchers compare cultured liver cells before and after a shift from a fasting hormone mixture to a fed hormone mixture. In the fasting mixture, glucagon signaling activates protein kinase A, which phosphorylates the hepatic bifunctional enzyme PFK-2/FBPase-2. This favors its FBPase-2 domain, which breaks down fructose-2,6-bisphosphate. In the fed mixture, insulin signaling favors dephosphorylation, activating the PFK-2 domain that synthesizes fructose-2,6-bisphosphate. Fructose-2,6-bisphosphate is an allosteric activator of PFK-1 and an inhibitor of fructose-1,6-bisphosphatase; it is not the substrate consumed by PFK-1. Researchers measure these regulatory changes while holding substrate availability, ATP/AMP concentrations, and the abundance of pathway enzymes constant."
+  },
+  {
+    "id": "ollama-pr-bio-ch4-b001-q08",
+    "topic": "Hepatic metabolic regulation",
+    "section": "Biological and Biochemical Foundations of Living Systems",
+    "skill": "Scientific Reasoning and Problem-Solving",
+    "difficulty": "medium",
+    "prompt": "A mutant bifunctional enzyme retains both catalytic domains but remains in its phosphorylated regulatory state after the shift to the fed mixture. Relative to wild-type cells in that mixture, which pattern is most likely?",
+    "options": [
+      "Complete loss of both catalytic domain activities because phosphorylation necessarily destroys their active sites.",
+      "Lower fructose-2,6-bisphosphate, lower PFK-1 activity, and higher fructose-1,6-bisphosphatase activity.",
+      "Higher fructose-2,6-bisphosphate, higher PFK-1 activity, and lower fructose-1,6-bisphosphatase activity.",
+      "Normal fructose-2,6-bisphosphate because ATP/AMP concentrations alone determine its concentration."
+    ],
+    "answer": 1,
+    "explanation": "Correct answer: B. The locked phosphorylated state favors fructose-2,6-bisphosphate breakdown, reducing PFK-1 activation and relieving inhibition of fructose-1,6-bisphosphatase relative to wild type.\n\nA: The passage describes regulation of retained domains, not destruction of their catalytic sites.\nC: This requires the fed, dephosphorylated state, which the mutant cannot enter.\nD: The bifunctional enzyme determines fructose-2,6-bisphosphate turnover; unchanged ATP/AMP does not remove the effect of the mutation.",
+    "hints": [
+      "Compare the mutant regulatory state with the wild-type fed state."
+    ],
+    "target_seconds": 140,
+    "version": 1,
+    "source": "Princeton Review, MCAT Biology and Biochemistry Review (2015), Chapter 4, PDF page positions 149, 150. Original local Qwen3.5 9B draft, substantively reviewed and edited by Codex. Difficulty calibrated against PDF pages 157–163; not empirically validated.",
+    "passage": "Researchers compare cultured liver cells before and after a shift from a fasting hormone mixture to a fed hormone mixture. In the fasting mixture, glucagon signaling activates protein kinase A, which phosphorylates the hepatic bifunctional enzyme PFK-2/FBPase-2. This favors its FBPase-2 domain, which breaks down fructose-2,6-bisphosphate. In the fed mixture, insulin signaling favors dephosphorylation, activating the PFK-2 domain that synthesizes fructose-2,6-bisphosphate. Fructose-2,6-bisphosphate is an allosteric activator of PFK-1 and an inhibitor of fructose-1,6-bisphosphatase; it is not the substrate consumed by PFK-1. Researchers measure these regulatory changes while holding substrate availability, ATP/AMP concentrations, and the abundance of pathway enzymes constant."
+  },
+  {
+    "id": "ollama-pr-bio-ch4-b001-q09",
+    "topic": "Fermentation and energy yield",
+    "section": "Biological and Biochemical Foundations of Living Systems",
+    "skill": "Scientific Reasoning and Problem-Solving",
+    "difficulty": "medium",
+    "prompt": "In the oxygen-free preparation, a selective inhibitor blocks lactate dehydrogenase without directly inhibiting any glycolytic enzyme. Which sequence best predicts why sustained glycolytic ATP production will decline?",
+    "options": [
+      "Lactate can no longer be oxidized by the ETC, removing the terminal electron acceptor for oxygen-free respiration.",
+      "The ATP directly generated by pyruvate-to-lactate conversion disappears, although glycolytic flux remains unchanged.",
+      "NADH accumulates, NAD+ becomes depleted, and the NAD+-dependent glycolytic oxidation step slows.",
+      "NAD+ accumulates, NADH becomes depleted, and ATP synthase loses its proton gradient."
+    ],
+    "answer": 2,
+    "explanation": "Correct answer: C. With no alternative regeneration route, blocking lactate formation prevents NADH oxidation to NAD+; glycolysis eventually lacks the oxidized cofactor it requires.\n\nA: Oxygen, not lactate, is the terminal respiratory electron acceptor; the oxygen-free preparation does not rely on ETC oxidation of lactate.\nB: Pyruvate-to-lactate conversion regenerates NAD+ rather than directly generating ATP; blocking it can decrease glycolytic flux.\nD: The cofactor changes are reversed, and oxidative ATP synthesis is already unavailable in the oxygen-free preparation.",
+    "hints": [
+      "Identify which form of the electron carrier glycolysis needs to continue."
+    ],
+    "target_seconds": 140,
+    "version": 1,
+    "source": "Princeton Review, MCAT Biology and Biochemistry Review (2015), Chapter 4, PDF page positions 133, 134. Original local Qwen3.5 9B draft, substantively reviewed and edited by Codex. Difficulty calibrated against PDF pages 157–163; not empirically validated.",
+    "passage": "Researchers study cultured muscle cells with glucose as their only supplied fuel. In the oxygen-free condition, glycolysis produces two pyruvate molecules, two NADH molecules, and two net ATP molecules per glucose. Lactate dehydrogenase reduces each pyruvate to lactate while oxidizing one NADH to NAD+, permitting glycolysis to continue. The investigators assume there is no alternative route for regenerating NAD+ in the oxygen-free preparation. In an oxygenated comparator, complete oxidation yields exactly 32 ATP per glucose for this experiment. During a 30-second observation period, the oxygen-free preparation consumes 100 glucose molecules. These values are experimental assumptions for the questions; the aerobic yield is not asserted to be universal."
+  },
+  {
+    "id": "ollama-pr-bio-ch4-b001-q10",
+    "topic": "Fermentation and energy yield",
+    "section": "Biological and Biochemical Foundations of Living Systems",
+    "skill": "Scientific Reasoning and Problem-Solving",
+    "difficulty": "medium",
+    "prompt": "Suppose the oxygenated comparator also consumes exactly 100 glucose molecules during the same 30-second period. Using only the stated yields, how much greater is its net ATP output, and what is that difference averaged over the observation period?",
+    "options": [
+      "3,200 ATP molecules; approximately 107 ATP molecules per second.",
+      "200 ATP molecules; approximately 6.7 ATP molecules per second.",
+      "3,000 ATP molecules; 3,000 ATP molecules per second.",
+      "3,000 ATP molecules; 100 ATP molecules per second."
+    ],
+    "answer": 3,
+    "explanation": "Correct answer: D. The difference is 100(32 − 2) = 3,000 ATP molecules; dividing by 30 seconds gives 100 ATP molecules per second.\n\nA: This reports the aerobic total without subtracting the anaerobic output of 200 ATP molecules.\nB: This reports the anaerobic output rather than the difference between the two preparations.\nC: The total difference is correct, but an average rate requires dividing by the 30-second observation period.",
+    "hints": [
+      "Subtract ATP yields before multiplying by glucose count and dividing by time."
+    ],
+    "target_seconds": 120,
+    "version": 1,
+    "source": "Princeton Review, MCAT Biology and Biochemistry Review (2015), Chapter 4, PDF page positions 133, 144, 156. Original local Qwen3.5 9B draft, substantively reviewed and edited by Codex. Difficulty calibrated against PDF pages 157–163; not empirically validated.",
+    "passage": "Researchers study cultured muscle cells with glucose as their only supplied fuel. In the oxygen-free condition, glycolysis produces two pyruvate molecules, two NADH molecules, and two net ATP molecules per glucose. Lactate dehydrogenase reduces each pyruvate to lactate while oxidizing one NADH to NAD+, permitting glycolysis to continue. The investigators assume there is no alternative route for regenerating NAD+ in the oxygen-free preparation. In an oxygenated comparator, complete oxidation yields exactly 32 ATP per glucose for this experiment. During a 30-second observation period, the oxygen-free preparation consumes 100 glucose molecules. These values are experimental assumptions for the questions; the aerobic yield is not asserted to be universal."
+  }
+]

@@ -25,46 +25,29 @@ import {
 import type { User } from "@supabase/supabase-js";
 import { getBrowserDb } from "@/lib/supabase";
 import { analyze, fallbackReport } from "@/lib/analytics";
+import { demoUnitCurrent, demoUnitHint, demoUnitAnswer } from '@/lib/demo-units';
+import { UnitQuestions } from './unit-questions';
+import { Passage } from './passage';
+import pilotTags from '../../data/reviewed/pilot-tags.json';
 import {
-  demoAnswer,
-  demoCurrent,
   demoData,
   demoFinish,
-  demoHint,
   demoStart,
+  demoReview,
 } from "@/lib/demo";
 import type {
   Attempt,
-  Feedback,
   Mode,
-  Question,
+  FullQuestion,
   Report,
   StudySession,
+  PracticeUnit,
+  UnitFeedback,
 } from "@/lib/types";
 
 type View = "overview" | "analysis" | "history" | "leaderboard" | "settings";
-type Current = {
-  session: StudySession;
-  question: Question | null;
-  hints_used: number;
-  revealed_hints: string[];
-};
-const topics = [
-  "Dilution",
-  "Stoichiometry",
-  "Enzyme kinetics",
-  "Membrane transport",
-  "Circuits",
-  "Learning & memory",
-  "Acids & bases",
-  "Thermodynamics & equilibrium",
-  "Fluids & gases",
-  "Amino acids & proteins",
-  "Genetics & gene expression",
-  "Cellular metabolism",
-  "Social psychology",
-  "Research methods",
-];
+type Current = PracticeUnit;
+const topics = pilotTags.topics;
 const date = (s: string) =>
   new Date(s).toLocaleDateString(undefined, { month: "short", day: "numeric" });
 const seconds = (s: number | null) => (s === null ? "—" : `${Math.round(s)}s`);
@@ -86,8 +69,8 @@ export default function Workspace() {
     [sessions, setSessions] = useState<StudySession[]>([]);
   const [reports, setReports] = useState<Record<string, Report>>({}),
     [current, setCurrent] = useState<Current | null>(null),
-    [selected, setSelected] = useState<number | null>(null),
-    [feedback, setFeedback] = useState<Feedback | null>(null);
+    [selected, setSelected] = useState<Record<string,number>>({}),
+    [feedback, setFeedback] = useState<UnitFeedback | null>(null);
   const [reportSession, setReportSession] = useState<StudySession | null>(null),
     [busy, setBusy] = useState(false),
     [aiBusy, setAiBusy] = useState(false),
@@ -102,6 +85,12 @@ export default function Workspace() {
     [paused, setPaused] = useState(false),
     [hidden, setHidden] = useState(false),
     [elapsed, setElapsed] = useState(0);
+  const [trainingSkill, setTrainingSkill] = useState("");
+  const [trainingSection, setTrainingSection] = useState("");
+  const [reviewQuestions, setReviewQuestions] = useState<FullQuestion[]>([]);
+  const [reviewLoading, setReviewLoading] = useState(false);
+  const [reviewError, setReviewError] = useState("");
+  const [reviewFilter, setReviewFilter] = useState("all");
   const [displayName, setDisplayName] = useState(""),
     [optIn, setOptIn] = useState(false),
     [leaders, setLeaders] = useState<
@@ -122,6 +111,23 @@ export default function Workspace() {
       ? fallbackReport([], attempts)
       : null;
   const active = sessions.find((s) => !s.completed_at);
+  useEffect(() => {
+    let cancelled = false;
+    setReviewQuestions([]);
+    setReviewError("");
+    setReviewFilter("all");
+    if (!reportSession || !signedIn) { setReviewLoading(false); return; }
+    setReviewLoading(true);
+    (async () => {
+      try {
+        const data = demo ? demoReview(reportSession.id) : await rpc("mcat_review", { p_session: reportSession.id });
+        if (!cancelled) setReviewQuestions(data);
+      } catch (e) {
+        if (!cancelled) setReviewError(e instanceof Error ? e.message : "Question review is unavailable.");
+      } finally { if (!cancelled) setReviewLoading(false); }
+    })();
+    return () => { cancelled = true; };
+  }, [reportSession, demo, owner, signedIn]);
 
   useEffect(() => {
     try {
@@ -279,11 +285,14 @@ export default function Workspace() {
   }
   async function loadCurrent(id: string) {
     const c: Current = demo
-      ? demoCurrent(id)
-      : await rpc("mcat_current", { p_session: id });
+      ? demoUnitCurrent(id)
+      : await rpc("mcat_unit_current", { p_session: id });
     setCurrent(c);
+    window.scrollTo({ top: 0 });
     setFeedback(null);
-    setSelected(null);
+    let choices = {};
+    try { choices=JSON.parse(sessionStorage.getItem(`mcat-choices:${owner}:${id}:${c.question?.id}`)||'{}'); } catch { /* Empty draft. */ }
+    setSelected(choices);
     setPaused(false);
     timerKey.current = `mcat-clock:${owner}:${id}:${c.question?.id}`;
     let saved = { ms: 0, valid: true };
@@ -310,8 +319,8 @@ export default function Workspace() {
       setReportSession(null);
       setAiError("");
       const id = demo
-        ? demoStart(mode, topic || null)
-        : await rpc("mcat_start", { p_mode: mode, p_topic: topic || null });
+        ? demoStart(mode, topic || null, trainingSkill, trainingSection)
+        : await rpc("mcat_start_units", { p_mode:mode, p_topic:topic || null, p_skill:mode==='training'?(trainingSkill||null):null, p_section:mode==='training'?(trainingSection||null):null });
       await loadCurrent(id);
       await refresh();
     });
@@ -342,32 +351,27 @@ export default function Workspace() {
     }
   }
   function submit() {
-    if (selected === null || !current?.question) return;
+    if (!current?.question || current.questions.some(q=>selected[q.id]===undefined)) return;
     work(async () => {
       const now = performance.now();
       if (timer.current.last && now - timer.current.last < 2500)
         timer.current.ms += now - timer.current.last;
       timer.current.last = 0;
-      const ms = Math.round(timer.current.ms),
-        q = current.question!;
-      const f: Feedback = demo
-        ? demoAnswer(
-            current.session.id,
-            q.id,
-            selected,
-            ms,
-            timer.current.valid,
-          )
-        : await rpc("mcat_answer", {
+      const ms = Math.round(timer.current.ms);
+      const answers=current.questions.map(q=>({id:q.id,selected:selected[q.id]}));
+      const f: UnitFeedback = demo
+        ? demoUnitAnswer(current.session.id,answers,ms,timer.current.valid)
+        : await rpc("mcat_unit_answer", {
             p_session: current.session.id,
-            p_question: q.id,
-            p_selected: selected,
+            p_answers: answers,
             p_active_ms: ms,
             p_timing_valid: timer.current.valid,
           });
       setFeedback(f);
+      window.scrollTo({ top: 0 });
       setElapsed(ms);
       sessionStorage.removeItem(timerKey.current);
+      sessionStorage.removeItem(`mcat-choices:${owner}:${current.session.id}:${current.question?.id}`);
       await refresh();
     });
   }
@@ -376,8 +380,8 @@ export default function Workspace() {
     work(async () => {
       const id = current.session.id;
       const c: Current = demo
-        ? demoCurrent(id)
-        : await rpc("mcat_current", { p_session: id });
+        ? demoUnitCurrent(id)
+        : await rpc("mcat_unit_current", { p_session: id });
       if (c.session.completed_at) {
         setCurrent(null);
         setReportSession(c.session);
@@ -393,22 +397,22 @@ export default function Workspace() {
       if (demo) demoFinish(id);
       else await rpc("mcat_finish", { p_session: id });
       const c: Current = demo
-        ? demoCurrent(id)
-        : await rpc("mcat_current", { p_session: id });
+        ? demoUnitCurrent(id)
+        : await rpc("mcat_unit_current", { p_session: id });
       setCurrent(null);
       setReportSession(c.session);
       await refresh();
       if (c.session.cursor) void generateReport(c.session);
     });
   }
-  function hint() {
+  function hint(qid:string) {
     if (!current?.question) return;
     work(async () => {
       const c: Current = demo
-        ? demoHint(current.session.id)
-        : await rpc("mcat_hint", {
+        ? demoUnitHint(current.session.id,qid)
+        : await rpc("mcat_unit_hint", {
             p_session: current.session.id,
-            p_question: current.question!.id,
+            p_question: qid,
           });
       setCurrent(c);
     });
@@ -642,7 +646,7 @@ export default function Workspace() {
                   <div className="quiz-top">
                     <span className="pill">{current.question.topic}</span>
                     <span>
-                      Question {current.session.cursor + 1} of{" "}
+                      Questions {current.session.cursor + 1}–{current.session.cursor + current.questions.length} of{" "}
                       {current.session.question_ids.length}
                     </span>
                   </div>
@@ -670,94 +674,9 @@ export default function Workspace() {
                     </div>
                   ) : (
                     <>
-                      {current.question.passage && (
-                        <div className="passage">
-                          {current.question.passage}
-                        </div>
-                      )}
-                      <h2 className="question-text">
-                        {current.question.prompt}
-                      </h2>
-                      <div className="answers">
-                        {current.question.options.map((o, i) => (
-                          <button
-                            key={i}
-                            disabled={!!feedback || busy}
-                            className={`answer ${selected === i ? "selected" : ""} ${feedback?.answer === i ? "correct" : ""} ${feedback && selected === i && !feedback.correct ? "incorrect" : ""}`}
-                            onClick={() => setSelected(i)}
-                          >
-                            <span>{String.fromCharCode(65 + i)}</span>
-                            <div>{o}</div>
-                            {feedback?.answer === i && <Check size={19} />}
-                          </button>
-                        ))}
-                      </div>
-                      {feedback ? (
-                        <div
-                          className={`feedback ${feedback.correct ? "success" : ""}`}
-                          aria-live="polite"
-                        >
-                          <strong>
-                            {feedback.correct
-                              ? "Correct. Nicely reasoned."
-                              : "A useful one to revisit."}
-                          </strong>
-                          <p>{feedback.explanation}</p>
-                          <small>
-                            {feedback.points} points · {seconds(elapsed / 1000)}{" "}
-                            active time
-                          </small>
-                        </div>
-                      ) : current.revealed_hints.length > 0 ? (
-                        <div className="hint-box">
-                          <strong>Think it through</strong>
-                          {current.revealed_hints.map((h, i) => (
-                            <p key={i}>
-                              {i + 1}. {h}
-                            </p>
-                          ))}
-                        </div>
-                      ) : null}
-                      <div className="quiz-actions">
-                        {!feedback && current.session.mode === "training" ? (
-                          <button
-                            className="text-button"
-                            onClick={hint}
-                            disabled={busy || current.hints_used >= 2}
-                          >
-                            <CircleHelp size={17} />
-                            {current.hints_used === 0
-                              ? "Give me a hint"
-                              : current.hints_used === 1
-                                ? "Walk me through it"
-                                : "Both hints revealed"}
-                          </button>
-                        ) : (
-                          <span />
-                        )}
-                        {feedback ? (
-                          <button
-                            className="button"
-                            onClick={next}
-                            disabled={busy}
-                          >
-                            {current.session.cursor + 1 ===
-                            current.session.question_ids.length
-                              ? "See my report"
-                              : "Next question"}
-                            <ArrowRight size={17} />
-                          </button>
-                        ) : (
-                          <button
-                            className="button"
-                            onClick={submit}
-                            disabled={selected === null || busy}
-                          >
-                            {busy ? "Saving…" : "Check answer"}
-                            <ArrowRight size={17} />
-                          </button>
-                        )}
-                      </div>
+                      <UnitQuestions unit={current} choices={selected} feedback={feedback} busy={busy}
+                        choose={(id,choice)=>{ const draft={...selected,[id]:choice}; setSelected(draft); sessionStorage.setItem(`mcat-choices:${owner}:${current.session.id}:${current.question?.id}`,JSON.stringify(draft)); }}
+                        hint={hint} submit={submit} next={next} />
                     </>
                   )}
                   <p className="fine-print">{current.question.source}</p>
@@ -769,8 +688,8 @@ export default function Workspace() {
                     <strong>{time(elapsed)}</strong>
                     <p>
                       {current.session.mode === "rapid"
-                        ? `Provisional target: ${current.question.target_seconds}s. Accuracy comes first.`
-                        : "No deadline. We track time to understand your patterns."}
+                        ? `Provisional target: ${current.questions.reduce((sum,q)=>sum+q.target_seconds,0)}s. Accuracy comes first.`
+                        : "No deadline. Passage time covers the whole set; individual question speed is not estimated."}
                     </p>
                     <button
                       className="button secondary"
@@ -866,8 +785,13 @@ export default function Workspace() {
               <TopicTable attempts={currentAttempts} session />
               <section className="card answer-review">
                 <h2>Answer review</h2>
-                <p>Your first answers, timing, and assistance.</p>
-                {currentAttempts.map((a, i) => (
+                <p>Revisit your questions and explanations here or from Session history. Reviewing does not change your score.</p>
+                <label className="topic-select">Show answers <select value={reviewFilter} onChange={e => setReviewFilter(e.target.value)}><option value="all">All answered questions</option><option value="missed">Incorrect answers</option><option value="correct">Correct answers</option></select></label>
+                {reviewLoading && <p role="status">Loading questions…</p>}
+                {reviewError && <p role="alert">{reviewError}</p>}
+                {currentAttempts.filter(a => reviewFilter === "all" || (reviewFilter === "correct" ? a.correct : !a.correct)).map((a, i) => (
+                  <details key={a.question_id} className="question-review">
+                  <summary>
                   <div className="review-row" key={a.question_id}>
                     <span
                       className={`review-icon ${a.correct ? "good" : "bad"}`}
@@ -889,7 +813,21 @@ export default function Workspace() {
                       {!a.timing_valid ? " · excluded" : ""}
                     </span>
                   </div>
+                  <span>{reviewQuestions.find(q => q.id === a.question_id)?.prompt || "View question and explanation"}</span>
+                  </summary>
+                  {(() => {
+                    const q = reviewQuestions.find(q => q.id === a.question_id);
+                    return q ? <div className="review-content">
+                      <p className="muted">{q.section} · {q.skill}</p>
+                      <Passage question={q} />
+                      <ol type="A">{q.options.map((option, index) => <li key={index}><strong>{index === q.answer ? "Correct answer: " : ""}{index === a.selected ? "Your answer: " : ""}</strong>{option}</li>)}</ol>
+                      <h3>Explanation</h3><p>{q.explanation}</p>
+                      <h3>Walkthrough</h3><ol>{q.hints.map((hint, index) => <li key={index}>{hint}</li>)}</ol>
+                    </div> : <p>{reviewLoading ? "Loading…" : "The original question version is unavailable."}</p>;
+                  })()}
+                  </details>
                 ))}
+                {!currentAttempts.some(a => reviewFilter === "all" || (reviewFilter === "correct" ? a.correct : !a.correct)) && <p>No answers in this category.</p>}
               </section>
             </>
           ) : view === "overview" ? (
@@ -952,6 +890,11 @@ export default function Workspace() {
                   </select>
                 </label>
               </div>
+              <div className="practice-filters">
+                <label className="topic-select">Training section <select value={trainingSection} onChange={e=>setTrainingSection(e.target.value)}><option value="">All sections</option>{pilotTags.sections.map(s=><option key={s}>{s}</option>)}</select></label>
+                <label className="topic-select">Training skill <select value={trainingSkill} onChange={e=>setTrainingSkill(e.target.value)}><option value="">All skills</option>{pilotTags.skills.map(s=><option key={s}>{s}</option>)}</select></label>
+                <p className="fine-print">Passages stay complete when a question matches your filters.</p>
+              </div>
               <div className="mode-grid">
                 <button
                   className="mode-card training"
@@ -998,7 +941,7 @@ export default function Workspace() {
                   </p>
                   <div className="mode-tags">
                     <span>Speed bonus</span>
-                    <span>Up to 10 questions</span>
+                    <span>About 10 questions · complete passage sets</span>
                   </div>
                   <div className="mode-footer">
                     <strong>
@@ -1109,10 +1052,9 @@ export default function Workspace() {
                 </div>
               )}
               <p className="fine-print">
-                Practice bank: 84 original foundational questions across 14
-                topics. Timing targets are estimates. Not a full MCAT
-                simulation; CARS and passage-based practice are not yet
-                included.
+                Practice bank: 50 original questions across C/P, B/B, P/S, and CARS.
+                Eight complete passage sets and eight standalone questions. Timing and difficulty are estimates.
+                Not a full MCAT simulation.
               </p>
             </>
           ) : view === "analysis" ? (

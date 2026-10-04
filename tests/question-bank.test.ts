@@ -5,10 +5,10 @@ import { PGlite } from "@electric-sql/pglite";
 import { questions } from "../src/lib/questions";
 
 test("question bank has unique IDs, valid choices, hints, and timing metadata", () => {
-  assert.equal(questions.length, 84);
+  assert.equal(questions.length, 94);
   assert.equal(new Set(questions.map((q) => q.id)).size, questions.length);
   assert.equal(new Set(questions.map((q) => q.prompt)).size, questions.length);
-  assert.equal(new Set(questions.map((q) => q.topic)).size, 14);
+  assert.equal(new Set(questions.map((q) => q.topic)).size, 18);
   for (const q of questions) {
     assert.equal(q.options.length, 4, q.id);
     assert.equal(new Set(q.options).size, 4, q.id);
@@ -22,7 +22,7 @@ test("question bank has unique IDs, valid choices, hints, and timing metadata", 
         q.hints.every((h) => h.length > 10),
       q.id,
     );
-    assert.ok(q.target_seconds >= 30 && q.target_seconds <= 120, q.id);
+    assert.ok(q.target_seconds >= 30 && q.target_seconds <= 150, q.id);
     assert.ok(["C/P", "B/B", "P/S"].includes(q.section), q.id);
   }
 });
@@ -42,13 +42,16 @@ test("expansion SQL is repeatable and preserves existing question content", asyn
     const sql = readFileSync("supabase/expansion-01.sql", "utf8");
     await db.exec(sql);
     await db.exec(sql);
+    const reviewedSql = readFileSync("supabase/ollama-batch-001.sql", "utf8");
+    await db.exec(reviewedSql);
+    await db.exec(reviewedSql);
     assert.equal(
       (
         await db.query<{ count: number }>(
           "select count(*)::int as count from mcat_questions",
         )
       ).rows[0].count,
-      84,
+      94,
     );
     for (const q of questions) {
       assert.deepEqual(

@@ -1,5 +1,6 @@
 import { FullQuestion } from "./types";
 import { expandedQuestions } from "./expanded-questions";
+import { reviewedQuestions } from "./reviewed-questions";
 
 // Original, AI-authored foundational practice. These are not official or calibrated MCAT items.
 const rows: [
@@ -491,4 +492,5 @@ export const questions: FullQuestion[] = [
     passage: null,
   })),
   ...expandedQuestions,
+  ...reviewedQuestions,
 ];

@@ -1568,3 +1568,15 @@ input:focus {
     scroll-behavior: auto !important;
   }
 }
+.passage-figure { margin: 24px 0; padding: 16px; background: #fff; border: 1px solid #dce4e7; border-radius: 12px; color: #253b45; }
+.passage-figure img { display:block; width:100%; height:auto; }
+.passage-figure figcaption, .passage-figure details { margin-top:12px; font-size:13px; line-height:1.6; }
+.passage-figure summary { cursor:pointer; }
+.passage-figure a { color:inherit; text-decoration:underline; }
+.unit-instructions { line-height:1.7; margin:24px 0; }
+.unit-question { border-top:1px solid #dce4e7; padding:24px 0; }
+.unit-question .text-button { margin-top:14px; }
+.unit-question .feedback p { white-space:pre-wrap; }
+.unit-submit { position:sticky; bottom:12px; background:#fff; border:1px solid #dce4e7; padding:16px; border-radius:12px; box-shadow:0 4px 20px #132b3410; z-index:2; }
+.practice-filters { display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin-bottom:20px; }
+.practice-filters select { max-width:240px; }

@@ -1,0 +1,1268 @@
+{
+  "passage_sets": [
+    {
+      "id": "cp-partition-oct-p01",
+      "topic": "Ionization and membrane partitioning",
+      "section": "C/P",
+      "passage": "The permeability of a dissolved compound can depend on more than its affinity for lipid. Researchers compared transport of a monoprotic weak acid, HX, across a protein-free phospholipid barrier. HX has a pKa of 6.0. Its neutral form partitions readily into the barrier, whereas transport of X- through the barrier is negligible. A thin aqueous layer also lies between the stirred bulk solution and each barrier surface.\n\nEqual total concentrations of HX plus X- were placed on the donor side at each pH. The receiver initially contained no compound. Initial transfer rates were measured before donor depletion or receiver accumulation became appreciable. Both compartments were maintained at the indicated pH. Temperature, barrier area, lipid composition, and thickness were identical among trials.\n\nTable 1. Initial transfer rate, in nmol/min. Values are means of four independent barriers; the largest standard deviation was 0.3 nmol/min.\nDonor and receiver pH | Slow stirring | Fast stirring\n5.0 | 4.0 | 8.0\n6.0 | 3.0 | 6.0\n7.0 | 0.9 | 1.0\n\nElectrical measurements and an impermeant reference solute showed comparable barrier integrity at the two stirring rates. A neutral reference compound of similar size showed little pH dependence. Researchers proposed that ionization and transport through the adjacent aqueous layers both contribute to the pattern in Table 1.\n\nIn a separate equilibrium experiment, equal-volume, strongly buffered compartments were maintained at pH 6.0 and pH 7.0. Neutral HX could cross the barrier in either direction, but X- could not. No voltage difference, binding, metabolism, or active transport was present. At equilibrium, the concentration of neutral HX was the same in both compartments. Total concentration was measured after disrupting the barrier.",
+      "version": 1,
+      "source": "Original passage and invented data, informed by Bittermann and Goss (2017), https://doi.org/10.1371/journal.pone.0190319, and membrane-model research, https://doi.org/10.1371/journal.pone.0116502. No article text or figures reproduced; these are not reported experimental results.",
+      "questions": [
+        {
+          "id": "cp-partition-oct-q01",
+          "topic": "Acid-base speciation",
+          "section": "C/P",
+          "skill": "Quantitative reasoning",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "At pH 7.0, approximately what percentage of the dissolved compound is neutral HX?",
+          "options": [
+            "1%",
+            "9%",
+            "50%",
+            "91%"
+          ],
+          "answer": 1,
+          "explanation": "B is correct. For HX ⇌ H+ + X-, pH - pKa = log([X-]/[HX]). A one-unit difference gives [X-]/[HX] = 10. The neutral fraction is therefore 1/(1 + 10), or approximately 9%. The denominator must include both species.\n\nA: This treats the one-unit pH difference as a two-unit difference, producing a ratio near 100.\n\nC: Equal concentrations occur at pH = pKa, not one unit above it.\n\nD: This is the ionized fraction, 10/11. Raising pH favors deprotonation rather than neutral HX.\n\nConcept: For a weak acid, neutral fraction = 1/(1 + 10^(pH - pKa)); distinguish species ratios from fractions of the total.",
+          "hints": [
+            "Find the ratio of X- to HX first.",
+            "The total is [HX] + [X-], not [X-] alone."
+          ],
+          "target_seconds": 75,
+          "version": 1,
+          "source": "Original passage and invented data, informed by Bittermann and Goss (2017), https://doi.org/10.1371/journal.pone.0190319, and membrane-model research, https://doi.org/10.1371/journal.pone.0116502. No article text or figures reproduced; these are not reported experimental results."
+        },
+        {
+          "id": "cp-partition-oct-q02",
+          "topic": "Serial transport barriers",
+          "section": "C/P",
+          "skill": "Data interpretation",
+          "difficulty": "Hard (AI-estimated)",
+          "prompt": "Which interpretation best explains why faster stirring has a much larger proportional effect at pH 5.0 than at pH 7.0?",
+          "options": [
+            "At low pH, resistance in the adjacent aqueous layers is a larger share of total resistance.",
+            "At high pH, X- carries most of the compound across the phospholipid barrier.",
+            "At low pH, stirring shifts the acid dissociation equilibrium toward neutral HX.",
+            "At high pH, stirring increases membrane thickness enough to offset its aqueous effect."
+          ],
+          "answer": 0,
+          "explanation": "A is correct. At pH 5.0, much of the compound is neutral, so the lipid barrier is relatively permissive and delivery through the aqueous layers can become important. Stirring reduces that delivery limitation. At pH 7.0, little neutral compound is available and the membrane-associated limitation dominates, so improving aqueous delivery produces little gain. This explains a change in the relative importance of serial resistances.\n\nB: The passage states that X- transport through the barrier is negligible. An abundant species need not be the species that crosses.\n\nC: The buffered pH determines equilibrium speciation. Stirring changes delivery, not the pKa or the imposed pH.\n\nD: Barrier thickness was held constant, and the integrity measurements do not support this compensating change.\n\nConcept: When barriers act in series, reducing one resistance has little effect if another resistance dominates.",
+          "hints": [
+            "Compare the fold change at each pH.",
+            "Consider which barrier remains limiting when the neutral fraction becomes small."
+          ],
+          "target_seconds": 105,
+          "version": 2,
+          "source": "Original passage and invented data, informed by Bittermann and Goss (2017), https://doi.org/10.1371/journal.pone.0190319, and membrane-model research, https://doi.org/10.1371/journal.pone.0116502. No article text or figures reproduced; these are not reported experimental results."
+        },
+        {
+          "id": "cp-partition-oct-q03",
+          "topic": "Ion trapping",
+          "section": "C/P",
+          "skill": "Scientific reasoning",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "At equilibrium in the separate experiment, what is the ratio of total compound concentration at pH 7.0 to that at pH 6.0?",
+          "options": [
+            "2/11",
+            "1/2",
+            "2",
+            "11/2"
+          ],
+          "answer": 3,
+          "explanation": "D is correct. Let the common neutral concentration be h. At pH 6.0, [X-] = h and total concentration is 2h. At pH 7.0, [X-] = 10h and total concentration is 11h. The ratio is 11h/(2h) = 11/2. Neutral concentrations equilibrate even though total concentrations differ because ionization occurs within each buffered compartment.\n\nA: This reverses the requested ratio. The higher-pH side accumulates the ionized weak acid.\n\nB: This confuses the neutral fraction at pH 6.0 with the ratio between total concentrations.\n\nC: This counts the pH 6.0 total but fails to include the tenfold ionized-to-neutral ratio at pH 7.0.\n\nConcept: Passive equilibration of a permeant neutral species can coexist with unequal total concentrations when pH differs.",
+          "hints": [
+            "Assign the same symbol to neutral HX on both sides.",
+            "Express each total concentration as neutral plus ionized compound."
+          ],
+          "target_seconds": 105,
+          "version": 1,
+          "source": "Original passage and invented data, informed by Bittermann and Goss (2017), https://doi.org/10.1371/journal.pone.0190319, and membrane-model research, https://doi.org/10.1371/journal.pone.0116502. No article text or figures reproduced; these are not reported experimental results."
+        },
+        {
+          "id": "cp-partition-oct-q04",
+          "topic": "Experimental controls",
+          "section": "C/P",
+          "skill": "Research design",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "What is the principal role of the neutral reference compound in the pH comparison?",
+          "options": [
+            "Establishing that the aqueous layers contribute zero resistance at every pH",
+            "Determining whether HX can be secreted by an ATP-dependent transporter",
+            "Measuring the exact pKa of HX without an acid-base titration",
+            "Testing whether a pH effect requires a change in the transported compound's ionization state"
+          ],
+          "answer": 3,
+          "explanation": "D is correct. A neutral reference does not undergo the HX-to-X- speciation change. Its weak pH dependence helps distinguish an ionization-related effect on HX from a broad pH effect shared by similarly sized solutes. The reference is supporting evidence; it does not perfectly match every chemical property of HX.\n\nA: Little pH dependence does not imply zero aqueous resistance; that resistance may be present but relatively pH-insensitive.\n\nB: The barrier is protein-free, so this experiment does not test transporter-mediated secretion.\n\nC: A neutral compound cannot reveal the acid dissociation constant of a different compound.\n\nConcept: A useful control removes or holds constant the property implicated in a proposed explanation.",
+          "hints": [
+            "Ask which relevant property differs between HX and the reference.",
+            "The reference remains neutral as the solution pH changes."
+          ],
+          "target_seconds": 80,
+          "version": 2,
+          "source": "Original passage and invented data, informed by Bittermann and Goss (2017), https://doi.org/10.1371/journal.pone.0190319, and membrane-model research, https://doi.org/10.1371/journal.pone.0116502. No article text or figures reproduced; these are not reported experimental results."
+        },
+        {
+          "id": "cp-partition-oct-q05",
+          "topic": "Carboxylic acid spectroscopy",
+          "section": "C/P",
+          "skill": "Foundational application",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "If HX contains a carboxylic acid group, which infrared change would most directly support conversion of that group to a carboxylate?",
+          "options": [
+            "Loss of the broad acid O-H band near 2500-3300 cm^-1",
+            "Loss of carbon-oxygen absorption with retention of the acid O-H band",
+            "Replacement of the acid O-H band by a narrow alcohol O-H band",
+            "An unchanged broad acid O-H band with stronger C-H absorption"
+          ],
+          "answer": 0,
+          "explanation": "A is correct. Deprotonation removes the carboxylic acid O-H bond, so its broad O-H band decreases or disappears. The carboxylate retains carbon-oxygen bonds; their stretching pattern changes because charge and bonding are delocalized over two oxygens. Other groups elsewhere in HX need not disappear. The question specifically follows the acid group rather than assuming the entire molecule has no other heteroatoms.\n\nB: The group retains carbon-oxygen bonds while losing its acid O-H bond, the reverse of the proposed pattern.\n\nC: Carboxylate formation removes an O-H bond; it does not convert the carboxylic acid to an alcohol.\n\nD: Retention of the acid O-H band does not directly support removal of the acid proton, and stronger C-H absorption is not the expected diagnostic change.\n\nConcept: Use spectroscopy to track a specific structural change rather than treating ionization as destruction of the functional group.",
+          "hints": [
+            "Identify the bond directly removed by deprotonation.",
+            "A carboxylate still contains both carbon-oxygen bonds."
+          ],
+          "target_seconds": 80,
+          "version": 2,
+          "source": "Original passage and invented data, informed by Bittermann and Goss (2017), https://doi.org/10.1371/journal.pone.0190319, and membrane-model research, https://doi.org/10.1371/journal.pone.0116502. No article text or figures reproduced; these are not reported experimental results."
+        }
+      ]
+    },
+    {
+      "id": "cp-ultrasound-oct-p02",
+      "topic": "Pulse-echo imaging and acoustic interfaces",
+      "section": "C/P",
+      "passage": "An imaging group evaluated two ultrasound probes using a tissue-mimicking block containing reflective inclusions. Probe L emitted three-cycle pulses at 2.0 MHz; probe H emitted three-cycle pulses at 4.0 MHz. The speed of sound throughout the block was 1.50 × 10^3 m/s, and each probe both emitted and detected the reflected pulse. The displayed echo time was measured from emission to return at the probe.\n\nTwo thin inclusions lay at depths of 3.00 cm and 3.06 cm along the same beam. For this apparatus, two axial reflectors could be distinguished when their separation was at least one-half of the spatial pulse length. The spatial pulse length equals the number of cycles in a pulse multiplied by its wavelength. Figure 1 shows schematic detected echo envelopes from a separate single-reflector calibration block. Envelope width is schematic and does not depict the duration of the emitted three-cycle pulse. The vertical scale is received peak-voltage amplitude; probe H was calibrated to the same received voltage as L at a shallow reference depth.\n\nAttenuation increased with frequency in this material. The receiver had a fixed noise floor, so a deeper reflector could disappear from the displayed trace without moving. No Doppler processing was used for these stationary inclusions.\n\nThe group also considered a thin matching layer between a probe and the block. Acoustic impedance is Z = ρc, where ρ is density and c is sound speed. For normal incidence at a lossless interface, the fraction of incident intensity reflected is R = [(Z2 - Z1)/(Z2 + Z1)]^2. A test interface had Z1 = 1.0 × 10^6 and Z2 = 3.0 × 10^6 kg m^-2 s^-1. Absorption within this interface was negligible.",
+      "version": 2,
+      "source": "Original passage, calibration traces, and apparatus values. Ultrasound context checked against NIBIB, https://www.nibib.nih.gov/science-education/science-topics/ultrasound. Standard wave and interface physics; no source figures reproduced.",
+      "questions": [
+        {
+          "id": "cp-ultrasound-oct-q06",
+          "topic": "Wave propagation",
+          "section": "C/P",
+          "skill": "Quantitative reasoning",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "What is the depth of the calibration reflector shown in Figure 1?",
+          "options": [
+            "1.5 cm",
+            "3.0 cm",
+            "6.0 cm",
+            "12 cm"
+          ],
+          "answer": 1,
+          "explanation": "B is correct. The 40-microsecond echo time includes travel to the reflector and back. Depth is ct/2 = (1.50 × 10^3 m/s)(40 × 10^-6 s)/2 = 0.030 m = 3.0 cm. Frequency does not enter this travel-time calculation because sound speed is specified as the same throughout the block.\n\nA: This divides the round-trip distance by four instead of two.\n\nC: This gives the complete out-and-back path length rather than reflector depth.\n\nD: This both mishandles the return path and increases the distance beyond the traveled path.\n\nConcept: An echo measures round-trip travel time; convert it to one-way distance before reporting depth.",
+          "hints": [
+            "Identify the center of the echo on the time axis.",
+            "The pulse crosses the probe-to-reflector distance twice."
+          ],
+          "target_seconds": 85,
+          "version": 1,
+          "source": "Original passage, calibration traces, and apparatus values. Ultrasound context checked against NIBIB, https://www.nibib.nih.gov/science-education/science-topics/ultrasound. Standard wave and interface physics; no source figures reproduced."
+        },
+        {
+          "id": "cp-ultrasound-oct-q07",
+          "topic": "Wavelength and resolution",
+          "section": "C/P",
+          "skill": "Scientific reasoning",
+          "difficulty": "Hard (AI-estimated)",
+          "prompt": "Using the stated resolution criterion, which probe can distinguish the two inclusions separated by 0.06 cm?",
+          "options": [
+            "Probe H but not probe L",
+            "Probe L but not probe H",
+            "Neither probe",
+            "Both probes"
+          ],
+          "answer": 0,
+          "explanation": "A is correct. At 2 MHz, λ = c/f = 0.75 mm; three cycles have a spatial length of 2.25 mm, requiring at least 1.125 mm separation. At 4 MHz, λ = 0.375 mm and the required separation is 0.5625 mm. The actual 0.06 cm equals 0.60 mm, which exceeds H's threshold but falls below L's.\n\nB: L has the longer pulse in space and poorer axial resolution, so the relationship is reversed.\n\nC: H's required separation is approximately 0.56 mm, slightly smaller than the given separation.\n\nD: The 0.60-mm separation is below L's 1.125-mm threshold.\n\nConcept: For a fixed cycle count and sound speed, increasing frequency shortens the pulse in space and improves axial resolution.",
+          "hints": [
+            "Convert the inclusion separation into millimeters.",
+            "Calculate half of three wavelengths for each probe."
+          ],
+          "target_seconds": 110,
+          "version": 2,
+          "source": "Original passage, calibration traces, and apparatus values. Ultrasound context checked against NIBIB, https://www.nibib.nih.gov/science-education/science-topics/ultrasound. Standard wave and interface physics; no source figures reproduced."
+        },
+        {
+          "id": "cp-ultrasound-oct-q08",
+          "topic": "Acoustic energy conservation",
+          "section": "C/P",
+          "skill": "Quantitative reasoning",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "At the specified lossless interface, what percentage of incident intensity is transmitted?",
+          "options": [
+            "25%",
+            "50%",
+            "75%",
+            "100%"
+          ],
+          "answer": 2,
+          "explanation": "C is correct. The reflected fraction is [(3 - 1)/(3 + 1)]^2 = (2/4)^2 = 0.25. With negligible absorption, reflected plus transmitted intensity fractions sum to one, so transmission is 1 - 0.25 = 0.75, or 75%. The formula concerns intensity, not a pressure-amplitude fraction.\n\nA: This is the reflected percentage, whereas the question asks for the transmitted percentage.\n\nB: This uses the unsquared impedance ratio and mistakes it for an intensity fraction.\n\nD: A difference in impedance creates a reflected component even when absorption is negligible.\n\nConcept: At a lossless boundary, transmission is the incident energy fraction remaining after reflection.",
+          "hints": [
+            "Evaluate R using the common power of ten canceled out.",
+            "Subtract the reflected intensity fraction from one."
+          ],
+          "target_seconds": 85,
+          "version": 1,
+          "source": "Original passage, calibration traces, and apparatus values. Ultrasound context checked against NIBIB, https://www.nibib.nih.gov/science-education/science-topics/ultrasound. Standard wave and interface physics; no source figures reproduced."
+        },
+        {
+          "id": "cp-ultrasound-oct-q09",
+          "topic": "Measurement and attenuation",
+          "section": "C/P",
+          "skill": "Data interpretation",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Relative to L, H has half the peak voltage in Figure 1 but the same echo-center time. Which conclusion follows most directly?",
+          "options": [
+            "H measures a sound speed twice as large as the block's stated speed.",
+            "H detects a reflector at half the depth with unchanged sound speed.",
+            "H receives half the acoustic intensity solely because its voltage is halved.",
+            "H detects the same reflector depth with a smaller received voltage."
+          ],
+          "answer": 3,
+          "explanation": "D is correct. The echo centers occur at the same round-trip time in a material with the same sound speed, so they identify the same depth. H has a smaller received-voltage peak. The higher-frequency attenuation described in the passage is compatible with this reduction, but the graph alone reports voltage rather than an acoustic intensity ratio.\n\nA: Sound speed was specified as fixed; the time trace does not provide evidence of a changed speed.\n\nB: Half the depth would require half the echo time if sound speed were unchanged.\n\nC: Voltage is not labeled as acoustic intensity, and amplitude-related intensity commonly depends on the square of amplitude under matched conditions.\n\nConcept: Separate the horizontal-axis quantity that locates an event from the vertical-axis quantity that measures signal strength.",
+          "hints": [
+            "Compare echo centers separately from peak heights.",
+            "The y-axis shows received voltage."
+          ],
+          "target_seconds": 85,
+          "version": 2,
+          "source": "Original passage, calibration traces, and apparatus values. Ultrasound context checked against NIBIB, https://www.nibib.nih.gov/science-education/science-topics/ultrasound. Standard wave and interface physics; no source figures reproduced."
+        },
+        {
+          "id": "cp-ultrasound-oct-q10",
+          "topic": "Frequency-penetration tradeoff",
+          "section": "C/P",
+          "skill": "Research design",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "A deep inclusion appears with L but falls below the noise floor with H. Which adjustment is most likely to restore its detection while sacrificing axial resolution?",
+          "options": [
+            "Use a lower frequency with the same cycle count.",
+            "Increase the displayed depth without changing the transmitted pulse.",
+            "Interpret the missing echo as a Doppler shift from a stationary inclusion.",
+            "Use a still higher frequency with the same cycle count."
+          ],
+          "answer": 0,
+          "explanation": "A is correct. The block attenuates higher frequencies more strongly. A lower frequency can improve the returned signal from depth, but with a fixed cycle count it increases wavelength and spatial pulse length. The same resolution criterion then requires more separation between nearby reflectors. Detection depth and resolving nearby structures are distinct performance goals.\n\nB: Changing a display range cannot create a physical echo above the receiver's fixed noise floor.\n\nC: The inclusions are stationary and Doppler processing was not used; a missing weak echo is not evidence of motion.\n\nD: A higher frequency would shorten the pulse but increase the described attenuation problem.\n\nConcept: Probe frequency can trade penetration against spatial resolution; the best choice depends on the target depth and required detail.",
+          "hints": [
+            "Which frequency is attenuated less in this material?",
+            "At a fixed cycle count, what happens to pulse length as frequency decreases?"
+          ],
+          "target_seconds": 85,
+          "version": 2,
+          "source": "Original passage, calibration traces, and apparatus values. Ultrasound context checked against NIBIB, https://www.nibib.nih.gov/science-education/science-topics/ultrasound. Standard wave and interface physics; no source figures reproduced."
+        }
+      ],
+      "figures": [
+        {
+          "id": "cp-ultrasound-figure1",
+          "path": "figures/ultrasound.png",
+          "caption": "Figure 1. Schematic detected echo envelopes from a single-reflector calibration block. The vertical axis gives peak-voltage amplitude, not acoustic intensity. Envelope width is schematic, not the emitted pulse duration.",
+          "alt_text": "Two detected echo envelopes, L and H, share a center at 40 microseconds. L peaks at 0.80 V and H at 0.40 V. Envelope width is schematic."
+        }
+      ]
+    },
+    {
+      "id": "bb-renal-oct-p03",
+      "topic": "Renal handling and extraction",
+      "section": "B/B",
+      "passage": "Researchers investigated renal handling of three freely filtered solutes before and after exposure to Compound T. Solute I was neither secreted nor reabsorbed. Solute S could undergo tubular secretion and had negligible reabsorption. Solute Y could be reabsorbed but was not secreted. None of the solutes was produced or degraded in the kidney, and arterial concentrations were stable during each collection. Renal clearance denotes the volume of arterial plasma containing the amount of solute excreted per minute.\n\nTable 2. Steady-state concentrations and urine collection measurements. Arterial and urinary concentrations are in mg/mL; urine flow is in mL/min. Values represent averages from six paired observations.\nCondition | Urine flow | Arterial I | Urinary I | Arterial S | Urinary S | Arterial Y | Urinary Y\nBefore T | 1.0 | 0.10 | 10.0 | 0.020 | 10.0 | 1.0 | 20.0\nAfter T | 2.0 | 0.10 | 5.0 | 0.020 | 3.0 | 1.0 | 10.0\n\nRenal venous S concentrations were 0.0020 mg/mL before T and 0.0092 mg/mL after T. The extraction fraction for S is the fraction of its arterial concentration removed in a single passage through the kidney: (arterial concentration - renal venous concentration)/arterial concentration. At steady state, the amount extracted from incoming plasma per minute equals the amount excreted in urine per minute. Urine flow was negligible compared with renal plasma flow for this calculation.\n\nSeparate measurements found no appreciable change in hematocrit or systemic arterial pressure. Urine osmolality fell from 600 to 300 mOsm/kg after T. Plasma osmolality was unchanged. The investigators considered both altered vascular delivery and altered tubular processing as explanations for the observations.",
+      "version": 1,
+      "source": "Original renal physiology passage and invented observations. Foundational clearance relationships checked against Kaufman, Basit, and Knohl, Physiology, Glomerular Filtration Rate, https://www.ncbi.nlm.nih.gov/books/NBK500032/?report=classic. Research context: renal extraction and secretion, https://pmc.ncbi.nlm.nih.gov/articles/PMC3966241/. No published text, table, or experimental outcomes reproduced.",
+      "questions": [
+        {
+          "id": "bb-renal-oct-q14",
+          "topic": "Glomerular filtration",
+          "section": "B/B",
+          "skill": "Quantitative reasoning",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "What is the glomerular filtration rate after T?",
+          "options": [
+            "50 mL/min",
+            "100 mL/min",
+            "150 mL/min",
+            "200 mL/min"
+          ],
+          "answer": 1,
+          "explanation": "B is correct. Solute I marks filtration because it is freely filtered and is neither secreted nor reabsorbed. After T, excretion is 5.0 mg/mL × 2.0 mL/min = 10 mg/min. Dividing by the arterial concentration of 0.10 mg/mL gives 100 mL/min. The lower urinary concentration is offset by the higher urine flow.\n\nA: This uses the after-T urinary concentration with the before-T urine flow.\n\nC: This result cannot be obtained from the filtration marker's mass balance.\n\nD: This doubles baseline filtration merely because urine flow doubled, overlooking dilution of I in urine.\n\nConcept: A urinary concentration alone does not specify renal excretion or clearance; urine flow must also be included.",
+          "hints": [
+            "Calculate the amount of I appearing in urine per minute.",
+            "Divide that mass rate by its plasma concentration."
+          ],
+          "target_seconds": 90,
+          "version": 1,
+          "source": "Original renal physiology passage and invented observations. Foundational clearance relationships checked against Kaufman, Basit, and Knohl, Physiology, Glomerular Filtration Rate, https://www.ncbi.nlm.nih.gov/books/NBK500032/?report=classic. Research context: renal extraction and secretion, https://pmc.ncbi.nlm.nih.gov/articles/PMC3966241/. No published text, table, or experimental outcomes reproduced."
+        },
+        {
+          "id": "bb-renal-oct-q15",
+          "topic": "Tubular secretion",
+          "section": "B/B",
+          "skill": "Data interpretation",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Which observation establishes that S still undergoes net tubular secretion after T?",
+          "options": [
+            "Its arterial concentration is unchanged between collections.",
+            "Its clearance exceeds the clearance of the filtration marker I.",
+            "Its urinary concentration is greater than its arterial concentration.",
+            "Its renal venous concentration is greater than before T."
+          ],
+          "answer": 1,
+          "explanation": "B is correct. After T, S clearance is (3.0 × 2.0)/0.020 = 300 mL/min, whereas I clearance is 100 mL/min. A freely filtered solute would have clearance equal to GFR if no tubular processing occurred. Because S clearance remains above GFR and S is not generated in the kidney, net tubular secretion adds S to the filtrate.\n\nA: Stable arterial concentration supports the calculation but does not distinguish secretion from filtration.\n\nC: Urine can concentrate a solute by reabsorbing water. A urine-to-plasma concentration difference does not by itself prove secretion.\n\nD: A higher venous concentration indicates a lower extraction fraction, not the direction of net tubular transport.\n\nConcept: Compare a solute's clearance with GFR to identify net secretion or reabsorption, rather than comparing concentrations alone.",
+          "hints": [
+            "Use I to establish the filtration-only reference.",
+            "Calculate S clearance from the same after-T collection."
+          ],
+          "target_seconds": 100,
+          "version": 2,
+          "source": "Original renal physiology passage and invented observations. Foundational clearance relationships checked against Kaufman, Basit, and Knohl, Physiology, Glomerular Filtration Rate, https://www.ncbi.nlm.nih.gov/books/NBK500032/?report=classic. Research context: renal extraction and secretion, https://pmc.ncbi.nlm.nih.gov/articles/PMC3966241/. No published text, table, or experimental outcomes reproduced."
+        },
+        {
+          "id": "bb-renal-oct-q16",
+          "topic": "Clearance versus plasma flow",
+          "section": "B/B",
+          "skill": "Scientific reasoning",
+          "difficulty": "Hard (AI-estimated)",
+          "prompt": "After accounting for the extraction fraction of S, which conclusion is best supported about renal plasma flow?",
+          "options": [
+            "It increased approximately twofold.",
+            "It became equal to the glomerular filtration rate.",
+            "It decreased by approximately 40%.",
+            "It was approximately unchanged."
+          ],
+          "answer": 3,
+          "explanation": "D is correct. Before T, S clearance is 500 mL/min and extraction is (0.020 - 0.0020)/0.020 = 0.90. After T, clearance is 300 mL/min and extraction is (0.020 - 0.0092)/0.020 = 0.54. Mass balance gives plasma flow = clearance/extraction: 500/0.90 ≈ 556 and 300/0.54 ≈ 556 mL/min. Reduced clearance reflects reduced extraction rather than reduced delivery in these measurements.\n\nA: Doubling urine flow does not double renal plasma flow; these are different flows.\n\nB: The corrected flow is approximately 556 mL/min, well above the 100 mL/min filtration rate.\n\nC: Clearance fell by 40%, but treating that change as a plasma-flow change assumes extraction stayed constant. It did not.\n\nConcept: A clearance estimate of plasma flow depends on the fraction removed per pass. A changing extraction fraction can invalidate an uncorrected comparison.",
+          "hints": [
+            "Compare extraction before and after T.",
+            "The excreted mass equals plasma flow × arterial concentration × extraction fraction."
+          ],
+          "target_seconds": 120,
+          "version": 2,
+          "source": "Original renal physiology passage and invented observations. Foundational clearance relationships checked against Kaufman, Basit, and Knohl, Physiology, Glomerular Filtration Rate, https://www.ncbi.nlm.nih.gov/books/NBK500032/?report=classic. Research context: renal extraction and secretion, https://pmc.ncbi.nlm.nih.gov/articles/PMC3966241/. No published text, table, or experimental outcomes reproduced."
+        },
+        {
+          "id": "bb-renal-oct-q17",
+          "topic": "Secondary active transport and reabsorption",
+          "section": "B/B",
+          "skill": "Scientific reasoning",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Additional evidence shows that Y enters tubular cells through an apical Na+-Y symporter. If the basolateral Na+/K+ ATPase is inhibited without changing filtration, what is expected after the Na+ gradient declines?",
+          "options": [
+            "Y clearance remains fixed because its plasma concentration is unchanged.",
+            "Y excretion increases because inward cotransport from the filtrate is reduced.",
+            "Y excretion decreases because the symporter directly hydrolyzes less ATP.",
+            "Y reabsorption increases because more Na+ remains inside tubular cells."
+          ],
+          "answer": 1,
+          "explanation": "B is correct. The basolateral Na+/K+ ATPase normally maintains a low intracellular Na+ concentration. The apical symporter uses the resulting inward Na+ gradient to bring Y from filtrate into the cell. Inhibiting the pump weakens that driving force, reducing reabsorption. With filtration held constant, more filtered Y remains available for urinary excretion. The symporter uses secondary active transport rather than directly hydrolyzing ATP.\n\nA: Clearance depends on urinary excretion relative to plasma concentration; unchanged plasma concentration does not fix excretion.\n\nC: The ATPase hydrolyzes ATP directly. The symporter draws on the ion gradient, and reducing its activity would leave more Y in urine.\n\nD: Higher intracellular Na+ weakens the inward Na+ gradient; it does not strengthen the cotransport process.\n\nConcept: Secondary active transport depends on an ion gradient maintained by primary active transport; blocking the pump can affect a distinct cotransporter.",
+          "hints": [
+            "Identify how the basolateral pump supports the apical transporter.",
+            "Keep filtration constant and track how reduced reabsorption changes excretion."
+          ],
+          "target_seconds": 95,
+          "version": 2,
+          "source": "Original renal physiology passage and invented observations. Foundational clearance relationships checked against Kaufman, Basit, and Knohl, Physiology, Glomerular Filtration Rate, https://www.ncbi.nlm.nih.gov/books/NBK500032/?report=classic. Research context: renal extraction and secretion, https://pmc.ncbi.nlm.nih.gov/articles/PMC3966241/. No published text, table, or experimental outcomes reproduced."
+        },
+        {
+          "id": "bb-renal-oct-q18",
+          "topic": "Water balance and endocrine physiology",
+          "section": "B/B",
+          "skill": "Foundational application",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "If collecting ducts remain responsive, an increase in circulating antidiuretic hormone after the second collection would most directly produce which change?",
+          "options": [
+            "Greater apical water permeability in collecting-duct principal cells",
+            "Reduced insertion of aquaporins into collecting-duct membranes",
+            "Greater glomerular permeability to plasma proteins",
+            "Increased urinary water loss at unchanged osmole excretion"
+          ],
+          "answer": 0,
+          "explanation": "A is correct. Antidiuretic hormone promotes insertion of water channels, notably aquaporin-2, into the apical membrane of collecting-duct principal cells. Water reabsorption can then increase along the medullary osmotic gradient. At comparable solute excretion, this tends to reduce urine volume and increase urine concentration. The question concerns the hormone's direct action; the passage does not identify the cause of the original change.\n\nB: Reduced aquaporin insertion would decrease water permeability, opposite to the usual response to ADH.\n\nC: ADH primarily regulates distal water handling rather than making the glomerular filter permeable to large plasma proteins.\n\nD: Greater water reabsorption reduces, rather than increases, urinary water loss when the kidney can respond.\n\nConcept: Hormonal regulation of water excretion occurs downstream of filtration and can change urine concentration without changing GFR.",
+          "hints": [
+            "Identify the nephron segment directly regulated by ADH.",
+            "Think about water-channel insertion and the direction of water movement."
+          ],
+          "target_seconds": 80,
+          "version": 2,
+          "source": "Original renal physiology passage and invented observations. Foundational clearance relationships checked against Kaufman, Basit, and Knohl, Physiology, Glomerular Filtration Rate, https://www.ncbi.nlm.nih.gov/books/NBK500032/?report=classic. Research context: renal extraction and secretion, https://pmc.ncbi.nlm.nih.gov/articles/PMC3966241/. No published text, table, or experimental outcomes reproduced."
+        }
+      ]
+    },
+    {
+      "id": "bb-coupling-oct-p04",
+      "topic": "Respiratory coupling and assay interpretation",
+      "section": "B/B",
+      "passage": "Electron transport in mitochondria couples oxidation of respiratory substrates to a proton electrochemical gradient across the inner membrane. Protons can return to the matrix through ATP synthase or through other routes. Researchers compared equal amounts of mitochondrial protein from a reference preparation and a preparation exposed to Compound Q. Both received the same substrate mixture, ADP, and phosphate under conditions in which oxygen and substrate availability did not limit the measured rates.\n\nFor each preparation, oxygen consumption was measured at baseline, after addition of an ATP synthase blocker B, after addition of a proton carrier U in the continued presence of B, and finally after addition of an electron-transport blocker E. U permits proton movement through the inner membrane independently of ATP synthase. B and E were shown to retain their target effects in the Q-exposed preparation. Figure 2A shows the stabilized rate in each phase. A separate matched experiment found that U alone reached the same rates as B followed by U.\n\nFigure 2B shows baseline ATP synthesis and the matrix-to-intermembrane-space pH difference measured in separate samples. Higher positive values indicate that the matrix is more alkaline. ATP measurements excluded ATP formed outside mitochondria. Matrix substrate concentrations and the abundance of the measured respiratory complexes were similar in the two preparations. An unrelated matrix enzyme retained comparable activity.\n\nThe investigators used the decline in respiration after B as an operational estimate of the ATP-synthesis-linked component of baseline respiration. Oxygen consumption remaining after E was treated as background. They also examined whether Q changed the relationship between electron transfer and ATP production rather than simply lowering the abundance of respiratory proteins.",
+      "version": 1,
+      "source": "Original passage and invented data, informed by assay-interpretation research: Ruas et al. (2016), https://doi.org/10.1371/journal.pone.0150967. The study cautions that ATP synthase blockade can affect maximal respiration in some settings; the separate U-alone control here is an original design feature. No source text or figures reproduced.",
+      "questions": [
+        {
+          "id": "bb-coupling-oct-q19",
+          "topic": "Oxidative phosphorylation",
+          "section": "B/B",
+          "skill": "Data interpretation",
+          "difficulty": "Hard (AI-estimated)",
+          "prompt": "Which effect of Q best accounts for the combined baseline measurements?",
+          "options": [
+            "An increase in ATP demand that draws more protons through ATP synthase",
+            "A partial restriction of proton return specifically through ATP synthase",
+            "An increase in proton return that bypasses ATP synthase",
+            "A decrease in electron entry from the matched substrate mixture"
+          ],
+          "answer": 2,
+          "explanation": "C is correct. Q leaves baseline oxygen consumption at 100 but lowers ATP synthesis from 180 to 90 and reduces the pH difference from 1.0 to 0.5. Additional proton return outside ATP synthase can dissipate part of the gradient without producing ATP, reducing ATP yield per oxygen consumed. Restricting ATP synthase alone would instead tend to increase the gradient and restrain electron transport under these conditions.\n\nA: Greater ATP demand can stimulate ATP-linked proton return, but does not explain reduced ATP synthesis together with unchanged oxygen use.\n\nB: Restricting the ATP synthase return route tends to build the gradient and slow respiration, rather than reduce the pH difference while maintaining oxygen use.\n\nD: Decreased electron entry would be expected to reduce oxygen use; substrate availability and baseline oxygen use are matched.\n\nConcept: Respiration and ATP production are coupled processes, but they are not interchangeable measurements of mitochondrial function.",
+          "hints": [
+            "Compare ATP output and oxygen use together.",
+            "Ask how the proton gradient can decrease while electron transfer continues."
+          ],
+          "target_seconds": 110,
+          "version": 2,
+          "source": "Original passage and invented data, informed by assay-interpretation research: Ruas et al. (2016), https://doi.org/10.1371/journal.pone.0150967. The study cautions that ATP synthase blockade can affect maximal respiration in some settings; the separate U-alone control here is an original design feature. No source text or figures reproduced."
+        },
+        {
+          "id": "bb-coupling-oct-q20",
+          "topic": "Background correction",
+          "section": "B/B",
+          "skill": "Quantitative reasoning",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Using the investigators' operational definition, approximately what fraction of reference baseline mitochondrial oxygen consumption is ATP-synthesis-linked?",
+          "options": [
+            "35%",
+            "65%",
+            "72%",
+            "90%"
+          ],
+          "answer": 2,
+          "explanation": "C is correct. The B-sensitive decrease is 100 - 35 = 65 pmol/min. Background-corrected baseline mitochondrial respiration is 100 - 10 = 90 pmol/min. The requested fraction is 65/90 ≈ 0.72. The numerator is a difference between phases; the denominator excludes the nonmitochondrial or assay background identified after E.\n\nA: This treats the rate remaining after B as the ATP-linked portion and does not correct the denominator.\n\nB: This divides by the uncorrected baseline of 100 instead of mitochondrial baseline of 90.\n\nD: This is the background-corrected baseline as a percentage of the raw baseline, not the ATP-linked fraction.\n\nConcept: Match numerator and denominator to the requested biological quantity; a background correction can change a normalized fraction.",
+          "hints": [
+            "Find the decrease after B.",
+            "Remove the E-resistant background from baseline before calculating the fraction."
+          ],
+          "target_seconds": 100,
+          "version": 1,
+          "source": "Original passage and invented data, informed by assay-interpretation research: Ruas et al. (2016), https://doi.org/10.1371/journal.pone.0150967. The study cautions that ATP synthase blockade can affect maximal respiration in some settings; the separate U-alone control here is an original design feature. No source text or figures reproduced."
+        },
+        {
+          "id": "bb-coupling-oct-q21",
+          "topic": "Terminal electron acceptance and oxygen",
+          "section": "B/B",
+          "skill": "Scientific reasoning",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "In a separate test with U but without B, removal of molecular oxygen causes U-stimulated oxygen consumption to cease. Which process is most immediately prevented by the loss of oxygen?",
+          "options": [
+            "Transfer of electrons from the respiratory chain to its terminal acceptor",
+            "Binding of ADP to ATP synthase whenever a proton gradient remains",
+            "Passage of protons through U across the inner membrane",
+            "Substrate-level phosphorylation in every cellular compartment"
+          ],
+          "answer": 0,
+          "explanation": "A is correct. Oxygen accepts electrons at the end of the mitochondrial respiratory chain. Without it, the chain cannot sustain electron flow and coupled proton pumping. U may provide a proton-return route, but it cannot replace the terminal electron acceptor. ATP synthase can transiently respond to an existing gradient; the primary interruption specified here is electron transfer to oxygen.\n\nB: Oxygen is not an obligatory binding partner for ADP at ATP synthase. Loss of sustained electron transport can later dissipate the driving gradient.\n\nC: U-mediated proton movement does not directly require oxygen; lack of oxygen stops the electron-transfer process that maintains the gradient.\n\nD: Substrate-level phosphorylation does not directly require molecular oxygen and is not confined to this mitochondrial assay.\n\nConcept: Distinguish the direct role of oxygen in electron transport from downstream effects on proton pumping and ATP synthesis.",
+          "hints": [
+            "Identify oxygen's position in the respiratory chain.",
+            "A proton carrier cannot replace an electron acceptor."
+          ],
+          "target_seconds": 95,
+          "version": 2,
+          "source": "Original passage and invented data, informed by assay-interpretation research: Ruas et al. (2016), https://doi.org/10.1371/journal.pone.0150967. The study cautions that ATP synthase blockade can affect maximal respiration in some settings; the separate U-alone control here is an original design feature. No source text or figures reproduced."
+        },
+        {
+          "id": "bb-coupling-oct-q22",
+          "topic": "Controls for assay sequence effects",
+          "section": "B/B",
+          "skill": "Research design",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "What does the separate U-alone experiment most directly address?",
+          "options": [
+            "Whether equal protein amounts guarantee identical mitochondrial numbers",
+            "Whether the matrix pH difference is the entire electrochemical proton gradient",
+            "Whether ATP production outside mitochondria accounts for the measured ATP",
+            "Whether prior ATP synthase blockade distorts the U-stimulated respiration comparison"
+          ],
+          "answer": 3,
+          "explanation": "D is correct. U-stimulated respiration was measured after B in the main sequence. If B alters substrate handling or another process, the sequence could affect the apparent capacity under U. Obtaining the same rates with U alone checks that particular dependency in these preparations. It does not establish that all assay orders or all compounds are free of effects.\n\nA: Protein normalization does not directly count mitochondria, and the U-alone comparison does not resolve that issue.\n\nB: The proton electrochemical gradient includes an electrical component as well as a pH component; the sequence control does not measure membrane voltage.\n\nC: Nonmitochondrial ATP was excluded through the separate ATP measurement, not by changing inhibitor order.\n\nConcept: A control should test the specific assumption introduced by an assay sequence, rather than being treated as a universal validation.",
+          "hints": [
+            "Identify the treatment that precedes U in the main assay.",
+            "Ask whether that earlier treatment could affect the U-stimulated measurement."
+          ],
+          "target_seconds": 90,
+          "version": 2,
+          "source": "Original passage and invented data, informed by assay-interpretation research: Ruas et al. (2016), https://doi.org/10.1371/journal.pone.0150967. The study cautions that ATP synthase blockade can affect maximal respiration in some settings; the separate U-alone control here is an original design feature. No source text or figures reproduced."
+        },
+        {
+          "id": "bb-coupling-oct-q23",
+          "topic": "Chemiosmosis",
+          "section": "B/B",
+          "skill": "Foundational application",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Which additional baseline measurement is needed to evaluate the electrical component of the proton electrochemical gradient?",
+          "options": [
+            "The amount of phosphate in the bulk medium",
+            "The rate of ATP hydrolysis in the cytosol",
+            "The voltage difference across the inner mitochondrial membrane",
+            "The abundance of an unrelated matrix enzyme"
+          ],
+          "answer": 2,
+          "explanation": "C is correct. The driving force for proton movement has chemical and electrical components. The pH difference addresses the chemical component because it reflects the proton concentration ratio. A voltage measurement across the inner membrane is needed to assess the electrical component. A smaller pH difference alone does not quantify the complete proton motive force.\n\nA: Phosphate is required for ATP synthesis but does not directly measure the transmembrane electrical potential.\n\nB: Cytosolic ATP turnover can affect cellular demand but does not directly establish voltage across the mitochondrial inner membrane.\n\nD: An enzyme abundance measurement is neither a proton concentration measurement nor a voltage measurement.\n\nConcept: For a charged species, an electrochemical gradient combines a concentration gradient with an electrical potential difference.",
+          "hints": [
+            "What force can act on a proton besides a concentration difference?",
+            "Locate the membrane across which the relevant voltage must be measured."
+          ],
+          "target_seconds": 80,
+          "version": 2,
+          "source": "Original passage and invented data, informed by assay-interpretation research: Ruas et al. (2016), https://doi.org/10.1371/journal.pone.0150967. The study cautions that ATP synthase blockade can affect maximal respiration in some settings; the separate U-alone control here is an original design feature. No source text or figures reproduced."
+        }
+      ],
+      "figures": [
+        {
+          "id": "bb-coupling-figure2",
+          "path": "figures/coupling.png",
+          "caption": "Figure 2. A: Oxygen consumption during the sequential phases. B1: Baseline mitochondrial ATP synthesis. B2: Matrix-minus-intermembrane-space pH difference. Bars show means of six preparations; error bars are SD. Oxygen and ATP rates are normalized to matched amounts of mitochondrial protein.",
+          "alt_text": "Oxygen consumption in pmol O2/min: reference versus Q-exposed, baseline 100 versus 100; after B, 35 versus 65; after B plus U, 180 versus 180; after B plus U plus E, 10 versus 10. Baseline ATP synthesis in pmol/min: 180 versus 90. Matrix-minus-intermembrane pH difference: 1.0 versus 0.5. Each mean uses six preparations. SD is 4 for every oxygen bar, 8 for every ATP bar, and 0.05 for each pH bar."
+        }
+      ]
+    },
+    {
+      "id": "ps-detection-oct-p05",
+      "topic": "Detection, response criterion, and divided attention",
+      "section": "P/S",
+      "passage": "A research team studied how incentives and competing tasks affect reports of a faint visual target. In every block, a target was present on 400 trials and absent on 400 trials. The target's contrast, the background, and the proportion of target-present trials were identical across conditions. Participants pressed one key for \"present\" and another for \"absent.\" A hit was a \"present\" response on a target-present trial; a false alarm was a \"present\" response on a target-absent trial.\n\nEach participant completed three conditions in counterbalanced order. In the standard condition, correct detections and correct rejections received equal rewards. In the missed-target penalty condition, missing a target produced a larger monetary loss than falsely reporting a target. In the divided-attention condition, standard rewards applied, but participants also classified a concurrent tone as high or low. Tone accuracy averaged 84%. Participants practiced the response keys before all conditions.\n\nFigure 3 summarizes visual responses. To help separate sensitivity from response criterion, the researchers used an equal-variance signal-detection model. Sensitivity was d' = z(hit rate) - z(false-alarm rate), where z gives the corresponding position on a standard normal distribution. The approximate values needed for these data are listed below.\n\nTable 3. Normal-distribution transformations.\nRate | 0.16 | 0.31 | 0.62 | 0.69 | 0.84\nz(rate) | -1.0 | -0.5 | 0.3 | 0.5 | 1.0\n\nA follow-up training condition sounded an unpleasant tone after a missed visual target. The tone immediately stopped when the participant pressed a designated correction key. Over training, correction-key responses became more frequent. This tone was distinct from the high/low classification task, and the correction response did not change whether the visual target had originally been detected.",
+      "version": 1,
+      "source": "Original detection experiment and invented observations, informed by experimental attention research: https://doi.org/10.3389/fpsyg.2013.00284. Equal-variance signal-detection and operant-conditioning concepts independently applied; source text and data not reproduced.",
+      "questions": [
+        {
+          "id": "ps-detection-oct-q27",
+          "topic": "Signal detection categories",
+          "section": "P/S",
+          "skill": "Data interpretation",
+          "difficulty": "Easy (AI-estimated)",
+          "prompt": "Which response category is least frequent in the standard condition?",
+          "options": [
+            "A false alarm: reporting \"present\" on a target-absent trial",
+            "A correct rejection: reporting \"absent\" on a target-absent trial",
+            "A hit: reporting \"present\" on a target-present trial",
+            "A miss: reporting \"absent\" on a target-present trial"
+          ],
+          "answer": 0,
+          "explanation": "A is correct. The figure gives 276 hits and 64 false alarms in the standard condition. With 400 target-present trials, misses are 400 - 276 = 124. With 400 target-absent trials, correct rejections are 400 - 64 = 336. The smallest category is false alarms, at 64. Response categories use separate denominators for present and absent trials.\n\nB: There are 336 correct rejections, the most frequent category.\n\nC: There are 276 hits, not the least frequent category.\n\nD: There are 124 misses, more than the 64 false alarms.\n\nConcept: Classify responses using both stimulus state and report, then subtract within the correct stimulus-state denominator.",
+          "hints": [
+            "Use the standard bars in Figure 3.",
+            "Compute unplotted misses and correct rejections by subtraction from 400."
+          ],
+          "target_seconds": 60,
+          "version": 2,
+          "source": "Original detection experiment and invented observations, informed by experimental attention research: https://doi.org/10.3389/fpsyg.2013.00284. Equal-variance signal-detection and operant-conditioning concepts independently applied; source text and data not reproduced."
+        },
+        {
+          "id": "ps-detection-oct-q28",
+          "topic": "Detection sensitivity",
+          "section": "P/S",
+          "skill": "Quantitative reasoning",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Using the supplied model and approximate z values, which ordering of d' is supported?",
+          "options": [
+            "Standard > penalty = divided attention",
+            "Standard = penalty > divided attention",
+            "Penalty > standard > divided attention",
+            "Divided attention > standard = penalty"
+          ],
+          "answer": 1,
+          "explanation": "B is correct. Standard rates are 276/400 = 0.69 and 64/400 = 0.16, giving d' = 0.5 - (-1.0) = 1.5. Penalty rates are 0.84 and 0.31, giving 1.0 - (-0.5) = 1.5. Divided-attention rates are 0.62 and 0.31, giving 0.3 - (-0.5) = 0.8. Within the specified approximation, penalty changes reports without increasing the estimated separation of signal and noise.\n\nA: Penalty and divided attention have equal false-alarm rates but different hit rates and therefore different d'.\n\nC: This ranks sensitivity from hit rates alone and ignores the simultaneous increase in false alarms.\n\nD: Divided attention has the smallest estimated d', not the largest.\n\nConcept: Sensitivity incorporates both hits and false alarms; a higher hit rate alone need not indicate better discrimination.",
+          "hints": [
+            "Convert each count to a rate using its own 400-trial denominator.",
+            "Subtract the false-alarm z value, including its sign."
+          ],
+          "target_seconds": 110,
+          "version": 2,
+          "source": "Original detection experiment and invented observations, informed by experimental attention research: https://doi.org/10.3389/fpsyg.2013.00284. Equal-variance signal-detection and operant-conditioning concepts independently applied; source text and data not reproduced."
+        },
+        {
+          "id": "ps-detection-oct-q29",
+          "topic": "Response criterion",
+          "section": "P/S",
+          "skill": "Data interpretation",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Which change in decision policy best describes the penalty condition relative to the standard condition?",
+          "options": [
+            "Accepting weaker evidence before giving a \"present\" response",
+            "Requiring stronger evidence before giving a \"present\" response",
+            "Assigning equal subjective costs to misses and false alarms",
+            "Treating target-absent trials as physically brighter than target-present trials"
+          ],
+          "answer": 0,
+          "explanation": "A is correct. The penalty condition increases both hits and false alarms. This is the pattern of a more liberal criterion for reporting target presence: ambiguous evidence is more often classified as a target. Missing a target has become relatively more costly. The approximate sensitivity calculation remains unchanged, which separates the decision-policy interpretation from an improvement in sensory discrimination.\n\nB: A more conservative criterion would tend to reduce both hits and false alarms, opposite to the observed pattern.\n\nC: The experimental payoff specifically makes misses more costly.\n\nD: The physical stimuli were held constant; a report shift does not establish a brightness difference.\n\nConcept: Changing the costs of errors can shift a response criterion without improving sensitivity.",
+          "hints": [
+            "Notice the direction of change in both positive-response categories.",
+            "Which error did the new payment rule make more costly?"
+          ],
+          "target_seconds": 85,
+          "version": 2,
+          "source": "Original detection experiment and invented observations, informed by experimental attention research: https://doi.org/10.3389/fpsyg.2013.00284. Equal-variance signal-detection and operant-conditioning concepts independently applied; source text and data not reproduced."
+        },
+        {
+          "id": "ps-detection-oct-q30",
+          "topic": "Within-subject experimental design",
+          "section": "P/S",
+          "skill": "Research design",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "What is the main purpose of counterbalancing condition order?",
+          "options": [
+            "Ensuring that incentive effects generalize to every sensory modality",
+            "Removing the need to keep target contrast constant",
+            "Preventing a fixed condition order from being confounded with practice or fatigue",
+            "Making every participant identical in baseline visual sensitivity"
+          ],
+          "answer": 2,
+          "explanation": "C is correct. If every participant completed standard trials first and divided-attention trials last, practice, fatigue, or adaptation could be mistaken for condition effects. Counterbalancing distributes positions in the sequence across conditions, reducing that systematic confounding. It does not erase all carryover effects or substitute for controlling the stimulus.\n\nA: A visual study cannot establish generalization to every modality merely by rearranging condition order.\n\nB: Holding target contrast constant remains necessary for interpreting the intended incentive and attention manipulations.\n\nD: Participants can still differ in baseline sensitivity; counterbalancing concerns sequence rather than individual equivalence.\n\nConcept: In repeated-measures designs, condition and sequence can become entangled; counterbalancing addresses systematic order effects.",
+          "hints": [
+            "Consider what would happen if the hardest condition always came last.",
+            "Separate changes over time from differences between the manipulations."
+          ],
+          "target_seconds": 80,
+          "version": 2,
+          "source": "Original detection experiment and invented observations, informed by experimental attention research: https://doi.org/10.3389/fpsyg.2013.00284. Equal-variance signal-detection and operant-conditioning concepts independently applied; source text and data not reproduced."
+        },
+        {
+          "id": "ps-detection-oct-q31",
+          "topic": "Operant conditioning",
+          "section": "P/S",
+          "skill": "Scientific reasoning",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Which process most directly accounts for the increasing correction-key response in follow-up training?",
+          "options": [
+            "Positive punishment of missed detections through addition of an aversive tone",
+            "Negative punishment of correction-key responses through loss of a desirable stimulus",
+            "Positive reinforcement of correct detections through receipt of a monetary reward",
+            "Negative reinforcement of correction-key responses through termination of an aversive tone"
+          ],
+          "answer": 3,
+          "explanation": "D is correct. The target behavior is correction-key pressing. It terminates an unpleasant tone and becomes more frequent, fitting negative reinforcement. The tone's introduction after a miss could be considered an aversive consequence of the miss, but that is a different response-consequence relation and does not describe what reinforces the correction-key behavior.\n\nA: This is a plausible description of the consequence of a miss, but the question asks about the increasing correction-key response and what follows that response.\n\nB: The correction response removes an unpleasant, not desirable, stimulus and increases rather than decreases.\n\nC: Monetary rewards concern visual detections in other conditions. Correction-key pressing in this follow-up is reinforced by ending the tone.\n\nConcept: Name conditioning processes relative to the particular behavior and its consequence: added/removed stimulus and increased/decreased behavior.",
+          "hints": [
+            "Focus on the behavior that is increasing.",
+            "Track the immediate consequence of pressing the correction key."
+          ],
+          "target_seconds": 85,
+          "version": 2,
+          "source": "Original detection experiment and invented observations, informed by experimental attention research: https://doi.org/10.3389/fpsyg.2013.00284. Equal-variance signal-detection and operant-conditioning concepts independently applied; source text and data not reproduced."
+        }
+      ],
+      "figures": [
+        {
+          "id": "ps-detection-figure3",
+          "path": "figures/detection.png",
+          "caption": "Figure 3. Mean visual-response counts per 400 target-present and 400 target-absent trials. Counts are rounded aggregate means from 40 participants.",
+          "alt_text": "Mean response counts: standard 276 hits and 64 false alarms; missed-target penalty 336 hits and 124 false alarms; divided attention 248 hits and 124 false alarms. Each condition contains 400 target-present and 400 target-absent trials. Means are from 40 participants."
+        }
+      ]
+    },
+    {
+      "id": "ps-neighborhood-oct-p06",
+      "topic": "Built environment, social ties, and causal inference",
+      "section": "P/S",
+      "passage": "A city renovated parks in neighborhoods selected through an infrastructure-priority program. Researchers compared residents near six renovated parks with residents near six eligible parks scheduled for later renovation. Neighborhoods were matched on baseline median income, population density, and access to public transit. Researchers did not assign renovation timing. The same adult residents were invited to complete a survey and wear an activity monitor before renovation and one year later. Measurements were collected in the same season at both time points.\n\nTable 4. Mean activity and social measures among residents who completed both assessments. Each group included 180 residents.\nMeasure | Renovation before | Renovation after | Comparison before | Comparison after\nModerate-to-vigorous activity, min/week | 90 | 120 | 100 | 110\nPerceived neighborhood trust, 1-5 scale | 2.8 | 3.4 | 2.9 | 3.0\nOrganized-group participation, percent | 20 | 35 | 22 | 24\n\nInterviews suggested several possible routes from renovation to behavior. Some residents described watching neighbors use new exercise equipment and later trying the same routines. Others reported that walking groups made them feel capable of being active despite earlier unsuccessful attempts. A third group emphasized safer paths and lighting rather than interactions with other residents.\n\nAt baseline, 240 residents in each group enrolled. Residents lost to follow-up had lower baseline activity on average than those retained. A separate survey found that household turnover was higher in renovation neighborhoods. The researchers distinguished an individual resident's perceived ability to exercise from shared expectations that neighbors would cooperate to maintain public spaces. They also distinguished relationships within existing groups from connections between groups that rarely interacted before renovation.\n\nThe project examined whether changes in physical environments and social relationships might jointly influence activity. Matching was intended to improve comparability, but renovation timing remained part of a municipal process rather than a randomized experiment.",
+      "version": 1,
+      "source": "Original passage and invented data, informed by Huang et al. (2016), PARCS natural-experiment study design, https://doi.org/10.1186/s12889-016-3822-2. Independently authored interview scenarios and concepts; published text, figures, and results not reproduced.",
+      "questions": [
+        {
+          "id": "ps-neighborhood-oct-q32",
+          "topic": "Comparison of changes",
+          "section": "P/S",
+          "skill": "Quantitative reasoning",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "What is the renovation group's change in activity above the change observed in the comparison group?",
+          "options": [
+            "10 min/week",
+            "20 min/week",
+            "30 min/week",
+            "40 min/week"
+          ],
+          "answer": 1,
+          "explanation": "B is correct. Renovation residents increase from 90 to 120, a gain of 30 min/week. Comparison residents increase from 100 to 110, a gain of 10 min/week. Subtracting changes gives 30 - 10 = 20 min/week. This descriptive difference accounts for the measured change in the comparison group; interpreting it as a causal effect requires additional assumptions about comparability and trends.\n\nA: This is either the comparison group's change or the final between-group difference, neither of which is the requested difference in changes.\n\nC: This is the renovation group's raw change and ignores the comparison trend.\n\nD: This adds the changes instead of subtracting the comparison change.\n\nConcept: Separate a before-after change, a final group difference, and a difference between changes.",
+          "hints": [
+            "Compute the change within each group first.",
+            "Then subtract the comparison change from the renovation change."
+          ],
+          "target_seconds": 85,
+          "version": 1,
+          "source": "Original passage and invented data, informed by Huang et al. (2016), PARCS natural-experiment study design, https://doi.org/10.1186/s12889-016-3822-2. Independently authored interview scenarios and concepts; published text, figures, and results not reproduced."
+        },
+        {
+          "id": "ps-neighborhood-oct-q33",
+          "topic": "Observational learning",
+          "section": "P/S",
+          "skill": "Foundational application",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Which interview finding most directly illustrates observational learning?",
+          "options": [
+            "Residents who exercised more were more likely to finish the follow-up assessment.",
+            "Residents felt more capable after participating in a supportive walking group.",
+            "Residents found newly lit paths more convenient for evening activity.",
+            "Residents began using exercise equipment after watching neighbors demonstrate routines."
+          ],
+          "answer": 3,
+          "explanation": "D is correct. Observational learning involves acquiring or modifying behavior by attending to others' behavior. Watching neighbors demonstrate routines and then trying those routines directly fits modeling. No direct reward to the observer is required by this description. The other findings concern perceived capability, environmental opportunity, and sample selection.\n\nA: This describes differential retention in the study, not acquisition of an exercise behavior through observation.\n\nB: This most directly describes increased self-efficacy. It does not specify watching and reproducing a modeled routine.\n\nC: This describes a change in environmental accessibility rather than learning from a model.\n\nConcept: Match a theory to the mechanism described, rather than treating every social influence as observational learning.",
+          "hints": [
+            "Look for a demonstrator and a learner who later tries the demonstrated behavior.",
+            "Distinguish modeling from confidence or physical access."
+          ],
+          "target_seconds": 75,
+          "version": 2,
+          "source": "Original passage and invented data, informed by Huang et al. (2016), PARCS natural-experiment study design, https://doi.org/10.1186/s12889-016-3822-2. Independently authored interview scenarios and concepts; published text, figures, and results not reproduced."
+        },
+        {
+          "id": "ps-neighborhood-oct-q34",
+          "topic": "Self-efficacy and collective efficacy",
+          "section": "P/S",
+          "skill": "Scientific reasoning",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Which statement most clearly concerns collective efficacy rather than individual self-efficacy?",
+          "options": [
+            "\"I know the proper way to use the new equipment.\"",
+            "\"I can complete a walking session even when I am tired.\"",
+            "\"People on this block can work together to keep the park usable.\"",
+            "\"My exercise habits improve my own health.\""
+          ],
+          "answer": 2,
+          "explanation": "C is correct. Collective efficacy concerns shared confidence in a group's capacity for coordinated action, here maintaining a public space. Individual self-efficacy concerns belief in one's own ability to perform a behavior. Knowledge of an activity and expectations about its outcomes are also distinct from confidence in executing it.\n\nA: This is procedural knowledge and does not state confidence in a group's ability to act.\n\nB: This is an individual's belief in personal capacity to exercise, a self-efficacy statement.\n\nD: This describes an expected consequence of exercise rather than individual or collective capacity.\n\nConcept: Distinguish who is believed capable of acting and distinguish capability from knowledge or expected benefits.",
+          "hints": [
+            "Identify whether the actor is one person or a cooperating group.",
+            "The statement must concern capacity for action, not simply an expected outcome."
+          ],
+          "target_seconds": 80,
+          "version": 2,
+          "source": "Original passage and invented data, informed by Huang et al. (2016), PARCS natural-experiment study design, https://doi.org/10.1186/s12889-016-3822-2. Independently authored interview scenarios and concepts; published text, figures, and results not reproduced."
+        },
+        {
+          "id": "ps-neighborhood-oct-q35",
+          "topic": "Attrition and selection bias",
+          "section": "P/S",
+          "skill": "Research design",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "How does the reported attrition most directly limit interpretation of Table 4?",
+          "options": [
+            "Lower initial activity among those lost establishes that the renovation effect is underestimated.",
+            "Equal numbers retained guarantee that attrition affects both groups' activity changes equally.",
+            "Analysis of completers estimates activity change for residents who moved into the neighborhoods.",
+            "The final sample underrepresents residents who initially had lower activity."
+          ],
+          "answer": 3,
+          "explanation": "D is correct. The table describes completers, and residents lost to follow-up had lower baseline activity. Thus the final sample underrepresents that lower-activity portion of the original enrolled population. Equal retained counts do not establish equal selection effects on changes; no follow-up outcomes are supplied for the missing residents. The size and direction of change bias therefore remain unresolved.\n\nA: Lower baseline activity does not determine how much activity would have changed among those lost, so the direction of effect bias is unknown.\n\nB: Equal counts do not establish equal characteristics or unobserved outcomes of those retained and lost.\n\nC: New arrivals are not members of the baseline cohort with both assessments. Completer analysis cannot estimate their change.\n\nConcept: Selective loss to follow-up can change the population represented by an analysis; it does not specify a complete causal explanation for the outcome.",
+          "hints": [
+            "Identify how completers differ at baseline from those lost.",
+            "Do we know the missing residents' later activity changes?"
+          ],
+          "target_seconds": 90,
+          "version": 2,
+          "source": "Original passage and invented data, informed by Huang et al. (2016), PARCS natural-experiment study design, https://doi.org/10.1186/s12889-016-3822-2. Independently authored interview scenarios and concepts; published text, figures, and results not reproduced."
+        },
+        {
+          "id": "ps-neighborhood-oct-q36",
+          "topic": "Social capital",
+          "section": "P/S",
+          "skill": "Scientific reasoning",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "If renovation creates sustained connections between previously separate neighborhood groups, those new connections are most directly an example of:",
+          "options": [
+            "bonding social capital within an established group",
+            "upward mobility in an occupational hierarchy",
+            "bridging social capital across group boundaries",
+            "role strain within a single social position"
+          ],
+          "answer": 2,
+          "explanation": "C is correct. Bridging social capital concerns connections across otherwise separated social groups. These ties may provide access to information, cooperation, or resources beyond one's existing circle. Bonding social capital instead emphasizes ties within a relatively close or established group. Neither term by itself guarantees a health benefit.\n\nA: Bonding would describe strengthened internal ties, not the newly specified connections between previously separate groups.\n\nB: New intergroup connections do not establish a change in occupational status.\n\nD: Role strain concerns competing demands within a role, which is not described here.\n\nConcept: Classify social ties by the relationship they connect: within-group bonding versus across-group bridging.",
+          "hints": [
+            "Focus on the boundaries crossed by the new relationships.",
+            "The question concerns social networks, not occupational rank."
+          ],
+          "target_seconds": 75,
+          "version": 2,
+          "source": "Original passage and invented data, informed by Huang et al. (2016), PARCS natural-experiment study design, https://doi.org/10.1186/s12889-016-3822-2. Independently authored interview scenarios and concepts; published text, figures, and results not reproduced."
+        }
+      ]
+    },
+    {
+      "id": "cars-repair-oct-p07",
+      "topic": "Architecture: preservation and the authority of repair",
+      "section": "CARS",
+      "passage": "The old station acquired its celebrated roof almost by accident. The architect's drawing specified tiles; a shortage supplied corrugated metal instead. When a preservation committee proposed replacing the metal with tiles, it called the project a return to authenticity. The roof that had actually sheltered generations of passengers was thus condemned for failing to resemble a roof that had never existed. The episode is amusing only until one notices how often a building's surviving life must defend itself against its paperwork.\n\nArchitectural drawings deserve attention. They record ambitions that an unfinished or altered building may obscure. But intention is not the sole source of historical authority. A station is also a succession of bargains: between designer and builder, weather and material, occupants and the schedules that bring them together. To freeze one moment as the original is to select from that succession, not to escape selection. A committee that chooses the architect's drawing has made an interpretation just as surely as one that chooses the familiar metal roof.\n\nThe most persuasive defense of preservation is therefore less theatrical than a recovery of origins. Old buildings make earlier decisions available for inspection. Their unevenness can expose how a city accommodated uses that no planner anticipated. This evidentiary value is easily destroyed, but it is not secured merely by keeping a facade. A perfectly retained street elevation may conceal an interior from which every trace of working life has been erased. What survives for a photograph need not survive for inquiry.\n\nThat distinction should trouble admirers of adaptive reuse as well as its opponents. A warehouse converted into apartments can retain the name of its former industry while removing the loading doors, circulation routes, and divisions that made the industry intelligible. The conversion may be worthwhile; new housing has claims of its own. Calling it preservation, however, should not settle the question of what evidence it preserves. The language of rescue can allow a developer to present a choice among public goods as though no choice had occurred.\n\nConversely, an insistence on keeping every worn stair or obsolete pipe can mistake accumulated matter for accumulated knowledge. Some replacements make a building usable enough to remain part of public life. Maintenance is not an interruption of history; it is one of the activities history consists of. Yet this observation grants no blanket permission to modernize. The relevant question is whether a particular alteration sustains the building's intelligibility or suppresses it, and to whom. An engineer, a former worker, and a hurried commuter may read different evidence in the same space.\n\nA preservation report ought, then, to describe its losses as candidly as its achievements. It should distinguish what is documented, what is inferred, and what has been deliberately newly made. Such a report would give up the comforting claim that the building has simply been returned to itself. In exchange, it would offer something more durable: a record that later users can dispute. The honest building need not announce every intervention on its walls. The honest institution must nevertheless leave the argument open, rather than hide its own decisions behind the supposed command of the past.",
+      "version": 1,
+      "source": "Original independently authored architectural criticism for this pilot. Fictional examples; no external essay, quotation, or copyrighted test passage adapted. All questions rely on the supplied passage.",
+      "questions": [
+        {
+          "id": "cars-repair-oct-q39",
+          "topic": "Central argument",
+          "section": "CARS",
+          "skill": "Foundations of comprehension",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Which statement best expresses the passage's central argument?",
+          "options": [
+            "Preservation can reconcile competing readings by reconstructing the designer's intended form.",
+            "Preservation requires accountable choices about evidence rather than an unquestioned recovery of origins.",
+            "A building's accumulated materials supply the most reliable account of its historical significance.",
+            "Surviving use should take priority over unrealized intention when preservation choices conflict."
+          ],
+          "answer": 1,
+          "explanation": "B is correct. The station example denies that one original state automatically dictates the right restoration. The author then evaluates alterations by the evidence they retain or remove and asks institutions to document choices for later scrutiny. The central claim is an accountable process of selection, not a universal priority for surviving use, old materials, or the designer's plan.\n\nA: A reconstruction of intention is itself a selected interpretation, not a means of escaping competing readings.\n\nC: The worn-stair and obsolete-pipe discussion explicitly distinguishes accumulated matter from accumulated knowledge.\n\nD: The passage values actual use but also recognizes drawings as evidence and allows replacement of surviving material. It does not make use an automatic priority.\n\nConcept: A central-argument answer should explain the argumentative movement of the whole passage, including its qualifications and proposed remedy.",
+          "hints": [
+            "Connect the station example with the recommendation in the final paragraph.",
+            "Identify what the author thinks institutions should make explicit."
+          ],
+          "target_seconds": 95,
+          "version": 2,
+          "source": "Original independently authored architectural criticism for this pilot. Fictional examples; no external essay, quotation, or copyrighted test passage adapted. All questions rely on the supplied passage."
+        },
+        {
+          "id": "cars-repair-oct-q40",
+          "topic": "Rhetorical function",
+          "section": "CARS",
+          "skill": "Reasoning within the text",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "The contrast between a building surviving \"for a photograph\" and surviving \"for inquiry\" primarily distinguishes:",
+          "options": [
+            "the architect's artistic skill from the builder's technical skill",
+            "a photograph's visual accuracy from a written account's factual reliability",
+            "public appreciation from the private ownership of a building",
+            "recognizable appearance from access to evidence of earlier use"
+          ],
+          "answer": 3,
+          "explanation": "D is correct. The example concerns a retained street elevation paired with an interior stripped of working traces. A photograph can preserve an attractive or recognizable external appearance while the building loses evidence needed to investigate how it functioned. The distinction concerns what preservation makes available, not a general rejection of visual evidence.\n\nA: The paragraph does not compare the skills of architect and builder; it compares retained appearance with removed interior evidence.\n\nB: The contrast concerns which traces of former use remain available in the building, not whether visual or written records are more factually accurate.\n\nC: Ownership is not the basis of this contrast.\n\nConcept: Interpret a contrast through its immediate example before extending it into a general principle.",
+          "hints": [
+            "Look at the sentence about the retained street elevation.",
+            "What has disappeared from the interior despite the facade's survival?"
+          ],
+          "target_seconds": 85,
+          "version": 2,
+          "source": "Original independently authored architectural criticism for this pilot. Fictional examples; no external essay, quotation, or copyrighted test passage adapted. All questions rely on the supplied passage."
+        },
+        {
+          "id": "cars-repair-oct-q41",
+          "topic": "Qualified position",
+          "section": "CARS",
+          "skill": "Foundations of comprehension",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Which assessment of warehouse conversion is most consistent with the author's discussion?",
+          "options": [
+            "Removing loading doors weakens the project's housing justification as well as its preservation claim.",
+            "The housing benefit can justify conversion without establishing that industrial history remains intelligible.",
+            "A conversion preserves industrial history when it retains the building's recognizability from the street.",
+            "The retained industrial name is evidence that outweighs losses to the building's interior."
+          ],
+          "answer": 1,
+          "explanation": "B is correct. The author separates two questions: whether new housing makes a conversion worthwhile, and what evidence the project preserves. Housing can have a valid claim even when loading doors and circulation routes disappear. Their removal undermines the preservation claim but does not by itself determine the housing benefit.\n\nA: The text permits the housing justification to remain valid despite lost industrial evidence; the two claims must be assessed separately.\n\nC: Street recognizability is the photograph-oriented standard criticized earlier; it may leave working life unintelligible.\n\nD: The retained name can conceal rather than outweigh the removal of evidence explaining former use.\n\nConcept: Distinguish an author's concession about a project's value from endorsement of the justification offered for it.",
+          "hints": [
+            "Find the explicit concession in the warehouse paragraph.",
+            "Then ask what the label \"preservation\" fails to decide."
+          ],
+          "target_seconds": 90,
+          "version": 2,
+          "source": "Original independently authored architectural criticism for this pilot. Fictional examples; no external essay, quotation, or copyrighted test passage adapted. All questions rely on the supplied passage."
+        },
+        {
+          "id": "cars-repair-oct-q42",
+          "topic": "Logical relationship",
+          "section": "CARS",
+          "skill": "Reasoning within the text",
+          "difficulty": "Hard (AI-estimated)",
+          "prompt": "What role does the claim that maintenance is \"one of the activities history consists of\" play in the argument?",
+          "options": [
+            "It makes physical continuity a better guide than institutional documentation.",
+            "It treats restored usability as evidence that an alteration preserves historical meaning.",
+            "It identifies later users as having stronger historical authority than earlier designers.",
+            "It challenges the premise that replacing old material is inherently a departure from history."
+          ],
+          "answer": 3,
+          "explanation": "D is correct. The claim challenges an equation of history with untouched material. Maintenance and replacement can be historically meaningful and sustain use. But the following sentences require each alteration to be judged for the intelligibility it sustains or suppresses. Replacing material is not automatically ahistorical, and restored usefulness is not automatically preservation.\n\nA: The conclusion recommends documentation; maintenance is not introduced to displace that recommendation.\n\nB: Usability can justify maintenance, but the author still asks what evidence an alteration sustains or suppresses.\n\nC: The passage recognizes different readers and sources without assigning categorical superiority to later users.\n\nConcept: A sentence can defeat an absolute premise without establishing the opposite absolute rule.",
+          "hints": [
+            "Read the claim together with the warning immediately after it.",
+            "Identify the assumption the maintenance example challenges."
+          ],
+          "target_seconds": 95,
+          "version": 2,
+          "source": "Original independently authored architectural criticism for this pilot. Fictional examples; no external essay, quotation, or copyrighted test passage adapted. All questions rely on the supplied passage."
+        },
+        {
+          "id": "cars-repair-oct-q43",
+          "topic": "Application to a new case",
+          "section": "CARS",
+          "skill": "Reasoning beyond the text",
+          "difficulty": "Hard (AI-estimated)",
+          "prompt": "A factory museum retains the original machines but reroutes visitors so they cannot trace how materials once moved between them. Which concern from the passage most directly applies?",
+          "options": [
+            "The museum privileges an unrealized architectural plan over the building's actual use.",
+            "The museum changes the building's purpose rather than keeping it in industrial production.",
+            "The museum retains objects while obscuring relationships needed to understand their former use.",
+            "The museum substitutes institutional documentation for public access to the building."
+          ],
+          "answer": 2,
+          "explanation": "C is correct. The warehouse example emphasizes loading doors, circulation routes, and divisions that make working life intelligible. Original machines alone may not explain how a factory operated if their functional relationships can no longer be traced. This case therefore tests the distinction between keeping material and retaining access to evidence of use.\n\nA: No unrealized plan is specified. The problem is loss of functional relationships among surviving objects.\n\nB: The author permits a new purpose when it has legitimate benefits; a purpose change itself is not the specific defect.\n\nD: The museum admits visitors, and nothing says it substitutes records for access.\n\nConcept: Apply an argument by preserving the relevant relationship: retaining historical objects can differ from retaining access to evidence of their use.",
+          "hints": [
+            "Compare the new case with the loading-door and circulation-route example.",
+            "What information about work is lost even though the objects remain?"
+          ],
+          "target_seconds": 95,
+          "version": 2,
+          "source": "Original independently authored architectural criticism for this pilot. Fictional examples; no external essay, quotation, or copyrighted test passage adapted. All questions rely on the supplied passage."
+        },
+        {
+          "id": "cars-repair-oct-q44",
+          "topic": "Challenge to an argument",
+          "section": "CARS",
+          "skill": "Reasoning beyond the text",
+          "difficulty": "Hard (AI-estimated)",
+          "prompt": "Which finding would most directly weaken the author's criticism of returning the station to its architectural drawings?",
+          "options": [
+            "The committee finds that reproducing the drawings is less expensive than preserving the metal roof and proposes directing the savings to public access.",
+            "Period passenger campaigns treated completing the tile roof as central to the station's public identity and described the metal roof as provisional.",
+            "The committee includes transportation historians who have previously restored stations and have published studies documenting the importance of architectural drawings.",
+            "Present-day passengers recognize the metal roof as a familiar local landmark, and early photographs show it during the station's busiest working years."
+          ],
+          "answer": 1,
+          "explanation": "B is correct. The opening challenges the authority of an unrealized designer's intention over a building's actual social life. Period passenger campaigns making the planned roof part of the station's public identity would give that plan a historical basis beyond the architect's paperwork. This weakens the example's contrast between planned form and lived history without making restoration obligatory.\n\nA: A practical benefit can justify a project, but it does not supply historical evidence that weakens the criticism of drawing-based authenticity.\n\nC: General expertise and past work do not supply evidence that this planned roof was important to the particular station's lived history.\n\nD: This connects the metal roof to actual use and supports the opening criticism rather than weakening it.\n\nConcept: To weaken a specific argument, alter a premise connecting its evidence to its conclusion, not merely the popularity or authority of the decision makers.",
+          "hints": [
+            "Identify the contrast between the designer's plan and the station's social history.",
+            "Which finding makes the planned roof part of that social history?"
+          ],
+          "target_seconds": 105,
+          "version": 2,
+          "source": "Original independently authored architectural criticism for this pilot. Fictional examples; no external essay, quotation, or copyrighted test passage adapted. All questions rely on the supplied passage."
+        }
+      ]
+    },
+    {
+      "id": "cars-measures-oct-p08",
+      "topic": "Public policy: the work done by measures",
+      "section": "CARS",
+      "passage": "At a meeting about library funding, the most confident speaker was a spreadsheet. Its columns listed visits, loans, and cost per transaction; branches arranged themselves into an apparently natural ranking. Nobody had to say that borrowing a novel was the same kind of achievement as using a quiet table to fill out a housing application. The table had performed that assimilation already, counting the former and leaving the latter difficult to see. Numbers had not ended the argument about a library's purpose. They had advanced one side of it without acquiring a speaker's name.\n\nThis is not an objection to counting. A librarian who reports an increase in evening attendance may reveal a need that anecdotes missed. A common measure can also restrain favoritism: it is harder to reward a politically connected branch for its vague reputation when another can demonstrate extensive use. There is real democratic value in asking institutions to show what they do. The trouble begins when showing becomes synonymous with whatever a reporting system happens to record.\n\nMeasures are often defended as imperfect but better than nothing. The defense conceals a choice. A figure may be compared with a different figure, with a narrative account, or with a combination of observations. \"Nothing\" is frequently the name given to evidence that an administrative system has not learned to process. The person explaining that a library is the neighborhood's only heated public room has supplied information, even if no column awaits it. Converting that fact into a number could make it travel farther through the budget process; it could also detach it from the circumstances that explain its importance.\n\nThe demand that every benefit receive a common unit promises comparability at a price. It can make unlike services appear interchangeable and turn a decision about purposes into a calculation about efficiency. Yet refusing comparison altogether has its own price. Funds are finite, and a claim that one institution is incomparable may protect it from scrutiny rather than illuminate its value. A careful public argument must therefore compare while preserving an account of what the comparison leaves out. The spreadsheet should be an exhibit in that argument, not its constitution.\n\nThere is a further complication. Once a measure distributes rewards, institutions adapt to it. A branch judged by loans may encourage short, frequent borrowing or avoid services that take time without producing a transaction. The resulting improvement in the reported figure is not necessarily fictitious: more books may indeed circulate. But the figure becomes a record of both the original activity and the institution's response to being measured. Treating it as an untouched window on performance ignores a change produced by the window itself.\n\nThe practical remedy is to separate routine records from high-stakes rewards. Institutions can still report counts, but funding reviews should periodically examine a sample of actual encounters, using questions chosen to test the institution's stated purposes rather than merely repeat its target. Such reviews cost time and can be conducted badly. Their purpose is not to find an unmeasured truth; it is to create a second view whose errors need not follow the incentives embedded in the first. If both views agree, the numerical claim gains support. If they diverge, the discrepancy is information, not administrative failure.",
+      "version": 2,
+      "source": "Original independently authored essay on measurement and public institutions. Fictional library example; no external essay or copyrighted test passage adapted. All questions rely on the supplied passage.",
+      "questions": [
+        {
+          "id": "cars-measures-oct-q45",
+          "topic": "Central argument",
+          "section": "CARS",
+          "skill": "Foundations of comprehension",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Which statement best captures the author's proposed approach to evaluating institutions?",
+          "options": [
+            "Use narrative accounts to determine which institutions should be exempt from common measures.",
+            "Treat comparable counts as the primary verdict, with purpose-based reviews explaining exceptions.",
+            "Reward improvements in a common measure while expanding that measure to include omitted activities.",
+            "Cross-check routine counts with assessments that examine purposes through a different evidentiary route."
+          ],
+          "answer": 3,
+          "explanation": "D is correct. The author accepts counting but shows how categories omit services and rewarded measures change behavior. The remedy is a second view based on actual encounters and institutional purposes, whose errors need not follow the first measure's incentives. Counts become stronger when corroborated, while divergence warrants investigation rather than an automatic verdict.\n\nA: The passage rejects refusing comparison as a shelter from scrutiny; narratives are not an exemption device.\n\nB: The metaphor denies the spreadsheet governing authority, and the final paragraph treats disagreement as information rather than explaining away exceptions.\n\nC: Expanding a metric can still expose it to the incentive problem. The proposed remedy separates routine records from high-stakes rewards and adds another view.\n\nConcept: Identify the author's proposed use of a tool, rather than reducing the argument to support for or opposition to the tool itself.",
+          "hints": [
+            "Connect the incentive problem to the final paragraph's proposed remedy.",
+            "What makes the second assessment a different view rather than an expanded version of the same target?"
+          ],
+          "target_seconds": 95,
+          "version": 2,
+          "source": "Original independently authored essay on measurement and public institutions. Fictional library example; no external essay or copyrighted test passage adapted. All questions rely on the supplied passage."
+        },
+        {
+          "id": "cars-measures-oct-q46",
+          "topic": "Tone and personification",
+          "section": "CARS",
+          "skill": "Foundations of comprehension",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Calling the spreadsheet the meeting's \"most confident speaker\" primarily conveys:",
+          "options": [
+            "ironic concern that an impersonal ranking can speak with unearned authority",
+            "hostility toward librarians who describe their services publicly",
+            "nostalgia for meetings held before numerical records were available",
+            "admiration for the spreadsheet's capacity to express every participant's priorities"
+          ],
+          "answer": 0,
+          "explanation": "A is correct. The personification makes an apparently neutral spreadsheet into an advocate. The opening then shows how its categories favor one understanding of achievement without openly naming that position. The tone is ironic: confidence and apparent naturalness conceal choices rather than certify that the ranking represents everyone's purposes.\n\nB: The target is the authority of the reporting system, not public description of library services.\n\nC: No earlier era of meetings is invoked; the objection concerns how a current measure frames judgment.\n\nD: The spreadsheet omits relevant activities and therefore does not express all priorities.\n\nConcept: Determine tone from what a rhetorical device exposes in context, not from whether its literal wording sounds complimentary.",
+          "hints": [
+            "Ask whether the spreadsheet's confidence is endorsed or questioned.",
+            "Connect the personification to the unnamed side of the argument."
+          ],
+          "target_seconds": 85,
+          "version": 2,
+          "source": "Original independently authored essay on measurement and public institutions. Fictional library example; no external essay or copyrighted test passage adapted. All questions rely on the supplied passage."
+        },
+        {
+          "id": "cars-measures-oct-q47",
+          "topic": "Function of a concession",
+          "section": "CARS",
+          "skill": "Reasoning within the text",
+          "difficulty": "Medium (AI-estimated)",
+          "prompt": "Why does the author discuss politically connected branches in the second paragraph?",
+          "options": [
+            "To treat a branch's higher transaction count as sufficient evidence that its funding reflects a fair public judgment",
+            "To suggest that political connections, rather than service demand, explain differences in branches' reported use",
+            "To show a circumstance in which a shared measure can improve accountability",
+            "To explain why narratives are more reliable than transaction counts"
+          ],
+          "answer": 2,
+          "explanation": "C is correct. The example acknowledges that comparable evidence of use can constrain favoritism based on a branch's vague reputation or political connections. It gives measurement a genuine democratic benefit, strengthening the later distinction between using metrics and allowing them to define an institution's whole purpose.\n\nA: A shared measure can restrain favoritism, but the author does not treat a higher count as sufficient evidence of fair funding.\n\nB: The example concerns political advantage based on vague reputation. It does not explain numerical use differences as products of political connections.\n\nD: In this example, a shared numerical measure is useful; it does not establish narrative superiority.\n\nConcept: A concession can establish the useful scope of a practice before the author limits a stronger claim about it.",
+          "hints": [
+            "Notice the positive description of democratic value.",
+            "What problem does evidence of extensive use help address?"
+          ],
+          "target_seconds": 85,
+          "version": 2,
+          "source": "Original independently authored essay on measurement and public institutions. Fictional library example; no external essay or copyrighted test passage adapted. All questions rely on the supplied passage."
+        },
+        {
+          "id": "cars-measures-oct-q48",
+          "topic": "Interpretation of a metaphor",
+          "section": "CARS",
+          "skill": "Reasoning within the text",
+          "difficulty": "Hard (AI-estimated)",
+          "prompt": "The instruction that a spreadsheet be \"an exhibit\" rather than \"its constitution\" means that the spreadsheet should:",
+          "options": [
+            "serve as evidence in deliberation rather than determine the purposes governing it",
+            "contain narrative annotations instead of quantitative entries",
+            "be displayed publicly rather than stored in the institution's private records",
+            "record legal obligations rather than compare the services actually delivered"
+          ],
+          "answer": 0,
+          "explanation": "A is correct. An exhibit contributes evidence to an argument; a constitution establishes the governing framework. The preceding sentences concern comparison among purposes and what comparisons omit. The metaphor therefore assigns numbers a role within deliberation while rejecting their authority to set all its ends and rules.\n\nB: The author permits quantitative entries and asks that their role and omissions be examined.\n\nC: Physical display versus storage is not the contrast developed by the paragraph.\n\nD: The metaphor does not refer to constitutional law or propose replacing service measures with legal records.\n\nConcept: Use the argument surrounding a metaphor to identify the relationship it expresses, rather than applying each word literally.",
+          "hints": [
+            "Compare the role of evidence with the role of governing principles.",
+            "Read the sentence in light of the preceding discussion of purposes."
+          ],
+          "target_seconds": 95,
+          "version": 2,
+          "source": "Original independently authored essay on measurement and public institutions. Fictional library example; no external essay or copyrighted test passage adapted. All questions rely on the supplied passage."
+        },
+        {
+          "id": "cars-measures-oct-q49",
+          "topic": "Application to incentives",
+          "section": "CARS",
+          "skill": "Reasoning beyond the text",
+          "difficulty": "Hard (AI-estimated)",
+          "prompt": "A school rewarded for graduation rates makes courses easier and increases graduation without improving students' demonstrated skills. This finding most directly supports which passage claim?",
+          "options": [
+            "Selecting a common unit makes comparisons reflect the institutions' shared purposes.",
+            "Repeated measurement reduces the importance of omitted activities in a comparison.",
+            "A reported improvement can be real while its relation to the institution's purpose changes.",
+            "A second evaluation should place greater weight on the same outcome used to distribute rewards."
+          ],
+          "answer": 2,
+          "explanation": "C is correct. More students really graduate, just as more books may circulate after libraries respond to loan targets. The concern is that this real improvement can reflect behavior adapted to the reward rather than improvement in the broader purpose, here learning. The finding supports changed interpretation of a measure, not the claim that every favorable number is fabricated.\n\nA: The school example shows that a shared graduation count need not capture the purpose of education adequately.\n\nB: Repeating the same measurement does not recover skills or activities omitted from it.\n\nD: The final paragraph proposes a second view whose errors need not follow the incentives of the first, not greater dependence on the same rewarded outcome.\n\nConcept: A beyond-the-text application should preserve the causal relationship in the passage: rewarded measure, behavioral adaptation, and changed meaning of improvement.",
+          "hints": [
+            "Identify what the school is rewarded for and what it changes.",
+            "Compare that chain with the borrowing example in the fifth paragraph."
+          ],
+          "target_seconds": 100,
+          "version": 2,
+          "source": "Original independently authored essay on measurement and public institutions. Fictional library example; no external essay or copyrighted test passage adapted. All questions rely on the supplied passage."
+        },
+        {
+          "id": "cars-measures-oct-q50",
+          "topic": "Inference from corroborating evidence",
+          "section": "CARS",
+          "skill": "Reasoning beyond the text",
+          "difficulty": "Hard (AI-estimated)",
+          "prompt": "A library has few loans but claims to provide substantial assistance with housing applications. A sample of visitor encounters confirms that assistance. According to the author's final proposal, what should evaluators infer?",
+          "options": [
+            "The discrepancy identifies a service the loan count does not capture.",
+            "The sampled encounters establish that the library uses its entire budget efficiently.",
+            "The original loan count is inaccurate and should be corrected upward.",
+            "The library's own account should replace comparisons with other branches."
+          ],
+          "answer": 0,
+          "explanation": "A is correct. The second view confirms a consequential activity outside the transaction count. The low loan number can remain accurate while failing to capture that service. The proposed cross-check treats divergence as information about what each measure represents, not proof that a count is false, the institution is wholly efficient, or comparison should cease.\n\nB: Evidence of a valuable service does not establish efficient use of every part of a budget.\n\nC: Assistance with applications does not make the reported number of loans incorrect.\n\nD: The author supports comparison and scrutiny; a corroborated account adds evidence rather than replacing all comparative evaluation.\n\nConcept: An accurate count can omit a valuable activity. Independent evidence of that activity changes interpretation of the count, not necessarily its numerical accuracy.",
+          "hints": [
+            "Can the loan count be accurate while omitting a valuable service?",
+            "Apply the final paragraph's treatment of disagreement between two views."
+          ],
+          "target_seconds": 95,
+          "version": 2,
+          "source": "Original independently authored essay on measurement and public institutions. Fictional library example; no external essay or copyrighted test passage adapted. All questions rely on the supplied passage."
+        }
+      ]
+    }
+  ],
+  "standalone_questions": [
+    {
+      "id": "cp-discrete-oct-q11",
+      "topic": "Electrochemistry and thermodynamics",
+      "section": "C/P",
+      "skill": "Scientific reasoning",
+      "difficulty": "Medium (AI-estimated)",
+      "prompt": "A galvanic cell has E°cell = +0.30 V for a reaction transferring two electrons. A catalyst is added without changing concentrations or temperature. Which pair correctly describes the standard Gibbs energy and the effect on E°cell?",
+      "options": [
+        "ΔG° < 0; E°cell decreases",
+        "ΔG° = 0; E°cell is unchanged",
+        "ΔG° < 0; E°cell is unchanged",
+        "ΔG° > 0; E°cell increases"
+      ],
+      "answer": 2,
+      "explanation": "C is correct. ΔG° = -nFE°cell, so a positive standard cell potential gives a negative standard Gibbs energy. A catalyst changes the rate of reaching equilibrium by lowering activation barriers; it does not change the free-energy difference between reactants and products, the equilibrium constant, or the standard cell potential.\n\nA: A catalyst can accelerate electron transfer without decreasing the standard potential.\n\nB: A favorable reaction need not be at standard-state equilibrium. Zero ΔG° would correspond to E°cell = 0.\n\nD: The sign relation is reversed, and a catalyst does not raise the thermodynamic driving force.\n\nConcept: Kinetics determines how rapidly a reaction proceeds; thermodynamics determines its driving force and equilibrium.",
+      "hints": [
+        "Use ΔG° = -nFE°cell to determine the sign.",
+        "Ask whether a catalyst changes endpoints or the path between them."
+      ],
+      "target_seconds": 80,
+      "version": 2,
+      "source": "Original independently authored practice question; established foundational science.",
+      "passage": null
+    },
+    {
+      "id": "cp-discrete-oct-q12",
+      "topic": "Organic stereochemistry",
+      "section": "C/P",
+      "skill": "Scientific reasoning",
+      "difficulty": "Medium (AI-estimated)",
+      "prompt": "An optically pure chiral secondary alkyl halide reacts through an SN1 pathway in an achiral solvent. Which explanation best accounts for reduced enantiomeric excess in the substitution product mixture?",
+      "options": [
+        "The solvent converts both enantiomers to the same achiral constitutional isomer.",
+        "The leaving group and nucleophile exchange positions in a single backside attack.",
+        "A planar intermediate permits nucleophilic attack from either face.",
+        "The carbon stereocenter becomes permanently sp2-hybridized in the substitution product."
+      ],
+      "answer": 2,
+      "explanation": "C is correct. SN1 substitution proceeds through a carbocation intermediate with an approximately planar geometry at the reactive carbon. Attack from either face can produce both configurations, reducing enantiomeric excess and therefore optical rotation. Exact racemization need not occur because ion pairing and solvent effects can favor one face.\n\nA: Enantiomers have the same connectivity; the mechanism does not require conversion to a different constitutional isomer.\n\nB: A concerted backside attack describes SN2 and usually produces stereochemical inversion rather than attack from both faces.\n\nD: The substitution product generally restores tetrahedral geometry. Planarity describes the intermediate, not necessarily the final carbon.\n\nConcept: Track stereochemistry through the mechanism; transient planarity can reduce optical purity without removing the final stereocenter.",
+      "hints": [
+        "Identify the geometry of the SN1 intermediate.",
+        "Consider whether both faces are accessible to an incoming nucleophile."
+      ],
+      "target_seconds": 80,
+      "version": 2,
+      "source": "Original independently authored practice question; established foundational science.",
+      "passage": null
+    },
+    {
+      "id": "cp-discrete-oct-q13",
+      "topic": "Electric circuits and power",
+      "section": "C/P",
+      "skill": "Quantitative reasoning",
+      "difficulty": "Medium (AI-estimated)",
+      "prompt": "Two resistors, R and 2R, are connected in parallel to an ideal battery. Their total power is P. They are then connected in series to the same battery. What is the new total power?",
+      "options": [
+        "P/9",
+        "2P/9",
+        "P/3",
+        "3P/2"
+      ],
+      "answer": 1,
+      "explanation": "B is correct. The parallel equivalent resistance is (1/R + 1/(2R))^-1 = 2R/3. The series equivalent resistance is 3R. At fixed voltage, power is V^2/Req, so Pseries/Pparallel = (2R/3)/(3R) = 2/9. The ideal battery assumption keeps the voltage the same after rewiring.\n\nA: This misses the factor of two in the parallel equivalent resistance.\n\nC: This compares the series resistance with R rather than with the original parallel equivalent.\n\nD: This predicts greater power despite the increase in equivalent resistance at fixed voltage.\n\nConcept: Compute the equivalent resistance before comparing circuit power; a fixed-voltage source makes power inversely proportional to resistance.",
+      "hints": [
+        "Find each configuration's equivalent resistance.",
+        "Use a ratio so the battery voltage cancels."
+      ],
+      "target_seconds": 95,
+      "version": 1,
+      "source": "Original independently authored practice question; established foundational science.",
+      "passage": null
+    },
+    {
+      "id": "bb-discrete-oct-q24",
+      "topic": "Meiosis and genetic linkage",
+      "section": "B/B",
+      "skill": "Quantitative reasoning",
+      "difficulty": "Medium (AI-estimated)",
+      "prompt": "An individual has linked alleles arranged AB/ab. The recombination frequency between the loci is 20%. Assuming the two reciprocal recombinant gamete types are equally frequent, what fraction of this individual's gametes are Ab?",
+      "options": [
+        "10%",
+        "20%",
+        "40%",
+        "80%"
+      ],
+      "answer": 0,
+      "explanation": "A is correct. The parental haplotypes are AB and ab. Recombinant gametes are Ab and aB. A recombination frequency of 20% describes their combined frequency, so each reciprocal recombinant type accounts for 10% under the stated assumption. Each parental type then accounts for 40%.\n\nB: This assigns the entire recombinant fraction to one of the two reciprocal types.\n\nC: This is the frequency of each parental haplotype, not a recombinant haplotype.\n\nD: This is the combined parental fraction.\n\nConcept: Recombination frequency is the total frequency of recombinant gametes, not the frequency of each recombinant class.",
+      "hints": [
+        "Identify which haplotypes are parental from the slash notation.",
+        "Split the total recombinant fraction between the two specified reciprocal types."
+      ],
+      "target_seconds": 75,
+      "version": 1,
+      "source": "Original independently authored practice question; established foundational science.",
+      "passage": null
+    },
+    {
+      "id": "bb-discrete-oct-q25",
+      "topic": "Protein targeting and secretion",
+      "section": "B/B",
+      "skill": "Scientific reasoning",
+      "difficulty": "Medium (AI-estimated)",
+      "prompt": "A secreted protein retains a normal amino acid sequence except that its N-terminal endoplasmic-reticulum signal peptide is deleted. No alternative targeting signal is present. Which outcome is most likely?",
+      "options": [
+        "The protein is imported into mitochondria by its ordinary peptide backbone.",
+        "The protein enters the ER but bypasses Golgi processing.",
+        "Translation stops because cytosolic ribosomes cannot read its mRNA.",
+        "The protein remains in the cytosol rather than entering the conventional secretory pathway."
+      ],
+      "answer": 3,
+      "explanation": "D is correct. The ER signal peptide directs a nascent secretory protein toward the ER translocation machinery. Without it or an alternative targeting signal, translation can proceed on cytosolic ribosomes, but the protein is not normally delivered into the ER lumen. It therefore does not proceed through the conventional ER-Golgi secretion route. Actual stability in the cytosol may vary.\n\nA: Mitochondrial import requires targeting information; an ordinary backbone is not sufficient.\n\nB: Deletion blocks the targeting step before ER entry, rather than selectively removing Golgi processing.\n\nC: Cytosolic ribosomes initiate translation of secretory-protein mRNAs; the signal peptide changes targeting, not readability of the genetic code.\n\nConcept: Subcellular targeting signals direct localization; losing a targeting signal need not prevent synthesis of the protein itself.",
+      "hints": [
+        "Distinguish translation from delivery into the ER.",
+        "Trace the first step of the conventional secretory route."
+      ],
+      "target_seconds": 85,
+      "version": 2,
+      "source": "Original independently authored practice question; established foundational science.",
+      "passage": null
+    },
+    {
+      "id": "bb-discrete-oct-q26",
+      "topic": "Endocrine feedback",
+      "section": "B/B",
+      "skill": "Scientific reasoning",
+      "difficulty": "Medium (AI-estimated)",
+      "prompt": "An antibody activates thyroid TSH receptors independently of circulating TSH. The pituitary and hypothalamus respond normally to thyroid hormone. Which pattern is most likely?",
+      "options": [
+        "High thyroid hormone, low TSH, low TRH",
+        "Low thyroid hormone, low TSH, high TRH",
+        "High thyroid hormone, high TSH, low TRH",
+        "Low thyroid hormone, high TSH, high TRH"
+      ],
+      "answer": 0,
+      "explanation": "A is correct. Receptor stimulation promotes thyroid hormone production even when pituitary TSH is low. Elevated thyroid hormone feeds back on both the pituitary and hypothalamus, suppressing TSH and TRH, respectively. The antibody bypasses the ordinary need for elevated TSH; it does not remove feedback regulation of upstream hormone release.\n\nB: Activating the thyroid receptor should raise thyroid output; the paired low thyroid hormone and low TSH do not describe the given mechanism.\n\nC: Normal negative feedback suppresses TSH as thyroid hormone rises, so high TSH is inconsistent with the stated intact feedback response.\n\nD: This would fit loss of thyroid output rather than persistent activation of its stimulatory receptor.\n\nConcept: Separate hormone concentration from receptor activation when an external stimulus bypasses an endocrine feedback loop.",
+      "hints": [
+        "Start with the consequence of activating thyroid TSH receptors.",
+        "Then apply thyroid hormone feedback to the pituitary and hypothalamus."
+      ],
+      "target_seconds": 85,
+      "version": 2,
+      "source": "Original independently authored practice question; established foundational science.",
+      "passage": null
+    },
+    {
+      "id": "ps-discrete-oct-q37",
+      "topic": "Attribution and situational constraints",
+      "section": "P/S",
+      "skill": "Scientific reasoning",
+      "difficulty": "Medium (AI-estimated)",
+      "prompt": "An observer labels a student lazy after seeing the student arrive late, without considering that the bus route was suspended. This judgment most directly illustrates:",
+      "options": [
+        "cognitive dissonance caused by the observer's own tardiness",
+        "fundamental attribution error by the observer",
+        "the actor-observer difference demonstrated across both people",
+        "self-serving bias in the late student's account"
+      ],
+      "answer": 1,
+      "explanation": "B is correct. The observer emphasizes a dispositional trait while overlooking a relevant situational constraint. That is the fundamental attribution error. The description provides the observer's explanation but no explanation from the actor, so it does not demonstrate the full actor-observer contrast. Identifying the amount of evidence given prevents choosing a related but broader label.\n\nA: The observer is not described as late or as experiencing inconsistent beliefs and behavior.\n\nC: This related phenomenon requires contrasting the actor's and observer's attributions; only the latter is described.\n\nD: The student's own explanation is not supplied, so there is no evidence of claiming credit or externalizing blame.\n\nConcept: Choose the bias demonstrated by the available evidence; do not infer an unreported comparison merely because a related term is familiar.",
+      "hints": [
+        "Whose explanation is actually reported?",
+        "Notice the preference for a trait over the stated situational obstacle."
+      ],
+      "target_seconds": 80,
+      "version": 2,
+      "source": "Original independently authored practice question; established foundational science.",
+      "passage": null
+    },
+    {
+      "id": "ps-discrete-oct-q38",
+      "topic": "Reliability and validity",
+      "section": "P/S",
+      "skill": "Scientific reasoning",
+      "difficulty": "Medium (AI-estimated)",
+      "prompt": "A survey intended to measure social isolation gives nearly identical scores on repeated administrations, but its scores mainly track household income and do not track independently measured social contact. Which interpretation is best supported?",
+      "options": [
+        "High test-retest reliability with questionable construct validity",
+        "High construct validity because the repeated scores are stable",
+        "Low reliability because income is measured consistently",
+        "Low test-retest reliability with strong construct validity"
+      ],
+      "answer": 0,
+      "explanation": "A is correct. Stable scores across repeated administrations support test-retest reliability. They do not establish that the instrument measures social isolation. Its stronger relationship with income and weak relationship with an independent social-contact measure raise a construct-validity concern. Social contact is not a perfect definition of isolation, so the evidence raises a concern rather than proving complete invalidity.\n\nB: Reliability is consistency; validity concerns whether the intended construct is measured. One does not guarantee the other.\n\nC: Tracking a different variable concerns construct interpretation, not necessarily inconsistency across measurements.\n\nD: The stable repeated scores oppose low test-retest reliability, and the described associations do not support strong construct validity.\n\nConcept: A measurement can consistently measure the wrong thing; assess reliability and validity separately.",
+      "hints": [
+        "Separate score stability from what the scores represent.",
+        "Ask which evidence addresses repeated measurement and which addresses the intended construct."
+      ],
+      "target_seconds": 85,
+      "version": 2,
+      "source": "Original independently authored practice question; established foundational science.",
+      "passage": null
+    }
+  ]
+}
