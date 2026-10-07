@@ -9,13 +9,15 @@ function PassageText({ text }: { text: string }) {
     const rows=lines.slice(start).map(line=>line.split('|').map(cell=>cell.trim()));
     if(rows.length<2 || rows.some(row=>row.length!==rows[0].length)) return <p key={index}>{block}</p>;
     const caption=lines.slice(0,start).join(' ');
-    return <div className="passage-table-scroll" key={index} tabIndex={0} role="region" aria-label={caption || 'Passage data table'}>
-      <table className="passage-table">
-        {caption && <caption>{caption}</caption>}
+    return <figure className="passage-data" key={index}>
+      {caption && <figcaption>{caption}</figcaption>}
+      <div className="passage-table-scroll" tabIndex={0} role="region" aria-label="Scrollable passage data">
+      <table className="passage-table" aria-label={caption || 'Passage data table'}>
         <thead><tr>{rows[0].map((cell,i)=><th scope="col" key={i}>{cell}</th>)}</tr></thead>
         <tbody>{rows.slice(1).map((row,i)=><tr key={i}>{row.map((cell,j)=>j===0?<th scope="row" key={j}>{cell}</th>:<td key={j}>{cell}</td>)}</tr>)}</tbody>
       </table>
-    </div>;
+      </div>
+    </figure>;
   })}</div>;
 }
 

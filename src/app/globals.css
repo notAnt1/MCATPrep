@@ -1582,10 +1582,11 @@ input:focus {
 .practice-filters select { max-width:240px; }
 .passage > p { margin:0 0 20px; white-space:pre-wrap; }
 .passage > p:last-child { margin-bottom:0; }
-.passage-table-scroll { overflow-x:auto; margin:20px 0; white-space:normal; }
+.passage-data { margin:20px 0; min-width:0; white-space:normal; }
+.passage-table-scroll { overflow-x:auto; white-space:normal; }
 .passage-table { width:100%; min-width:0; border-collapse:collapse; font-size:13px; line-height:1.5; }
-.passage-table caption { text-align:left; margin-bottom:12px; color:inherit; font-size:13px; line-height:1.6; }
-.passage-table th, .passage-table td { padding:12px 16px; border:1px solid #d2dedb; text-align:center; white-space:nowrap; color:inherit; font-size:13px; letter-spacing:normal; min-width:0; }
+.passage-data figcaption { text-align:left; margin-bottom:12px; color:inherit; font-size:13px; line-height:1.6; }
+.passage-table th, .passage-table td { padding:10px 8px; border:1px solid #d2dedb; text-align:center; white-space:nowrap; color:inherit; font-size:13px; letter-spacing:normal; min-width:0; }
 .passage-table thead th { background:#e9f0ed; font-weight:600; font-size:13px; text-transform:none; letter-spacing:normal; white-space:normal; }
-.passage-table tbody th { background:#f3f6f4; font-weight:600; }
+.passage-table tbody th { background:#f3f6f4; font-weight:600; white-space:normal; }
 .passage-table td { background:#fff; font-variant-numeric:tabular-nums; }
