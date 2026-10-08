@@ -26,6 +26,7 @@ import type { User } from "@supabase/supabase-js";
 import { getBrowserDb } from "@/lib/supabase";
 import { analyze, fallbackReport } from "@/lib/analytics";
 import { demoUnitCurrent, demoUnitHint, demoUnitAnswer } from '@/lib/demo-units';
+import { QuestionTutor } from './question-tutor';
 import { UnitQuestions } from './unit-questions';
 import { Passage } from './passage';
 import pilotTags from '../../data/reviewed/pilot-tags.json';
@@ -674,7 +675,7 @@ export default function Workspace() {
                     </div>
                   ) : (
                     <>
-                      <UnitQuestions unit={current} choices={selected} feedback={feedback} busy={busy}
+                      <UnitQuestions demo={demo} owner={owner} unit={current} choices={selected} feedback={feedback} busy={busy}
                         choose={(id,choice)=>{ const draft={...selected,[id]:choice}; setSelected(draft); sessionStorage.setItem(`mcat-choices:${owner}:${current.session.id}:${current.question?.id}`,JSON.stringify(draft)); }}
                         hint={hint} submit={submit} next={next} />
                     </>
@@ -823,6 +824,7 @@ export default function Workspace() {
                       <ol type="A">{q.options.map((option, index) => <li key={index}><strong>{index === q.answer ? "Correct answer: " : ""}{index === a.selected ? "Your answer: " : ""}</strong>{option}</li>)}</ol>
                       <h3>Explanation</h3><p>{q.explanation}</p>
                       <h3>Walkthrough</h3><ol>{q.hints.map((hint, index) => <li key={index}>{hint}</li>)}</ol>
+                      <QuestionTutor key={`${owner}:${reportSession.id}:${q.id}`} sessionId={reportSession.id} questionId={q.id} demo={demo} />
                     </div> : <p>{reviewLoading ? "Loading…" : "The original question version is unavailable."}</p>;
                   })()}
                   </details>

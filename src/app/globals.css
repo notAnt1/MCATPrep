@@ -1590,3 +1590,20 @@ input:focus {
 .passage-table thead th { background:#e9f0ed; font-weight:600; font-size:13px; text-transform:none; letter-spacing:normal; white-space:normal; }
 .passage-table tbody th { background:#f3f6f4; font-weight:600; white-space:normal; }
 .passage-table td { background:#fff; font-variant-numeric:tabular-nums; }
+
+.question-tutor { margin-top: 16px; }
+.tutor-panel { margin-top: 12px; padding: 20px; background: #f3f7f6; border: 1px solid #d7e4df; border-radius: 14px; }
+.tutor-panel h3 { margin-top: 0; }
+.tutor-panel .muted, .tutor-note { font-size: 13px; line-height: 1.6; }
+.tutor-messages { max-height: 380px; overflow-y: auto; overflow-wrap: anywhere; }
+.tutor-message { padding: 12px 14px; background: white; border-radius: 10px; margin-bottom: 12px; }
+.tutor-message.user { background: #e5efea; }
+.tutor-message p { white-space: pre-wrap; line-height: 1.7; margin: 6px 0 0; }
+.tutor-suggestions { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 16px; }
+.tutor-panel label { display: block; font-weight: 600; margin-bottom: 8px; }
+.tutor-panel textarea { box-sizing: border-box; width: 100%; padding: 12px; font: inherit; resize: vertical; border: 1px solid #b6c9bf; border-radius: 8px; background: white; color: #243b31; }
+.tutor-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; }
+.tutor-footer small { color: #52665b; }
+.tutor-note { color: #52665b; margin-bottom: 0; }
+.tutor-error { color: #9b3029; }
+@media(max-width: 600px) { .tutor-panel { padding: 14px; } .tutor-footer { align-items: flex-start; flex-direction: column; } }

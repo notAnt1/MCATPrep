@@ -29,5 +29,7 @@ writeFileSync(
     "\n" +
     readFileSync("supabase/passage-units.sql", "utf8") +
     "\n" +
+    readFileSync("supabase/tutor.sql", "utf8") +
+    "\n" +
     readFileSync("supabase/seed.sql", "utf8"),
 );

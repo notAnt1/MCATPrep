@@ -47,7 +47,7 @@ Deploy, then update Supabase URL configuration. Vercel does not read your local 
 
 ## Analytics and limitations
 
-AI receives only numeric topic summaries, not user email/nickname. Core statistics are deterministic. AI interprets them; it does not calculate scores. `store:false` is sent to OpenAI; this is not a claim of zero provider retention.
+AI reports receive only numeric topic summaries, not user email/nickname. The optional question tutor receives the question, passage, answer choices, answer key, explanation, figure descriptions, selected answer, and the recent chat messages. Core statistics are deterministic. AI interprets them; it does not calculate scores. `store:false` is sent to OpenAI; this is not a claim of zero provider retention.
 
 Topic assessments use the latest 20 independent, unassisted first attempts. Older samples are retained; up to 20 preceding independent attempts are provided for comparison. Fewer than five observations is insufficient evidence. Timings use provisional question targets, not calibrated population norms. Training and rapid-fire timings are separated. Invalid/long browser-interruption timing is excluded from timing summaries. Active time is a browser estimate, not proof of attention or an anti-cheat guarantee. Rapid-fire points use server wall time; pausing does not improve speed bonuses.
 
@@ -57,7 +57,7 @@ The dashboard loads up to 100,000 oldest attempts and 1,000 most recent sessions
 
 ## Question content
 
-84 original AI-authored foundational questions across 14 topics. **Not a complete MCAT bank, calibrated assessment, or official material.** Timing targets are estimates. CARS, full passages, book imports, and conversational AI tutoring are not included yet. Hints and explanations are curated text. Review seed content before relying on it for preparation.
+84 original AI-authored foundational questions across 14 topics. **Not a complete MCAT bank, calibrated assessment, or official material.** Timing targets are estimates. The active pilot now includes CARS, complete passage sets, figures, and optional conversational tutoring. Hints and explanations are curated text. Review seed content before relying on it for preparation.
 
 For an existing installation with the original 36 questions, run `supabase/expansion-01.sql` in the Supabase SQL Editor. It adds 48 questions across eight topics and is safe to rerun. Existing question versions and user results are preserved. New installations can use `supabase/setup.sql` for all 84 questions.
 
@@ -74,3 +74,15 @@ npm run build
 ```
 
 Database tests run the actual schema in local PostgreSQL-compatible PGlite with mock auth users. They exercise RLS isolation, hidden answers, grading, hint tracking, deduplication, repeat scoring, report claims, and leaderboard opt-in. No production users or data are created by tests.
+
+## Optional question tutor
+
+For an existing installation, apply `supabase/tutor.sql` before deploying the tutor UI. New installs include it in `supabase/setup.sql`. No existing answers or scores are changed.
+
+The tutor is available after every saved answer (correct or incorrect), including session review. Opening it and choosing a suggested prompt make no API calls. Only Send calls `/api/tutor`. Demo users are prompted to sign in. The API authenticates the user and retrieves the matching saved question version through an ownership-checked database function; clients cannot supply or change the question context or answer key.
+
+`OPENAI_TUTOR_MODEL` defaults to `gpt-5.4-nano`, independently of the report model. It uses the existing server-only `OPENAI_API_KEY`, Responses API, no extended reasoning, a 22-second timeout, no automatic retries, and up to 500 output tokens. History is limited to six messages / 6,000 characters, new messages to 1,000 characters, and question context to 24,000 characters. Figure captions and descriptions are sent; image pixels are not. Oversized question context fails rather than silently dropping facts.
+
+Database reservations limit attempts to 8 per question per user, 20 per user, and 1,000 across the app per rolling 24 hours. Failed provider calls also consume a reservation. The usage table stores IDs/timestamps, not chat content. Chat stays in component memory and clears on leaving the question. `store:false` is sent; it does not guarantee zero provider retention. There are no browsing or action tools. Answer scores remain deterministic and independent of tutoring.
+
+At the documented GPT-5.4 nano rates ($0.20/million input tokens, $1.25/million output tokens), a reply using 2,000 input and 300 output tokens costs about $0.000775, or $0.78 per 1,000 such replies. Actual usage varies. This model remains available but is deprecated and shuts down April 1, 2027; evaluate and configure its replacement before that date. Official references: https://developers.openai.com/api/docs/models/gpt-5.4-nano and https://developers.openai.com/api/docs/deprecations.

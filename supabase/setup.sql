@@ -318,6 +318,49 @@ REVOKE ALL ON FUNCTION public.mcat_start_units(text,text,text,text),public.mcat_
 GRANT EXECUTE ON FUNCTION public.mcat_start_units(text,text,text,text),public.mcat_unit_current(uuid),public.mcat_unit_hint(uuid,text),public.mcat_unit_answer(uuid,jsonb,integer,boolean) TO authenticated;
 COMMIT;
 
+-- Optional tutoring after a saved answer. No question or student records are modified.
+create table if not exists public.mcat_tutor_usage (
+  id bigint generated always as identity primary key,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  session_id uuid not null references public.mcat_sessions(id) on delete cascade,
+  question_id text not null,
+  created_at timestamptz not null default now()
+);
+create index if not exists mcat_tutor_usage_time on public.mcat_tutor_usage(created_at);
+create index if not exists mcat_tutor_usage_user_time on public.mcat_tutor_usage(user_id,created_at);
+alter table public.mcat_tutor_usage enable row level security;
+revoke all on public.mcat_tutor_usage from anon, authenticated;
+
+create or replace function public.mcat_claim_tutor(p_session uuid, p_question text)
+returns jsonb language plpgsql security definer set search_path = public as $$
+declare
+  u uuid := auth.uid();
+  context jsonb;
+  used integer;
+  question_used integer;
+begin
+  if u is null then raise exception 'Sign in first'; end if;
+  select jsonb_build_object('question',q.body,'selected',a.selected,'correct',a.correct)
+  into context from mcat_attempts a join mcat_questions q on q.id=a.question_id
+  where a.user_id=u and a.session_id=p_session and a.question_id=p_question
+    and a.question_version=(q.body->>'version')::integer;
+  if context is null then return jsonb_build_object('error','unavailable'); end if;
+  -- Serialize quota reservations across workers; the lock lasts only this transaction.
+  perform pg_advisory_xact_lock(726281493);
+  select count(*),count(*) filter(where question_id=p_question)
+    into used,question_used from mcat_tutor_usage
+    where user_id=u and created_at>now()-interval '24 hours';
+  if used>=20 or question_used>=8 or
+    (select count(*) from mcat_tutor_usage where created_at>now()-interval '24 hours')>=1000 then
+    return jsonb_build_object('error','limit');
+  end if;
+  insert into mcat_tutor_usage(user_id,session_id,question_id) values(u,p_session,p_question);
+  return context || jsonb_build_object('remaining',least(19-used,7-question_used));
+end;
+$$;
+revoke all on function public.mcat_claim_tutor(uuid,text) from public,anon;
+grant execute on function public.mcat_claim_tutor(uuid,text) to authenticated;
+
 -- Original starter questions. Existing versions are preserved.
 insert into public.mcat_questions(id,body) values
 ('cp-partition-oct-q01', '{"id":"cp-partition-oct-q01","topic":"Acid-base speciation","section":"C/P","skill":"Quantitative reasoning","difficulty":"Medium (AI-estimated)","prompt":"At pH 7.0, approximately what percentage of the dissolved compound is neutral HX?","options":["1%","9%","50%","91%"],"answer":1,"explanation":"B is correct. For HX ⇌ H+ + X-, pH - pKa = log([X-]/[HX]). A one-unit difference gives [X-]/[HX] = 10. The neutral fraction is therefore 1/(1 + 10), or approximately 9%. The denominator must include both species.\n\nA: This treats the one-unit pH difference as a two-unit difference, producing a ratio near 100.\n\nC: Equal concentrations occur at pH = pKa, not one unit above it.\n\nD: This is the ionized fraction, 10/11. Raising pH favors deprotonation rather than neutral HX.\n\nConcept: For a weak acid, neutral fraction = 1/(1 + 10^(pH - pKa)); distinguish species ratios from fractions of the total.","hints":["Find the ratio of X- to HX first.","The total is [HX] + [X-], not [X-] alone."],"target_seconds":75,"version":1,"source":"Original passage and invented data, informed by Bittermann and Goss (2017), https://doi.org/10.1371/journal.pone.0190319, and membrane-model research, https://doi.org/10.1371/journal.pone.0116502. No article text or figures reproduced; these are not reported experimental results.","passage":"The permeability of a dissolved compound can depend on more than its affinity for lipid. Researchers compared transport of a monoprotic weak acid, HX, across a protein-free phospholipid barrier. HX has a pKa of 6.0. Its neutral form partitions readily into the barrier, whereas transport of X- through the barrier is negligible. A thin aqueous layer also lies between the stirred bulk solution and each barrier surface.\n\nEqual total concentrations of HX plus X- were placed on the donor side at each pH. The receiver initially contained no compound. Initial transfer rates were measured before donor depletion or receiver accumulation became appreciable. Both compartments were maintained at the indicated pH. Temperature, barrier area, lipid composition, and thickness were identical among trials.\n\nTable 1. Initial transfer rate, in nmol/min. Values are means of four independent barriers; the largest standard deviation was 0.3 nmol/min.\nDonor and receiver pH | Slow stirring | Fast stirring\n5.0 | 4.0 | 8.0\n6.0 | 3.0 | 6.0\n7.0 | 0.9 | 1.0\n\nElectrical measurements and an impermeant reference solute showed comparable barrier integrity at the two stirring rates. A neutral reference compound of similar size showed little pH dependence. Researchers proposed that ionization and transport through the adjacent aqueous layers both contribute to the pattern in Table 1.\n\nIn a separate equilibrium experiment, equal-volume, strongly buffered compartments were maintained at pH 6.0 and pH 7.0. Neutral HX could cross the barrier in either direction, but X- could not. No voltage difference, binding, metabolism, or active transport was present. At equilibrium, the concentration of neutral HX was the same in both compartments. Total concentration was measured after disrupting the barrier.","passage_id":"cp-partition-oct-p01","passage_title":"Ionization and membrane partitioning","passage_order":0,"figures":[]}'::jsonb),

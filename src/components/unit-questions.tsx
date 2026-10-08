@@ -1,7 +1,9 @@
+import { QuestionTutor } from './question-tutor';
 import { Passage } from './passage';
 import type { PracticeUnit, UnitFeedback } from '@/lib/types';
 
-export function UnitQuestions({ unit, choices, feedback, busy, choose, hint, submit, next }: {
+export function UnitQuestions({ unit, choices, feedback, busy, demo=false, owner, choose, hint, submit, next }: {
+  demo?: boolean; owner: string;
   unit: PracticeUnit; choices: Record<string,number>; feedback: UnitFeedback | null; busy: boolean;
   choose: (id:string, choice:number)=>void; hint:(id:string)=>void; submit:()=>void; next:()=>void;
 }) {
@@ -23,6 +25,7 @@ export function UnitQuestions({ unit, choices, feedback, busy, choose, hint, sub
         {f ? <div className={`feedback ${f.correct?'success':''}`}><strong>{f.correct?'Correct':'Incorrect'} · {f.points} points</strong><p>{f.explanation}</p></div>
         : <>{hints.length>0 && <div className="hint-box">{hints.map((h,i)=><p key={i}>{h}</p>)}</div>}
           {unit.session.mode==='training' && <button className="text-button" disabled={busy || hints.length>=2} onClick={()=>hint(q.id)}>{hints.length>=2?'Both hints revealed':`Hint for question ${index+1}`}</button>}</>}
+        {f && <QuestionTutor key={`${owner}:${unit.session.id}:${q.id}`} sessionId={unit.session.id} questionId={q.id} demo={demo} />}
       </section>;
     })}
     <div className="quiz-actions unit-submit" aria-live="polite">
