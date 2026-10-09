@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useId, useRef, useState } from 'react';
 import { getBrowserDb } from '@/lib/supabase';
+import { tutorText } from '@/lib/tutor-text';
 
 type Message = {role:'user'|'assistant';content:string};
 export function QuestionTutor({sessionId,questionId,demo=false}:{sessionId:string;questionId:string;demo?:boolean}) {
@@ -9,6 +10,10 @@ export function QuestionTutor({sessionId,questionId,demo=false}:{sessionId:strin
   const [busy,setBusy]=useState(false),[error,setError]=useState(''),[remaining,setRemaining]=useState<number|null>(null);
   const sending=useRef(false);
   const conversation=useRef<HTMLDivElement>(null);
+  const composer=useRef<HTMLTextAreaElement>(null);
+  useEffect(()=>{
+    if(open && !busy) composer.current?.focus({preventScroll:true});
+  },[open,busy]);
   useEffect(()=>{
     const log=conversation.current;
     const latest=log?.lastElementChild;
@@ -18,7 +23,7 @@ export function QuestionTutor({sessionId,questionId,demo=false}:{sessionId:strin
     log.scrollTop+=latest.getBoundingClientRect().top-log.getBoundingClientRect().top;
   },[messages.length,open]);
   async function send() {
-    if(sending.current || demo || !draft.trim()) return;
+    if(sending.current || demo || remaining===0 || !draft.trim()) return;
     sending.current=true;setBusy(true);setError('');
     const message=draft.trim();
     try {
@@ -38,17 +43,23 @@ export function QuestionTutor({sessionId,questionId,demo=false}:{sessionId:strin
   return <div className="question-tutor">
     <button type="button" className="text-button" aria-expanded={open} aria-controls={id} onClick={()=>setOpen(!open)}>{open?'Close AI tutor':'Ask AI tutor'}</button>
     {open && <section id={id} className="tutor-panel" aria-label="AI tutor for this question">
-      <h3>Let’s make it click</h3>
-      <p className="muted">I have this question, passage, answer choices, correct answer, and your answer. Ask about a concept or a confusing step.</p>
+      <h3>AI tutor</h3>
+      <p className="muted">Ask about this question. I already have the passage, choices, and your answer.</p>
       {demo ? <p>Sign in and submit a practice answer to chat with the tutor. Demo answers do not use AI.</p> : <>
         <div ref={conversation} className="tutor-messages" role="log" aria-label="Tutor conversation" aria-live="polite" tabIndex={0}>
-          {messages.map((m,i)=><div key={i} className={`tutor-message ${m.role}`}><strong>{m.role==='user'?'You':'Tutor'}</strong><p>{m.content}</p></div>)}
+          {messages.map((m,i)=><div key={i} className={`tutor-message ${m.role}`}><strong className="tutor-speaker">{m.role==='user'?'You':'Tutor'}</strong>{(m.role==='assistant'?tutorText(m.content):m.content).split(/\n\s*\n/).map((paragraph,j)=><p key={j}>{paragraph}</p>)}</div>)}
         </div>
-        {!messages.length && <div className="tutor-suggestions">{['Explain the key concept simply.','Why are the other choices wrong?','Walk me through the reasoning.'].map(text=><button type="button" className="text-button" disabled={busy} key={text} onClick={()=>setDraft(text)}>{text}</button>)}</div>}
+        {!messages.length && <div className="tutor-suggestions">{['Explain it simply','Compare the choices','Show the steps'].map(text=><button type="button" disabled={busy} key={text} onClick={()=>{setDraft(text);composer.current?.focus({preventScroll:true});}}>{text}</button>)}</div>}
         <form onSubmit={e=>{e.preventDefault();void send();}}>
-          <label htmlFor={`${id}-message`}>Your follow-up question</label>
-          <textarea id={`${id}-message`} value={draft} onChange={e=>setDraft(e.target.value)} maxLength={1000} rows={3} disabled={busy || remaining===0} placeholder="Which part would you like explained?" />
-          <div className="tutor-footer"><small>{remaining===null?'Up to 8 replies per question · 20 per day':`${remaining} replies left for this question within your daily allowance`}</small><button className="button" disabled={busy || !draft.trim() || remaining===0}>{busy?'Explaining…':'Send'}</button></div>
+          <label htmlFor={`${id}-message`}>Your question</label>
+          <textarea ref={composer} id={`${id}-message`} aria-describedby={`${id}-keys`} value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{
+            if(e.key==='Enter' && !e.shiftKey && !e.nativeEvent.isComposing && e.nativeEvent.keyCode!==229) {
+              e.preventDefault();
+              if(!e.repeat) void send();
+            }
+          }} maxLength={1000} rows={2} disabled={busy || remaining===0} placeholder="What would you like explained?" />
+          <div className="tutor-footer"><small id={`${id}-keys`}>Enter to send · Shift+Enter for a new line</small><button className="button" disabled={busy || !draft.trim() || remaining===0}>{busy?'Explaining…':'Send'}</button></div>
+          <small className="tutor-allowance">{remaining===null?'8 replies per question · 20 per day':`${remaining} replies remaining for this question today`}</small>
         </form>
         <p className="tutor-note">Sending shares this question and your messages with OpenAI. Replies can contain mistakes. Chat clears when you leave this question.</p>
         {error && <p role="alert" className="tutor-error">{error}</p>}

@@ -1607,3 +1607,17 @@ input:focus {
 .tutor-note { color: #52665b; margin-bottom: 0; }
 .tutor-error { color: #9b3029; }
 @media(max-width: 600px) { .tutor-panel { padding: 14px; } .tutor-footer { align-items: flex-start; flex-direction: column; } }
+.tutor-panel { background: #fff; padding: 22px; }
+.tutor-panel > .muted { color: #52665b; margin-bottom: 20px; }
+.tutor-messages { max-height: 440px; scrollbar-gutter: stable; padding-right: 8px; }
+.tutor-message { padding: 16px 18px; background: #f5f8f6; margin: 0 0 16px; border-radius: 12px; }
+.tutor-message.user { margin-left: 36px; background: #eaf2ee; }
+.tutor-speaker { display: block; font-size: 12px; color: #52665b; font-weight: 600; }
+.tutor-message p { color: #23382f; font-size: 15px; line-height: 1.75; margin: 8px 0 0; }
+.tutor-message p + p { margin-top: 14px; }
+.tutor-suggestions button { border: 1px solid #d7e4df; border-radius: 20px; padding: 8px 12px; background: #f5f8f6; color: #355847; font: inherit; font-size: 13px; cursor: pointer; }
+.tutor-suggestions button:hover { background: #eaf2ee; }
+.tutor-panel textarea:focus-visible { outline: 2px solid #60937b; outline-offset: 2px; }
+.tutor-allowance { display: block; color: #52665b; font-size: 12px; margin-top: 8px; }
+.tutor-note { border-top: 1px solid #e8eeea; padding-top: 12px; font-size: 11px; }
+@media(max-width: 600px) { .tutor-panel { padding: 14px; } .tutor-message.user { margin-left: 16px; } .tutor-footer { flex-direction: row; align-items: center; } .tutor-footer small { font-size: 11px; } }
