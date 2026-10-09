@@ -1621,3 +1621,75 @@ input:focus {
 .tutor-allowance { display: block; color: #52665b; font-size: 12px; margin-top: 8px; }
 .tutor-note { border-top: 1px solid #e8eeea; padding-top: 12px; font-size: 11px; }
 @media(max-width: 600px) { .tutor-panel { padding: 14px; } .tutor-message.user { margin-left: 16px; } .tutor-footer { flex-direction: row; align-items: center; } .tutor-footer small { font-size: 11px; } }
+
+/* Plain, readable study workspace. */
+:root { --muted: #52616c; --line: #dce3e7; --radius: 10px; }
+body { font-family: Arial, sans-serif; font-size: 16px; }
+h1, h2, h3, .brand { font-family: Arial, sans-serif; letter-spacing: normal; }
+h1 { font-size: 30px; font-weight: 700; }
+h2 { font-size: 20px; }
+h3 { font-size: 17px; }
+p { color: #4b5c68; }
+small { font-size: 13px; }
+.sidebar nav { margin-top: 30px; }
+.nav-item { font-size: 15px; color: #425461; }
+.identity strong { font-size: 14px; }
+.topbar, .topbar > span { font-size: 15px; color: #425461; }
+.content { max-width: 1200px; padding-top: 30px; padding-bottom: 36px; }
+.page-heading { margin-bottom: 24px; }
+.page-heading p:not(.eyebrow) { font-size: 16px; }
+.eyebrow { font-size: 14px; letter-spacing: normal; text-transform: none; color: #52616c; }
+.card, .mode-card { border-radius: 10px; box-shadow: none; }
+.stat > div { font-size: 15px; }
+.stat p, .fine-print { font-size: 13px; color: #52616c; line-height: 1.6; }
+.stat i { display: none; }
+.stat > strong { font-size: 30px; }
+.mode-card.training, .mode-card.rapid { background: #fff; color: var(--ink); border: 1px solid #cbd8d0; padding: 22px 24px 0; }
+.mode-card:hover { transform: none; border-color: #276950; }
+.mode-card h2 { font-size: 22px; letter-spacing: normal; margin: 0 0 8px; }
+.mode-card p, .rapid p { font-size: 15px; color: #4b5c68; line-height: 1.6; margin-bottom: 18px; }
+.mode-footer, .rapid .mode-footer { font-size: 15px; color: #276950; border-color: #dce3e7; }
+.mode-footer > span, .rapid .mode-footer > span { background: none; }
+.topic-select, .topic-select select, .practice-filters select { font-size: 15px; }
+.pill { font-size: 13px; letter-spacing: normal; }
+.session-link strong, .session-link small, .empty p, .timer-card p { font-size: 14px; }
+.question-text { font-size: 20px; line-height: 1.6; }
+.passage, .answer, .feedback p, .review-content p { font-size: 16px; line-height: 1.75; }
+.quiz-aside .timer-card > span { font-size: 13px; letter-spacing: normal; }
+@media (max-width: 850px) {
+  .shell { flex-direction: column; }
+  .sidebar { position: static; width: 100%; padding: 16px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .brand { justify-content: flex-start; }
+  .brand > span:last-child { display: block; }
+  .sidebar nav { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 16px; }
+  .nav-item { font-size: 14px; width: auto; padding: 9px 12px; margin: 0; justify-content: flex-start; }
+  .sidebar-bottom { padding: 12px 0 0; margin-top: 0; display: flex; align-items: center; justify-content: space-between; }
+  .sidebar-bottom > .nav-item { display: flex; }
+  .identity { border: 0; padding: 0; margin: 0; }
+  main { margin-left: 0; width: 100%; }
+  .content { padding: 24px 18px; }
+  .topbar { height: 56px; padding: 0 18px; }
+  .stats-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .stat { padding: 14px; }
+  .stat > div { font-size: 13px; }
+  .stat > strong { position: static; font-size: 25px; }
+  .stat p { font-size: 13px; }
+  .quiz-aside { display: block; }
+}
+@media (max-width: 480px) {
+  h1 { font-size: 26px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .mode-card.training, .mode-card.rapid { padding: 18px 18px 0; }
+  .practice-filters { align-items: stretch; }
+  .topic-select { max-width: 100%; }
+  .topic-select select { max-width: 100%; }
+}
+.section-heading h2 { font-size: 20px; }
+.topic-select, .stat > div { color: #52616c; }
+.button.small { font-size: 14px; }
+@media(max-width: 600px) {
+  .section-heading { flex-wrap: wrap; align-items: flex-start; }
+  .topic-select { flex-direction: column; align-items: stretch; width: 100%; min-width: 0; gap: 6px; }
+  .topic-select select, .practice-filters select { width: 100%; min-width: 0; max-width: 100%; padding: 9px; }
+  .demo-banner, .resume-banner, .demo-banner > button { font-size: 13px; }
+}

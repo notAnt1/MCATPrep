@@ -481,10 +481,10 @@ export default function Workspace() {
           </span>
           <span>
             MCAT<span className="brand-light">prep</span>
-            <small>MAKE PROGRESS PERSONAL</small>
+
           </span>
         </button>
-        <p className="nav-label">YOUR WORKSPACE</p>
+
         <nav aria-label="Main navigation">
           {(
             [
@@ -502,26 +502,10 @@ export default function Workspace() {
             >
               <n.icon size={19} />
               {n.title}
-              {n.id === "analysis" && <span className="nav-dot" />}
+
             </button>
           ))}
         </nav>
-        <div className="sidebar-note">
-          <span className="small-icon">
-            <Sparkles size={19} />
-          </span>
-          <h3>Every answer tells a story.</h3>
-          <p>Find your patterns. Focus your practice. Build understanding.</p>
-          <div className="line-art">
-            <i />
-            <i />
-            <i />
-            <i />
-            <i />
-            <i />
-            <i />
-          </div>
-        </div>
         <div className="sidebar-bottom">
           <button
             className="nav-item"
@@ -542,13 +526,7 @@ export default function Workspace() {
                   : displayName ||
                     (user ? "Your workspace" : "Guest workspace")}
               </strong>
-              <small>
-                {demo
-                  ? "Saved on this device"
-                  : user
-                    ? "Personal study space"
-                    : "Explore at your pace"}
-              </small>
+
             </div>
             {signedIn && (
               <button
@@ -566,7 +544,6 @@ export default function Workspace() {
       <main>
         <header className="topbar">
           <span>
-            Workspace <ChevronRight size={14} />{" "}
             {current
               ? "Practice session"
               : reportSession
@@ -580,14 +557,6 @@ export default function Workspace() {
                   }[view]}
           </span>
           <div>
-            <span className="private-badge">
-              <span />
-              {demo
-                ? "Local demo"
-                : user
-                  ? "Private workspace"
-                  : "Personal beta"}
-            </span>
             {!signedIn && (
               <button
                 className="button small"
@@ -632,7 +601,7 @@ export default function Workspace() {
                   <p className="eyebrow">
                     {label(current.session.mode)} / {current.question.section}
                   </p>
-                  <h1>A little focus. A step forward.</h1>
+                  <h1>Practice</h1>
                 </div>
                 <button
                   className="button secondary"
@@ -701,14 +670,6 @@ export default function Workspace() {
                       {paused ? "Resume" : "Pause"}
                     </button>
                   </div>
-                  <div className="card note-card">
-                    <Sparkles size={20} />
-                    <h3>More than right or wrong</h3>
-                    <p>
-                      Your report considers timing, hints, and first attempts. A
-                      slower correct answer can be progress, too.
-                    </p>
-                  </div>
                 </aside>
               </div>
             </>
@@ -719,7 +680,7 @@ export default function Workspace() {
                   <p className="eyebrow">
                     SESSION COMPLETE · {label(reportSession.mode)}
                   </p>
-                  <h1>Here’s what you learned.</h1>
+                  <h1>Session results</h1>
                   <p>
                     {date(reportSession.created_at)} · {currentAttempts.length}{" "}
                     questions answered
@@ -836,32 +797,16 @@ export default function Workspace() {
             <>
               <div className="page-heading">
                 <div>
-                  <p className="eyebrow">SMALL STEPS. CLEARER PROGRESS.</p>
-                  <h1>
-                    Your next breakthrough
-                    <br />
-                    starts with a question.
-                  </h1>
-                  <p>
-                    Practice with purpose. Understand your patterns. Make the
-                    next session count.
-                  </p>
+                  <h1>Practice MCAT questions</h1>
+                  <p>Choose a topic and start a session.</p>
                 </div>
-                <div className="date-tag">
-                  <span>YOUR MCAT JOURNEY</span>
-                  <strong>One session at a time.</strong>
-                  <span className="tiny-line" />
-                </div>
+
               </div>
               <div className="stats-grid">
                 <Stat
                   title="Questions answered"
                   value={`${all.answered}`}
-                  note={
-                    all.answered
-                      ? "Every attempt is a learning signal"
-                      : "Your first session starts the story"
-                  }
+                  note=""
                   icon={<BookOpen />}
                 />
                 <Stat
@@ -878,7 +823,7 @@ export default function Workspace() {
                 />
               </div>
               <div className="section-heading">
-                <h2>Find your focus</h2>
+                <h2>Start practice</h2>
                 <label className="topic-select">
                   Practice topic{" "}
                   <select
@@ -903,20 +848,8 @@ export default function Workspace() {
                   disabled={busy}
                   onClick={() => start("training")}
                 >
-                  <span className="mode-icon">
-                    <BookOpen size={25} />
-                  </span>
-                  <span className="mode-kicker">BUILD UNDERSTANDING</span>
                   <h2>Training</h2>
-                  <p>
-                    Room to think. Hints when you need them.
-                    <br />
-                    Understand the why behind every answer.
-                  </p>
-                  <div className="mode-tags">
-                    <span>No time limit</span>
-                    <span>Guided hints</span>
-                  </div>
+                  <p>Untimed practice with hints and explanations.</p>
                   <div className="mode-footer">
                     <strong>
                       {active ? "Resume practice" : "Start training"}
@@ -931,23 +864,11 @@ export default function Workspace() {
                   disabled={busy}
                   onClick={() => start("rapid")}
                 >
-                  <span className="mode-icon">
-                    <Zap size={25} />
-                  </span>
-                  <span className="mode-kicker">BUILD CONFIDENCE & PACE</span>
                   <h2>Rapid fire</h2>
-                  <p>
-                    Quick decisions. Clear feedback.
-                    <br />
-                    Find the balance between speed and accuracy.
-                  </p>
-                  <div className="mode-tags">
-                    <span>Speed bonus</span>
-                    <span>About 10 questions · complete passage sets</span>
-                  </div>
+                  <p>Practice your pace and earn points for accurate answers.</p>
                   <div className="mode-footer">
                     <strong>
-                      {active ? "Resume practice" : "Take the challenge"}
+                      {active ? "Resume practice" : "Start rapid fire"}
                     </strong>
                     <span>
                       <ArrowRight size={21} />
@@ -971,20 +892,14 @@ export default function Workspace() {
                 <section className="card insight-card">
                   <div className="section-heading">
                     <h2>
-                      <Sparkles size={19} /> Your learning signal
+                      Progress summary
                     </h2>
-                    <span className="pill">PERSONAL INSIGHTS</span>
+
                   </div>
-                  <h3>
-                    {latestReport
-                      ? "Your progress, in perspective."
-                      : all.answered
-                        ? "Your patterns are taking shape."
-                        : "A clearer picture begins here."}
-                  </h3>
+
                   <p>
                     {latestReport?.overall_summary ||
-                      "After a session, see where accuracy and timing line up—and where a little focused practice could help. Your profile grows with your history."}
+                      "Complete a session to see your strengths and topics to review."}
                   </p>
                   <button
                     className="text-button"
@@ -1063,8 +978,7 @@ export default function Workspace() {
             <>
               <div className="page-heading">
                 <div>
-                  <p className="eyebrow">YOUR PERSISTENT LEARNING PROFILE</p>
-                  <h1>Understand your patterns.</h1>
+                  <h1>My analysis</h1>
                   <p>
                     Accuracy is one signal. Timing, assistance, and fresh
                     attempts complete the picture.
@@ -1135,8 +1049,7 @@ export default function Workspace() {
             <>
               <div className="page-heading">
                 <div>
-                  <p className="eyebrow">YOUR PRACTICE LOG</p>
-                  <h1>Every session builds on the last.</h1>
+                  <h1>Session history</h1>
                   <p>
                     Revisit your results and the thinking behind your next
                     steps.
@@ -1190,8 +1103,7 @@ export default function Workspace() {
             <>
               <div className="page-heading">
                 <div>
-                  <p className="eyebrow">A LITTLE FRIENDLY MOMENTUM</p>
-                  <h1>The weekly leaderboard.</h1>
+                  <h1>Weekly leaderboard</h1>
                   <p>
                     Rapid-fire points from completed rounds. Fresh questions
                     count; repeat answers earn zero.
@@ -1233,8 +1145,7 @@ export default function Workspace() {
             <>
               <div className="page-heading">
                 <div>
-                  <p className="eyebrow">YOUR SPACE, YOUR PREFERENCES</p>
-                  <h1>Profile & settings.</h1>
+                  <h1>Profile & settings</h1>
                 </div>
               </div>
               <section className="card settings-card">
@@ -1294,19 +1205,13 @@ export default function Workspace() {
                 </p>
                 <p>
                   AI reports send topic-level performance statistics to OpenAI,
-                  without your email or nickname. Live tutoring and automatic
-                  book ingestion are not enabled in this first version.
+                  without your email or nickname. The optional tutor sends the
+                  question, your answer, and your chat messages when you press Send.
                 </p>
               </section>
             </>
           )}
-          <footer>
-            <span>
-              <Activity size={14} /> MCATprep
-            </span>
-            <span>A little more understanding, every day.</span>
-            <span>PERSONAL BETA · 01</span>
-          </footer>
+
         </div>
       </main>
       {authOpen && (
@@ -1407,7 +1312,7 @@ function Stat({
         <i>{icon}</i>
       </div>
       <strong>{value}</strong>
-      <p>{note}</p>
+      {note && <p>{note}</p>}
     </section>
   );
 }
