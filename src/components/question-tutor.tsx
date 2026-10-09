@@ -1,5 +1,5 @@
 'use client';
-import { useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { getBrowserDb } from '@/lib/supabase';
 
 type Message = {role:'user'|'assistant';content:string};
@@ -8,6 +8,15 @@ export function QuestionTutor({sessionId,questionId,demo=false}:{sessionId:strin
   const [open,setOpen]=useState(false),[draft,setDraft]=useState(''),[messages,setMessages]=useState<Message[]>([]);
   const [busy,setBusy]=useState(false),[error,setError]=useState(''),[remaining,setRemaining]=useState<number|null>(null);
   const sending=useRef(false);
+  const conversation=useRef<HTMLDivElement>(null);
+  useEffect(()=>{
+    const log=conversation.current;
+    const latest=log?.lastElementChild;
+    if(!log || !latest) return;
+    // Reveal the new reply inside the chat without moving the surrounding question.
+    // Align its beginning so longer answers remain readable from the first line.
+    log.scrollTop+=latest.getBoundingClientRect().top-log.getBoundingClientRect().top;
+  },[messages.length,open]);
   async function send() {
     if(sending.current || demo || !draft.trim()) return;
     sending.current=true;setBusy(true);setError('');
@@ -32,7 +41,7 @@ export function QuestionTutor({sessionId,questionId,demo=false}:{sessionId:strin
       <h3>Let’s make it click</h3>
       <p className="muted">I have this question, passage, answer choices, correct answer, and your answer. Ask about a concept or a confusing step.</p>
       {demo ? <p>Sign in and submit a practice answer to chat with the tutor. Demo answers do not use AI.</p> : <>
-        <div className="tutor-messages" role="log" aria-label="Tutor conversation" aria-live="polite">
+        <div ref={conversation} className="tutor-messages" role="log" aria-label="Tutor conversation" aria-live="polite" tabIndex={0}>
           {messages.map((m,i)=><div key={i} className={`tutor-message ${m.role}`}><strong>{m.role==='user'?'You':'Tutor'}</strong><p>{m.content}</p></div>)}
         </div>
         {!messages.length && <div className="tutor-suggestions">{['Explain the key concept simply.','Why are the other choices wrong?','Walk me through the reasoning.'].map(text=><button type="button" className="text-button" disabled={busy} key={text} onClick={()=>setDraft(text)}>{text}</button>)}</div>}
