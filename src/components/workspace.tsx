@@ -26,6 +26,7 @@ import type { User } from "@supabase/supabase-js";
 import { getBrowserDb } from "@/lib/supabase";
 import { analyze, fallbackReport } from "@/lib/analytics";
 import { demoUnitCurrent, demoUnitHint, demoUnitAnswer } from '@/lib/demo-units';
+import { TopicHeatmap } from './topic-heatmap';
 import { QuestionTutor } from './question-tutor';
 import { UnitQuestions } from './unit-questions';
 import { Passage } from './passage';
@@ -744,7 +745,7 @@ export default function Workspace() {
                       : "Generate / retry AI report"}
                   </button>
                 )}
-              <TopicTable attempts={currentAttempts} session />
+              <TopicHeatmap attempts={currentAttempts} session />
               <section className="card answer-review">
                 <h2>Answer review</h2>
                 <p>Revisit your questions and explanations here or from Session history. Reviewing does not change your score.</p>
@@ -995,7 +996,7 @@ export default function Workspace() {
                     {demo
                       ? "Demo profile calculated from this browser’s history."
                       : `AI profile updated after the ${date(latest!.created_at)} session.`}{" "}
-                    The topic table below always reflects your loaded history.
+                    The heat map below updates from your completed sessions.
                   </p>
                 </>
               ) : (
@@ -1022,7 +1023,7 @@ export default function Workspace() {
                   </button>
                 </section>
               )}
-              <TopicTable attempts={attempts} />
+              <TopicHeatmap attempts={attempts.filter(a=>finished.some(s=>s.id===a.session_id))} />
               <section className="card methodology">
                 <h3>How to read your profile</h3>
                 <div>
@@ -1390,115 +1391,6 @@ function ReportPanel({
         ))}
       </div>
       <p className="fine-print">{report.caveat}</p>
-    </section>
-  );
-}
-function TopicTable({
-  attempts,
-  session = false,
-}: {
-  attempts: Attempt[];
-  session?: boolean;
-}) {
-  const stats = analyze(attempts);
-  return (
-    <section className="card topic-card">
-      <div className="section-heading">
-        <div>
-          <h2>{session ? "This session by topic" : "Your topic map"}</h2>
-          <p>
-            {session
-              ? "All first submissions, including assisted answers."
-              : "Recent accuracy uses up to 20 independent first attempts per topic."}
-          </p>
-        </div>
-        <BarChart3 size={20} className="muted" />
-      </div>
-      {!stats.topics.length ? (
-        <div className="empty-small">
-          <p>Topic-level evidence will appear after your first answers.</p>
-        </div>
-      ) : (
-        <div className="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>TOPIC</th>
-                <th>{session ? "ACCURACY" : "RECENT ACCURACY"}</th>
-                <th>EVIDENCE</th>
-                <th>MEDIAN TIME · CORRECT</th>
-                <th>{session ? "TIMING SIGNALS" : "ASSESSMENT"}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stats.topics.map((t) => (
-                <tr key={t.topic}>
-                  <td>
-                    <strong>{t.topic}</strong>
-                    <small>
-                      {t.assisted} assisted · {t.repeats} repeated
-                    </small>
-                  </td>
-                  <td>
-                    <div className="accuracy">
-                      <strong>
-                        {(session ? t.accuracy : t.recentAccuracy) === null
-                          ? "—"
-                          : `${session ? t.accuracy : t.recentAccuracy}%`}
-                      </strong>
-                      <span>
-                        <i
-                          style={{
-                            width: `${(session ? t.accuracy : t.recentAccuracy) || 0}%`,
-                          }}
-                        />
-                      </span>
-                    </div>
-                  </td>
-                  <td>
-                    {session ? t.attempts : t.recentSample}
-                    <small>
-                      {session ? "answers" : "independent first attempts"}
-                    </small>
-                  </td>
-                  <td>
-                    {t.timing
-                      .filter((m) => m.sample)
-                      .map((m) => (
-                        <small className="timing-line" key={m.mode}>
-                          {label(m.mode)}: {seconds(m.medianCorrectSeconds)}{" "}
-                          <span>({m.sample} timed)</span>
-                        </small>
-                      ))}
-                    {t.timing.every((m) => !m.sample) && "—"}
-                  </td>
-                  <td>
-                    {session ? (
-                      <small>
-                        {t.timing.reduce((n, m) => n + m.slowCorrect, 0)} slow
-                        correct
-                        <br />
-                        {t.timing.reduce((n, m) => n + m.fastMisses, 0)} fast
-                        misses
-                      </small>
-                    ) : (
-                      <span
-                        className={`status ${t.status === "Priority practice" ? "amber" : t.status === "Developing strength" ? "green" : ""}`}
-                      >
-                        {t.status}
-                      </span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-      <p className="fine-print">
-        Provisional timing targets, not population norms. Statistics are
-        descriptive; small samples cannot establish mastery.
-      </p>
     </section>
   );
 }

@@ -1693,3 +1693,28 @@ small { font-size: 13px; }
   .topic-select select, .practice-filters select { width: 100%; min-width: 0; max-width: 100%; padding: 9px; }
   .demo-banner, .resume-banner, .demo-banner > button { font-size: 13px; }
 }
+
+.heatmap-toolbar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; margin-bottom:12px; }
+.heatmap-legend { display:flex; flex-wrap:wrap; gap:8px; }
+.heatmap-legend span { padding:5px 9px; border-radius:5px; font-size:13px; color:#21352c; }
+.topic-map .low { background-color:#f5d4c5; }
+.topic-map .mid { background-color:#f5e7b9; }
+.topic-map .high { background-color:#c7e4d3; }
+.topic-map .unseen { background-color:#eef1f3; }
+.heatmap-toolbar select { padding:7px; margin-left:6px; border:1px solid #cad5cf; border-radius:6px; background:white; }
+.heatmap-help { font-size:14px; margin-bottom:18px; }
+.heatmap-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; }
+.heatmap-tile { display:flex; flex-direction:column; align-items:flex-start; justify-content:space-between; gap:12px; min-height:150px; padding:16px; border:2px solid transparent; border-radius:8px; text-align:left; color:#20392d; }
+.heatmap-tile.limited { background-image:repeating-linear-gradient(135deg,transparent,transparent 9px,#ffffff55 9px,#ffffff55 12px); }
+.heatmap-tile:hover { border-color:#6b8979; }
+.heatmap-tile[aria-pressed=true] { border-color:#1d503b; box-shadow:0 0 0 1px #1d503b; }
+.heatmap-name { font-size:15px; line-height:1.4; font-weight:600; }
+.heatmap-tile strong { font-size:25px; }
+.heatmap-tile > span:last-child { font-size:13px; }
+.topic-detail { background:#f8faf9; border:1px solid #ccd9d1; border-radius:8px; padding:20px; margin-bottom:20px; }
+.topic-detail p { margin-top:12px; font-size:14px; }
+.topic-detail-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+.topic-detail-stats strong,.topic-detail-stats span { display:block; }
+.topic-detail-stats strong { font-size:26px; }
+.topic-detail-stats span { font-size:14px; color:#52616c; }
+@media(max-width:600px) { .heatmap-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .heatmap-tile { padding:12px; } .heatmap-name { overflow-wrap:anywhere; } .topic-detail-stats { grid-template-columns:1fr; } }
