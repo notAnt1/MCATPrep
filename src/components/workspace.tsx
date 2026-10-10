@@ -12,6 +12,7 @@ import {
   GraduationCap,
   History,
   LayoutDashboard,
+  Network,
   LogOut,
   Pause,
   Play,
@@ -28,6 +29,7 @@ import { analyze, fallbackReport } from "@/lib/analytics";
 import { demoUnitCurrent, demoUnitHint, demoUnitAnswer } from '@/lib/demo-units';
 import { PracticeTopicPicker } from './practice-topic-picker';
 import { TopicHeatmap } from './topic-heatmap';
+import { TopicExplorer } from './topic-explorer';
 import { QuestionTutor } from './question-tutor';
 import { UnitQuestions } from './unit-questions';
 import { Passage } from './passage';
@@ -49,7 +51,7 @@ import type {
   UnitFeedback,
 } from "@/lib/types";
 
-type View = "overview" | "analysis" | "history" | "leaderboard" | "settings";
+type View = "overview" | "topics" | "analysis" | "history" | "leaderboard" | "settings";
 type Current = PracticeUnit;
 
 const date = (s: string) =>
@@ -500,6 +502,7 @@ export default function Workspace() {
             [
               { id: "overview", title: "Overview", icon: LayoutDashboard },
               { id: "analysis", title: "My analysis", icon: BarChart3 },
+              { id: "topics", title: "Topic map", icon: Network },
               { id: "history", title: "Session history", icon: History },
               { id: "leaderboard", title: "Leaderboard", icon: Trophy },
             ] as const
@@ -561,6 +564,7 @@ export default function Workspace() {
                 : {
                     overview: "Overview",
                     analysis: "My analysis",
+                    topics: "Topic map",
                     history: "Session history",
                     leaderboard: "Leaderboard",
                     settings: "Profile & settings",
@@ -971,6 +975,8 @@ export default function Workspace() {
                 Not a full MCAT simulation.
               </p>
             </>
+          ) : view === "topics" ? (
+            <TopicExplorer bank={inventory} ready={inventoryReady} onPractice={(id, section) => { setTopic(id); setTrainingSection(section); navigate("overview"); }} />
           ) : view === "analysis" ? (
             <>
               <div className="page-heading">
