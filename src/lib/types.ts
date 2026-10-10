@@ -22,6 +22,17 @@ export type FullQuestion = Question & {
   hints: string[];
 };
 export type Attempt = {
+  family_id?: string;
+  passage_id?: string | null;
+  annotation?: import('./canonical-topics').Annotation | null;
+  exposure_known?: boolean;
+  prior_hint?: boolean;
+  prior_answer?: boolean;
+  prior_solution?: boolean;
+  prior_item?: boolean;
+  prior_passage?: boolean;
+  difficulty?: string;
+  difficulty_status?: string;
   id?: string;
   session_id: string;
   question_id: string;

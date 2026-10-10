@@ -1,3 +1,5 @@
+import { annotationMatches, parentId, type Annotation } from './canonical-topics';
+import inventory from '../../data/reviewed/canonical-inventory.json';
 import type { FullQuestion, Attempt } from './types';
 
 export function chooseUnits(bank: FullQuestion[], attempts: Attempt[], topic: string | null, skill = '', section = '') {
@@ -7,7 +9,7 @@ export function chooseUnits(bank: FullQuestion[], attempts: Attempt[], topic: st
     groups.set(key, [...(groups.get(key) || []), q]);
   }
   const ranked = [...groups.values()]
-    .filter(g => g.some(q => (!topic || q.topic === topic) && (!skill || q.skill === skill) && (!section || q.section === section)))
+    .filter(g => g.some(q => (!topic || (parentId(topic) ? (inventory as Annotation[]).some(a=>a.question_id===q.id && annotationMatches(a,topic,true)) : q.topic===topic)) && (!skill || q.skill === skill) && (!section || q.section === section)))
     .map(g => ({ g: g.sort((a,b) => (a.passage_order || 0) - (b.passage_order || 0)), seen: attempts.filter(a => g.some(q => q.id === a.question_id)).length / g.length, rand: Math.random() }))
     .sort((a,b) => a.seen-b.seen || a.rand-b.rand);
   const selected: FullQuestion[] = [];

@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-09",
+  "taxonomy_version": "1.0.0",
+  "counts": {
+    "navigation_groups": 26,
+    "selectable_topics": 128,
+    "expandable_subtopics": 525,
+    "coverage_concepts": 938
+  },
+  "passed_checks": [
+    "Unique topic, group, and child IDs",
+    "Exactly one navigation group per topic",
+    "Parent references resolve",
+    "Published counts match actual data",
+    "All 31 science category destinations represented",
+    "All three CARS families and four science skills represented",
+    "Crosswalk agrees with JSON category destinations",
+    "CSV and JSON topic inventories agree",
+    "All four sections represented",
+    "Source pages are in the 111-page outline",
+    "Membrane transport contains selectable active transport",
+    "Reviewed split topics remain separate",
+    "CARS classification allows reasoning-scope adjudication",
+    "Reviewed omission regressions remain present",
+    "CARS contexts do not imply knowledge mastery",
+    "JSON explicitly excludes exposed retries from fresh accuracy",
+    "Source fingerprint matches inspected local outline"
+  ],
+  "failed_checks": [],
+  "limits": [
+    "Structural and selected regression checks do not certify every outline bullet.",
+    "Website selection/scoring implementation not tested or modified.",
+    "No learner calibration or AAMC endorsement."
+  ]
+}

@@ -130,6 +130,6 @@ export function fallbackReport(current: Attempt[], history: Attempt[]): Report {
           .map((t) => `Try new ${t.topic} questions after a focused review.`)
       : ["Try new questions across several topics to build stronger evidence."],
     caveat:
-      "Statistics-only report. Timing targets are provisional. Assisted and repeated answers are excluded from independent mastery estimates. Fewer than five independent answers is insufficient evidence.",
+      "Statistics-only summary using original question labels. Timing targets are provisional. Use the canonical topic heat map for lifetime first-exposure evidence, deduplicated family totals, and context counts.",
   };
 }

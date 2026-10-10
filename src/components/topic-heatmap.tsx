@@ -1,82 +1,352 @@
-'use client';
-import { useEffect, useId, useMemo, useRef, useState } from 'react';
-import { topicMap, compareTopics, sectionNames, type TopicTile } from '@/lib/topic-map';
-import type { Attempt } from '@/lib/types';
-
-
-export function TopicHeatmap({attempts,session=false}:{attempts:Attempt[];session?:boolean}) {
-  const [selected,setSelected]=useState<string|null>(null);
-  const [filter,setFilter]=useState('all');
-  const [query,setQuery]=useState('');
-  const [sort,setSort]=useState('priority');
-  const [expanded,setExpanded]=useState<string|null>(null);
-  const [limits,setLimits]=useState<Record<string,number>>({});
-  const detailsId=useId();
-  const detail=useRef<HTMLDivElement>(null);
-  useEffect(()=>{
-    if(selected) {
-      detail.current?.scrollIntoView({block:'nearest'});
-      detail.current?.focus({preventScroll:true});
+"use client";
+import { useMemo, useState } from "react";
+import {
+  taxonomy,
+  groups,
+  sections,
+  searchTopics,
+  targetLabel,
+  type Annotation,
+} from "@/lib/canonical-topics";
+import {
+  summarizeTarget,
+  type EvidenceAttempt,
+} from "@/lib/canonical-performance";
+export function TopicHeatmap({
+  attempts,
+  bank,
+  sessionId,
+  completedSessionIds,
+  ready = true,
+  unanswered = 0,
+}: {
+  attempts: EvidenceAttempt[];
+  bank: Annotation[];
+  sessionId?: string;
+  completedSessionIds?: string[];
+  ready?: boolean;
+  unanswered?: number;
+}) {
+  const [openGroups, setOpenGroups] = useState<string[]>([]);
+  const [openTopics, setOpenTopics] = useState<string[]>([]);
+  const [section, setSection] = useState(""),
+    [query, setQuery] = useState(""),
+    [window, setWindow] = useState("all"),
+    [integrated, setIntegrated] = useState(false),
+    [selected, setSelected] = useState(""),
+    [mode, setMode] = useState(""),
+    [onlyAvailable, setOnlyAvailable] = useState(false);
+  const since =
+    window === "30"
+      ? new Date(Date.now() - 30 * 86400000).toISOString()
+      : undefined;
+  const options = {
+    section,
+    since,
+    integrated,
+    sessionId,
+    completedSessionIds,
+    mode,
+  };
+  const cache = useMemo(
+    () => new Map<string, ReturnType<typeof summarizeTarget>>(),
+    [
+      attempts,
+      bank,
+      section,
+      window,
+      integrated,
+      sessionId,
+      completedSessionIds,
+      mode,
+    ],
+  );
+  const stats = (id: string) => {
+    let v = cache.get(id);
+    if (!v) {
+      v = summarizeTarget(attempts, bank, id, options);
+      cache.set(id, v);
     }
-  },[selected]);
-  const tiles=useMemo(()=>topicMap(attempts,session),[attempts,session]);
-  const visible=tiles.filter(t=>(!query.trim()||t.topic.toLowerCase().includes(query.trim().toLowerCase())) &&
-    (filter==='all'||(filter==='practiced'?!!t.t:filter==='priority'?t.priority:filter==='early'?t.sample>0&&t.sample<5:filter==='unseen'?t.accuracy===null:t.accuracy!==null&&t.accuracy<65)))
-    .sort(sort==='name'?(a,b)=>a.topic.localeCompare(b.topic):sort==='least'?(a,b)=>a.sample-b.sample||a.topic.localeCompare(b.topic):compareTopics);
-  const priorities=tiles.filter(t=>t.priority).sort(compareTopics);
-  const early=tiles.filter(t=>t.sample>0&&t.sample<5&&t.accuracy!==null&&t.accuracy<100).sort(compareTopics);
-  const suggestions=(priorities.length?priorities:early).slice(0,3);
-  const resetView=()=>{setLimits({});setSelected(null);};
-  function tile(t:TopicTile) {
-    return <button key={t.topic} type="button" aria-pressed={selected===t.topic} aria-controls={selected===t.topic?detailsId:undefined} className={`heatmap-tile ${t.tone} ${t.sample>0&&t.sample<5?'limited':''}`} onClick={()=>setSelected(selected===t.topic?null:t.topic)}>
-      <span className="heatmap-name">{t.topic}</span><strong>{t.accuracy===null?'—':`${t.accuracy}%`}</strong><span>{t.sample?`${t.sample} ${t.sample===1?'answer':'answers'}${t.sample<5?' · early signal':''}`:t.t?'No independent answers':'Not practiced'}</span>
-    </button>;
-  }
-  const active=tiles.find(t=>t.topic===selected);
-  return <section className="card topic-card topic-map">
-    <div className="section-heading"><div><h2>{session?'Session heat map':'Topic heat map'}</h2><p>{session?'Accuracy in this session. Select a topic for details.':'Your latest 20 independent first attempts per topic. Updates after each completed session.'}</p></div></div>
-    <div className="map-priorities">
-      <h3>{priorities.length?'What to practice next':early.length?'Revisit these early misses':'What to practice next'}</h3>
-      <p>{priorities.length?'Lowest accuracy with at least 5 answers. Select a topic to inspect the evidence.':early.length?'These misses are worth reviewing, but there is not enough evidence to call them persistent struggles.':'No established weak topics yet. Try unpracticed topics or build evidence with fresh questions.'}</p>
-      {suggestions.length>0&&<div className="map-recommendations">{suggestions.map(t=><button key={t.topic} onClick={()=>setSelected(t.topic)}><strong>{t.topic}</strong><span>{t.accuracy}% · {t.sample} answers · {t.section}</span></button>)}</div>}
-    </div>
-    <div className="map-controls">
-      <label>Find a topic<input type="search" value={query} placeholder="Search topics…" onChange={e=>{setQuery(e.target.value);resetView();}} /></label>
-      <label>Show<select value={filter} onChange={e=>{setFilter(e.target.value);resetView();}}><option value="all">All topics</option><option value="priority">Needs practice (5+ answers)</option><option value="review">Below 65% (any sample)</option><option value="early">Early evidence</option><option value="practiced">Practiced topics</option><option value="unseen">No independent evidence</option></select></label>
-      <label>Sort<select value={sort} onChange={e=>{setSort(e.target.value);setLimits({});}}><option value="priority">Practice priority</option><option value="name">Topic name</option><option value="least">Least evidence</option></select></label>
-    </div>
-    <div className="heatmap-toolbar">
-      <div className="heatmap-legend" aria-label="Accuracy legend"><span className="low">Below 65%</span><span className="mid">65–79%</span><span className="high">80–100%</span><span className="unseen">No evidence</span></div>
-
-    </div>
-    <p className="heatmap-help">Striped tiles have fewer than 5 answers—an early signal, not a mastery rating.</p>
-    {active && <div ref={detail} tabIndex={-1} id={detailsId} className="topic-detail" role="region" aria-label={`${active.topic} details`}>
-      <div className="section-heading"><h3>{active.topic}</h3><button className="text-button" onClick={()=>setSelected(null)}>Close details</button></div>
-      {active.t ? <>
-        <div className="topic-detail-stats"><div><strong>{active.accuracy===null?'—':`${active.accuracy}%`}</strong><span>{session?'Session accuracy':'Recent independent accuracy'}</span></div><div><strong>{active.sample}</strong><span>{session?'Answers this session':'Independent first attempts in sample'}</span></div><div><strong>{active.t.attempts}</strong><span>Total answers · {active.t.assisted} assisted · {active.t.repeats} repeated</span></div></div>
-        <p>{active.sample<5?'More independent practice is needed before drawing conclusions.':session?'Session accuracy includes assisted and repeated answers.':active.t.status}</p>
-        <p>Last practiced: {new Date(active.t.lastPracticed!).toLocaleDateString()}. {active.t.previousAccuracy!==null&&!session?`Previous sample: ${active.t.previousAccuracy}% across ${active.t.previousSample} answers.`:''}</p>
-        <div className="topic-timing">{active.t.timing.map(t=><p key={t.mode}>{t.mode==='training'?'Training':'Rapid fire'}: {t.medianCorrectSeconds===null?'No valid individual timing for correct answers':`${Math.round(t.medianCorrectSeconds)}s median on correct answers`}.</p>)}</div>
-      </>:<p>No answers yet. Practice this topic to start building your map.</p>}
-    </div>}
-    <div className="map-sections">{Object.entries(sectionNames).map(([section,name])=>{
-      const all=tiles.filter(t=>t.section===section);
-      const items=visible.filter(t=>t.section===section);
-      if(!all.length || !items.length) return null;
-      const isOpen=!!query.trim() || expanded===section;
-      const limit=limits[section]||12;
-      const priorityCount=all.filter(t=>t.priority).length;
-      return <div className="map-section" key={section}>
-        <button className="map-section-toggle" aria-expanded={isOpen} aria-controls={`${detailsId}-${section}`} onClick={()=>{setQuery('');setExpanded(isOpen?null:section);setSelected(null);}}>
-          <span><strong>{section}</strong><span>{name}</span></span>
-          <span className="map-section-counts">{items.length===all.length?`${all.length} topics`:`${items.length} of ${all.length} topics`} · {all.filter(t=>t.t).length} practiced{priorityCount?` · ${priorityCount} need practice`:''}</span>
-          <span aria-hidden="true">{isOpen?'−':'+'}</span>
-        </button>
-        <div className="map-section-bar" aria-label="All topics in this section: distribution of accuracy colors, not an overall section score">{['low','mid','high','unseen'].map(tone=>{const count=all.filter(t=>t.tone===tone).length;return count?<span key={tone} className={tone} style={{flex:count}} title={`${count} topics: ${tone==='low'?'below 65%':tone==='mid'?'65–79%':tone==='high'?'80–100%':'no evidence'}`} />:null;})}</div>
-        {isOpen&&<div id={`${detailsId}-${section}`} className="map-section-content"><p className="heatmap-help">Showing {Math.min(limit,items.length)} of {items.length} matching topics</p><div className="heatmap-grid">{items.slice(0,limit).map(tile)}</div>{items.length>limit&&<button className="text-button" onClick={()=>setLimits({...limits,[section]:limit+12})}>Show 12 more topics</button>}</div>}
-      </div>;
-    })}</div>
-    {!visible.length&&<p className="empty-small">No topics match this view yet.</p>}
-    {!session&&<p className="fine-print">Hint-assisted answers and repeats do not affect the accuracy colors. Click a tile to see them in its details.</p>}
-  </section>;
+    return v;
+  };
+  const matches = searchTopics(query, section).filter(
+    (t) => !onlyAvailable || stats(t.id).available || stats(t.id).count,
+  );
+  const active = selected ? stats(selected) : null;
+  const label = (s: ReturnType<typeof stats>) =>
+    s.state === "unavailable"
+      ? "No questions available yet"
+      : s.state === "unattempted"
+        ? "Not yet attempted"
+        : s.limited
+          ? "Limited evidence"
+          : "First-exposure accuracy";
+  const tile = (id: string) => (
+    <button
+      key={id}
+      className={"heatmap-tile " + stats(id).state}
+      aria-pressed={selected === id}
+      onClick={() => setSelected(id)}
+    >
+      <span className="heatmap-name">{targetLabel(id)}</span>
+      <strong>
+        {stats(id).accuracy === null
+          ? "—"
+          : Math.round(stats(id).accuracy!) + "%"}
+      </strong>
+      <span>{label(stats(id))}</span>
+      <span>
+        {stats(id).correct}/{stats(id).count} correct · {stats(id).contexts}{" "}
+        contexts
+      </span>
+      <span>{stats(id).available} available</span>
+    </button>
+  );
+  const held = attempts.filter((a) => {
+    const tag =
+      a.annotation ||
+      bank.find(
+        (b) =>
+          b.question_id === a.question_id &&
+          b.content_version === a.question_version,
+      );
+    return !tag || tag.review_status === "needs-review";
+  }).length;
+  const skillBank = bank.map((a) => ({
+    ...a,
+    primary: a.skill,
+    secondary: a.secondary_skills,
+  }));
+  const skillAttempts = attempts.map((a) => ({
+    ...a,
+    annotation: a.annotation
+      ? {
+          ...a.annotation,
+          primary: a.annotation.skill,
+          secondary: a.annotation.secondary_skills,
+        }
+      : a.annotation,
+  }));
+  if (!ready)
+    return (
+      <section className="card topic-card">
+        <h2>Topic heat map</h2>
+        <p>
+          Sign in or use the demo to load question availability and your
+          history. If already signed in, the topic catalog is temporarily
+          unavailable.
+        </p>
+      </section>
+    );
+  return (
+    <section className="card topic-card topic-map">
+      <h2>{sessionId ? "Session topic heat map" : "Topic heat map"}</h2>
+      <p>Performance on questions targeting this topic.</p>
+      <div className="map-controls">
+        <label>
+          Section
+          <select value={section} onChange={(e) => setSection(e.target.value)}>
+            <option value="">Combined canonical topics</option>
+            {sections.map((s) => (
+              <option key={s}>{s}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Find a topic
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search labels, aliases, or concepts"
+          />
+        </label>
+        <label>
+          Time window
+          <select value={window} onChange={(e) => setWindow(e.target.value)}>
+            <option value="all">All time</option>
+            <option value="30">Last 30 days</option>
+          </select>
+        </label>
+        <label>
+          Mode
+          <select value={mode} onChange={(e) => setMode(e.target.value)}>
+            <option value="">Timed & untimed</option>
+            <option value="rapid">Timed (rapid fire)</option>
+            <option value="training">Untimed (training)</option>
+          </select>
+        </label>
+      </div>
+      <div className="canonical-options">
+        <label>
+          <input
+            type="checkbox"
+            checked={integrated}
+            onChange={(e) => setIntegrated(e.target.checked)}
+          />{" "}
+          Include essential secondary targets
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={onlyAvailable}
+            onChange={(e) => setOnlyAvailable(e.target.checked)}
+          />{" "}
+          Available or attempted topics only
+        </label>
+      </div>
+      <p>
+        {integrated
+          ? "Questions involving this topic; a miss does not identify which required concept caused it."
+          : "Primary targets only."}{" "}
+        {window === "30" ? "Last 30 days ending today." : "All-time history."}{" "}
+        {sessionId
+          ? "Filtered to this session; first exposure is still determined over lifetime history."
+          : ""}
+      </p>
+      <div className="heatmap-legend">
+        <span className="low">Below 65%</span>
+        <span className="mid">65–79%</span>
+        <span className="high">80–100%</span>
+        <span>Limited evidence: fewer than 10 questions or 3 contexts</span>
+      </div>
+      {active && (
+        <div className="topic-detail" role="region" aria-label="Topic evidence">
+          <h3>{targetLabel(selected)}</h3>
+          <p>
+            {label(active)} ·{" "}
+            {active.accuracy === null
+              ? "No eligible accuracy"
+              : Math.round(active.accuracy) + "%"}{" "}
+            · {active.correct}/{active.count} eligible unique questions ·{" "}
+            {active.contexts} independent contexts.
+          </p>
+          <p>
+            Learning / retries: {active.learningCorrect}/{active.learning}{" "}
+            correct; {active.improved} correct retries after a wrong first
+            response. {active.assisted} assisted or previously answer-exposed
+            responses. {active.unknown} responses have unknown historical
+            exposure and are excluded from fresh accuracy.
+          </p>
+          <p>
+            Difficulty composition:{" "}
+            {Object.entries(active.difficulty)
+              .map(([k, v]) => k + ": " + v)
+              .join("; ") || "No eligible evidence"}
+            . {active.priorPassage} eligible questions followed prior passage
+            exposure; reading times are not independent.
+          </p>
+          <p>
+            {active.available} available questions. Counts across overlapping
+            topics must not be added together.
+          </p>
+          <button className="text-button" onClick={() => setSelected("")}>
+            Close details
+          </button>
+        </div>
+      )}
+      <div className="canonical-map-groups">
+        {groups.map((g) => {
+          const ts = matches.filter((t) => t.group_id === g.id);
+          if (!ts.length) return null;
+          return (
+            <details
+              key={g.id}
+              open={!!query.trim() || openGroups.includes(g.id)}
+            >
+              <summary
+                onClick={(e) => {
+                  e.preventDefault();
+                  setQuery("");
+                  setOpenGroups(
+                    openGroups.includes(g.id)
+                      ? openGroups.filter((id) => id !== g.id)
+                      : [...openGroups, g.id],
+                  );
+                }}
+              >
+                {g.label} <span>{ts.length} topics</span>
+              </summary>
+              {(!!query.trim() || openGroups.includes(g.id)) && (
+                <div className="heatmap-grid">
+                  {ts.map((t) => (
+                    <div key={t.id}>
+                      {tile(t.id)}
+                      <details
+                        className="canonical-drilldown"
+                        open={openTopics.includes(t.id)}
+                      >
+                        <summary
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setOpenTopics(
+                              openTopics.includes(t.id)
+                                ? openTopics.filter((id) => id !== t.id)
+                                : [...openTopics, t.id],
+                            );
+                          }}
+                        >
+                          Subtopic evidence
+                        </summary>
+                        {openTopics.includes(t.id) &&
+                          t.selectable_subtopics.map((s) => tile(s.id))}
+                      </details>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </details>
+          );
+        })}
+      </div>
+      {!matches.length && <p>No topics match this view.</p>}
+      <details className="canonical-skills">
+        <summary>Official reasoning-skill performance</summary>
+        <p>
+          Separate from content targets. CARS passage subjects are context only.
+        </p>
+        <div className="heatmap-grid">
+          {[...taxonomy.science_skills, ...taxonomy.cars_skills]
+            .filter(
+              (s) =>
+                !section ||
+                (section === "CARS"
+                  ? s.id.startsWith("CARS")
+                  : !s.id.startsWith("CARS")),
+            )
+            .map((s) => {
+              const v = summarizeTarget(skillAttempts, skillBank, s.id, {
+                ...options,
+                integrated: false,
+              });
+              return (
+                <div key={s.id}>
+                  <strong>{s.label}</strong>
+                  <p>
+                    {v.correct}/{v.count} first-exposure correct · {v.contexts}{" "}
+                    contexts ·{" "}
+                    {v.limited
+                      ? "Limited evidence"
+                      : v.count
+                        ? "Observed accuracy"
+                        : "No eligible evidence"}
+                  </p>
+                  <p>
+                    Learning/retries: {v.learningCorrect}/{v.learning}
+                  </p>
+                </div>
+              );
+            })}
+        </div>
+      </details>
+      <p className="heatmap-help">
+        {held} historical answers are unclassified or awaiting tagging review
+        and remain preserved outside topic totals. {unanswered} unanswered
+        questions in completed sessions are tracked separately, not scored as
+        wrong. Difficulty is estimated, not measured; raw topic percentages are
+        not directly comparable ability estimates. The 10-question/3-context
+        color threshold is provisional.
+      </p>
+    </section>
+  );
 }

@@ -1,0 +1,37 @@
+{
+  "version": "1.0.0",
+  "files": [
+    {
+      "path": "AAMC_Category_Crosswalk.csv",
+      "sha256": "9fc1fee133e0f9bb12c8e28a2f1ea35da9fe4be8219bbaed5ca8f2a4d78aa1a3"
+    },
+    {
+      "path": "Coverage_Review.md",
+      "sha256": "2cba7d42fb6f7030801ccd1b12a2a99526b5ccec9aa435b4973ed0398949154d"
+    },
+    {
+      "path": "MCAT_Topic_Map.csv",
+      "sha256": "14ebe1dad16307ffe4b7a2c1277c95ca9b96c9f5d7deab2ac2cf59f57c459714"
+    },
+    {
+      "path": "MCAT_Topic_Map.json",
+      "sha256": "9478cea262306f46ef715cd7af0d333898d2bbf61ef450e67e960280d57330f6"
+    },
+    {
+      "path": "MCAT_Topic_Map.md",
+      "sha256": "71ee4915aa68719ace84440e741ce0483bb786c257b633dbf57c608fb2af0865"
+    },
+    {
+      "path": "Question_Tagging_and_Heatmap.md",
+      "sha256": "37984ff56961ee0c3573c4cf30a74dc9755b2f5d3f59f447bfc4fe323b3e0d63"
+    },
+    {
+      "path": "START_HERE.md",
+      "sha256": "5a1c1d702469bd5b2fb11038d1f924115fe63d92900d4bfa16856da2fb072c33"
+    },
+    {
+      "path": "Structural_Validation.json",
+      "sha256": "e218d48884d1e4fd9f2bd8371016208e02eeefd814fc7af59d69eff503e73c23"
+    }
+  ]
+}

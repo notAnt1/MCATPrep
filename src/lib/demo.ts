@@ -8,6 +8,7 @@ type DemoData = {
   hints: number;
   started: number;
   unitHints?: Record<string,number>;
+  exposures?: Record<string,{session:string;passage:string|null;hint:boolean;answer:boolean}>;
 };
 const key = "mcat-demo-v1";
 export function demoData(): DemoData {
@@ -30,7 +31,7 @@ export function demoStart(mode: Mode, topic: string | null, skill = "", section 
   const d = demoData(),
     active = d.sessions.find((s) => !s.completed_at);
   if (active) return active.id;
-  const q = chooseUnits(pilotQuestions,d.attempts,topic,mode==='training'?skill:'',mode==='training'?section:'').map(q=>({q}));
+  const q = chooseUnits(pilotQuestions,d.attempts,topic,mode==='training'?skill:'',section).map(q=>({q}));
   if (!q.length) throw new Error("No questions match these tags. Try a different topic, section, or question type.");
   const s: StudySession = {
     id: crypto.randomUUID(),

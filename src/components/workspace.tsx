@@ -26,11 +26,13 @@ import type { User } from "@supabase/supabase-js";
 import { getBrowserDb } from "@/lib/supabase";
 import { analyze, fallbackReport } from "@/lib/analytics";
 import { demoUnitCurrent, demoUnitHint, demoUnitAnswer } from '@/lib/demo-units';
+import { PracticeTopicPicker } from './practice-topic-picker';
 import { TopicHeatmap } from './topic-heatmap';
 import { QuestionTutor } from './question-tutor';
 import { UnitQuestions } from './unit-questions';
 import { Passage } from './passage';
-import pilotTags from '../../data/reviewed/pilot-tags.json';
+import canonicalInventory from '../../data/reviewed/canonical-inventory.json';
+import type { Annotation } from '@/lib/canonical-topics';
 import {
   demoData,
   demoFinish,
@@ -49,7 +51,7 @@ import type {
 
 type View = "overview" | "analysis" | "history" | "leaderboard" | "settings";
 type Current = PracticeUnit;
-const topics = pilotTags.topics;
+
 const date = (s: string) =>
   new Date(s).toLocaleDateString(undefined, { month: "short", day: "numeric" });
 const seconds = (s: number | null) => (s === null ? "—" : `${Math.round(s)}s`);
@@ -87,7 +89,8 @@ export default function Workspace() {
     [paused, setPaused] = useState(false),
     [hidden, setHidden] = useState(false),
     [elapsed, setElapsed] = useState(0);
-  const [trainingSkill, setTrainingSkill] = useState("");
+  const [inventory, setInventory] = useState<Annotation[]>([]);
+  const [inventoryReady, setInventoryReady] = useState(false);
   const [trainingSection, setTrainingSection] = useState("");
   const [reviewQuestions, setReviewQuestions] = useState<FullQuestion[]>([]);
   const [reviewLoading, setReviewLoading] = useState(false);
@@ -152,18 +155,22 @@ export default function Workspace() {
     if (demo) {
       const d = demoData();
       setAttempts(d.attempts);
+      setInventory(canonicalInventory as Annotation[]); setInventoryReady(true);
       setSessions(d.sessions);
       return;
     }
     if (!user) {
+      setInventory([]); setInventoryReady(false);
       setAttempts([]);
       setSessions([]);
       setReports({});
       return;
     }
     const db = getBrowserDb();
+    const catalog = await db.rpc("mcat_topic_inventory");
+    if(catalog.error) { setInventoryReady(false); } else {setInventory(catalog.data as Annotation[]);setInventoryReady(true);}
     const fetched: Attempt[] = [];
-    for (let offset = 0; offset < 100000; offset += 1000) {
+    for (let offset = 0; true; offset += 1000) {
       const { data, error } = await db
         .from("mcat_attempts")
         .select("*")
@@ -174,12 +181,14 @@ export default function Workspace() {
       fetched.push(...(data as Attempt[]));
       if (data.length < 1000) break;
     }
-    const [ss, rr, pp] = await Promise.all([
-      db
-        .from("mcat_sessions")
-        .select("*")
-        .order("created_at", { ascending: false })
-        .limit(1000),
+    const fetchedSessions: StudySession[] = [];
+    for(let offset=0;;offset+=1000) {
+      const page = await db.from("mcat_sessions").select("*").order("created_at",{ascending:false}).order("id").range(offset,offset+999);
+      if(page.error)throw new Error(page.error.message);
+      fetchedSessions.push(...page.data as StudySession[]);
+      if(page.data.length<1000)break;
+    }
+    const [rr, pp] = await Promise.all([
       db
         .from("mcat_reports")
         .select("*")
@@ -187,10 +196,10 @@ export default function Workspace() {
         .limit(1000),
       db.from("mcat_profiles").select("*").eq("user_id", user.id).maybeSingle(),
     ]);
-    if (ss.error || rr.error || pp.error)
-      throw new Error(friendly((ss.error || rr.error || pp.error)!.message));
+    if (rr.error || pp.error)
+      throw new Error(friendly((rr.error || pp.error)!.message));
     setAttempts(fetched);
-    setSessions(ss.data as StudySession[]);
+    setSessions(fetchedSessions);
     setReports(
       Object.fromEntries(rr.data!.map((r) => [r.session_id, r.report])),
     );
@@ -321,8 +330,8 @@ export default function Workspace() {
       setReportSession(null);
       setAiError("");
       const id = demo
-        ? demoStart(mode, topic || null, trainingSkill, trainingSection)
-        : await rpc("mcat_start_units", { p_mode:mode, p_topic:topic || null, p_skill:mode==='training'?(trainingSkill||null):null, p_section:mode==='training'?(trainingSection||null):null });
+        ? demoStart(mode, topic || null, "", trainingSection)
+        : await rpc("mcat_start_topics", {p_mode:mode,p_target:topic||null,p_section:trainingSection||null});
       await loadCurrent(id);
       await refresh();
     });
@@ -745,7 +754,7 @@ export default function Workspace() {
                       : "Generate / retry AI report"}
                   </button>
                 )}
-              <TopicHeatmap attempts={currentAttempts} session />
+              <TopicHeatmap ready={inventoryReady} attempts={attempts} bank={inventory} sessionId={reportSession?.id || current?.session.id} />
               <section className="card answer-review">
                 <h2>Answer review</h2>
                 <p>Revisit your questions and explanations here or from Session history. Reviewing does not change your score.</p>
@@ -825,28 +834,15 @@ export default function Workspace() {
               </div>
               <div className="section-heading">
                 <h2>Start practice</h2>
-                <label className="topic-select">
-                  Practice topic{" "}
-                  <select
-                    value={topic}
-                    onChange={(e) => setTopic(e.target.value)}
-                  >
-                    <option value="">A balanced mix</option>
-                    {topics.map((t) => (
-                      <option key={t}>{t}</option>
-                    ))}
-                  </select>
-                </label>
               </div>
               <div className="practice-filters">
-                <label className="topic-select">Training section <select value={trainingSection} onChange={e=>setTrainingSection(e.target.value)}><option value="">All sections</option>{pilotTags.sections.map(s=><option key={s}>{s}</option>)}</select></label>
-                <label className="topic-select">Training skill <select value={trainingSkill} onChange={e=>setTrainingSkill(e.target.value)}><option value="">All skills</option>{pilotTags.skills.map(s=><option key={s}>{s}</option>)}</select></label>
-                <p className="fine-print">Passages stay complete when a question matches your filters.</p>
+                <PracticeTopicPicker value={topic} onChange={setTopic} section={trainingSection} onSectionChange={setTrainingSection} bank={inventory} ready={inventoryReady} />
               </div>
+              <p className="practice-passage-note">Passages stay complete, so a session may include related topics.</p>
               <div className="mode-grid">
                 <button
                   className="mode-card training"
-                  disabled={busy}
+                  disabled={busy || (!active && !!topic && !inventoryReady)}
                   onClick={() => start("training")}
                 >
                   <h2>Training</h2>
@@ -862,7 +858,7 @@ export default function Workspace() {
                 </button>
                 <button
                   className="mode-card rapid"
-                  disabled={busy}
+                  disabled={busy || (!active && !!topic && !inventoryReady)}
                   onClick={() => start("rapid")}
                 >
                   <h2>Rapid fire</h2>
@@ -996,7 +992,7 @@ export default function Workspace() {
                     {demo
                       ? "Demo profile calculated from this browser’s history."
                       : `AI profile updated after the ${date(latest!.created_at)} session.`}{" "}
-                    The heat map below updates from your completed sessions.
+                    Saved reports retain their original topic labels and earlier analytics rules. The canonical heat map below uses the new evidence policy.
                   </p>
                 </>
               ) : (
@@ -1023,15 +1019,12 @@ export default function Workspace() {
                   </button>
                 </section>
               )}
-              <TopicHeatmap attempts={attempts.filter(a=>finished.some(s=>s.id===a.session_id))} />
+              <TopicHeatmap ready={inventoryReady} attempts={attempts} bank={inventory} completedSessionIds={finished.map(s=>s.id)} unanswered={finished.reduce((sum,s)=>sum+s.question_ids.filter(id=>!attempts.some(a=>a.session_id===s.id&&a.question_id===id)).length,0)} />
               <section className="card methodology">
                 <h3>How to read your profile</h3>
                 <div>
                   <p>
-                    <strong>Fresh evidence.</strong> Topic assessments use up to
-                    20 recent, independent first attempts. Repeats and hinted
-                    answers stay in your history, but do not inflate these
-                    estimates.
+                    <strong>Fresh evidence.</strong> The heat map uses first-ever unaided question-family attempts in the selected window. Older answers with unknown exposure stay in history and are excluded from fresh accuracy.
                   </p>
                   <p>
                     <strong>Timing in context.</strong> Training and rapid-fire
@@ -1039,9 +1032,7 @@ export default function Workspace() {
                     and hidden tabs are excluded. Interrupted timing is flagged.
                   </p>
                   <p>
-                    <strong>Room for uncertainty.</strong> Fewer than five
-                    independent answers means “needs more evidence.” These are
-                    practice patterns, never a predicted MCAT score.
+                    <strong>Room for uncertainty.</strong> Fewer than 10 eligible questions or 3 distinct contexts means limited evidence. These are observed practice results, never a mastery estimate or predicted MCAT score.
                   </p>
                 </div>
               </section>

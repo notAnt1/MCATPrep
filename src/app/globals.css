@@ -1740,3 +1740,44 @@ small { font-size: 13px; }
 .map-section-content .heatmap-grid { grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); }
 .map-section-content > .text-button { margin-top:16px; }
 @media(max-width:600px) { .map-section-toggle { flex-wrap:wrap; gap:8px; } .map-section-counts { width:100%; order:2; } .map-section-content { padding:12px; } .map-section-content .heatmap-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .map-controls label { min-width:100%; } }
+
+/* Searchable practice subjects */
+.practice-filters { align-items: flex-start; margin-bottom: 4px; gap: 24px; }
+.practice-topic-picker { position: relative; flex: 1; min-width: 260px; max-width: 600px; }
+.practice-topic-picker > label { display: block; font-weight: 600; margin-bottom: 8px; }
+.topic-search-field { display: flex; align-items: center; gap: 10px; padding: 0 12px; border: 1px solid #b9c5cf; border-radius: 8px; background: white; }
+.topic-search-field:focus-within { outline: 2px solid #246cbd; outline-offset: 2px; }
+.topic-search-field input { width: 100%; min-width: 0; border: 0; outline: 0; padding: 12px 0; background: transparent; font: inherit; }
+.topic-search-field button { display: flex; padding: 6px; border: 0; background: transparent; cursor: pointer; }
+.topic-suggestions { position: absolute; top: 78px; z-index: 20; left: 0; right: 0; max-height: 280px; overflow-y: auto; border: 1px solid #b9c5cf; border-radius: 8px; box-shadow: 0 8px 24px #182d4320; background: white; padding: 4px; }
+.topic-suggestions button { display: block; text-align: left; width: 100%; border: 0; border-radius: 4px; background: white; color: #23364b; font: inherit; padding: 11px 12px; cursor: pointer; }
+.topic-suggestions button.highlighted, .topic-suggestions button:hover, .topic-suggestions button:focus { background: #eaf2fb; }
+.topic-suggestions p { padding: 10px; margin: 0; }
+.topic-picker-help { font-size: 14px; color: #52616c; margin: 8px 0; }
+.practice-passage-note { color: #52616c; font-size: 14px; margin: 0 0 20px; }
+.practice-filters > .topic-select { display: flex; flex-direction: column; align-items: stretch; gap: 8px; padding-top: 2px; }
+@media(max-width:600px) { .practice-topic-picker { min-width: 0; width: 100%; flex-basis: 100%; } .practice-filters { gap: 12px; } }
+
+.canonical-picker {width:100%;}
+.canonical-picker .map-controls {grid-template-columns:minmax(140px,200px) 1fr;}
+.canonical-selection,.canonical-options {display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:12px 0;}
+.canonical-tree {max-height:480px;overflow:auto;border:1px solid #cbd5df;border-radius:8px;padding:12px;}
+.canonical-tree summary,.canonical-map-groups > details > summary,.canonical-skills > summary {cursor:pointer;padding:14px 8px;font-weight:600;font-size:17px;}
+.canonical-tree summary span,.canonical-map-groups summary span {font-weight:400;font-size:14px;color:#586878;margin-left:8px;}
+.canonical-choice {width:100%;display:flex;gap:16px;justify-content:space-between;text-align:left;padding:12px;border:1px solid #d6e0e8;border-radius:6px;background:white;font:inherit;cursor:pointer;}
+.canonical-choice span:last-child {font-size:14px;color:#52616c;white-space:nowrap;}
+.canonical-choice:disabled {cursor:default;color:#6a7480;background:#f5f6f7;}
+.canonical-choice[aria-pressed=true] {outline:2px solid #2878b4;background:#eaf4ff;}
+.canonical-topic {margin:8px 0 12px 16px;}
+.canonical-topic details {padding-left:16px;}
+.canonical-topic details summary,.canonical-drilldown summary {font-size:14px;cursor:pointer;padding:8px;}
+.canonical-map-groups > details {border-top:1px solid #dce2e8;padding:6px 0;}
+.canonical-map-groups .heatmap-tile {width:100%;height:100%;min-height:150px;}
+.canonical-drilldown .heatmap-tile {margin:6px 0;min-height:130px;}
+.canonical-map-groups .heatmap-grid {align-items:start;}
+.heatmap-tile.limited {background:#f0f3f6;color:#344555;border-color:#c5ced7;}
+.heatmap-tile.unattempted {background:#fff;color:#52616c;border:1px solid #b7c5d2;}
+.heatmap-tile.unavailable {background:#f6f6f6;color:#66717b;border:1px dashed #c4cbd1;}
+.canonical-options label {display:flex;align-items:center;gap:8px;}
+.canonical-skills {margin-top:20px;}
+@media(max-width:600px){.canonical-picker .map-controls {grid-template-columns:1fr;}.canonical-choice {flex-direction:column;gap:5px;}.canonical-topic {margin-left:4px;}.canonical-tree {padding:6px;}}

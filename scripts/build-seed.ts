@@ -35,5 +35,5 @@ writeFileSync(
     "\n" +
     readFileSync("supabase/tutor.sql", "utf8") +
     "\n" +
-    readFileSync("supabase/seed.sql", "utf8"),
+    readFileSync("supabase/seed.sql", "utf8") + "\n" + readFileSync("supabase/canonical-topics.sql", "utf8"),
 );
