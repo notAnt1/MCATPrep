@@ -1,0 +1,149 @@
+{
+  "Acid-base speciation": [
+    "C/P"
+  ],
+  "Serial transport barriers": [
+    "C/P"
+  ],
+  "Ion trapping": [
+    "C/P"
+  ],
+  "Experimental controls": [
+    "C/P"
+  ],
+  "Carboxylic acid spectroscopy": [
+    "C/P"
+  ],
+  "Wave propagation": [
+    "C/P"
+  ],
+  "Wavelength and resolution": [
+    "C/P"
+  ],
+  "Acoustic energy conservation": [
+    "C/P"
+  ],
+  "Measurement and attenuation": [
+    "C/P"
+  ],
+  "Frequency-penetration tradeoff": [
+    "C/P"
+  ],
+  "Glomerular filtration": [
+    "B/B"
+  ],
+  "Tubular secretion": [
+    "B/B"
+  ],
+  "Clearance versus plasma flow": [
+    "B/B"
+  ],
+  "Secondary active transport and reabsorption": [
+    "B/B"
+  ],
+  "Water balance and endocrine physiology": [
+    "B/B"
+  ],
+  "Oxidative phosphorylation": [
+    "B/B"
+  ],
+  "Background correction": [
+    "B/B"
+  ],
+  "Terminal electron acceptance and oxygen": [
+    "B/B"
+  ],
+  "Controls for assay sequence effects": [
+    "B/B"
+  ],
+  "Chemiosmosis": [
+    "B/B"
+  ],
+  "Signal detection categories": [
+    "P/S"
+  ],
+  "Detection sensitivity": [
+    "P/S"
+  ],
+  "Response criterion": [
+    "P/S"
+  ],
+  "Within-subject experimental design": [
+    "P/S"
+  ],
+  "Operant conditioning": [
+    "P/S"
+  ],
+  "Comparison of changes": [
+    "P/S"
+  ],
+  "Observational learning": [
+    "P/S"
+  ],
+  "Self-efficacy and collective efficacy": [
+    "P/S"
+  ],
+  "Attrition and selection bias": [
+    "P/S"
+  ],
+  "Social capital": [
+    "P/S"
+  ],
+  "Central argument": [
+    "CARS"
+  ],
+  "Rhetorical function": [
+    "CARS"
+  ],
+  "Qualified position": [
+    "CARS"
+  ],
+  "Logical relationship": [
+    "CARS"
+  ],
+  "Application to a new case": [
+    "CARS"
+  ],
+  "Challenge to an argument": [
+    "CARS"
+  ],
+  "Tone and personification": [
+    "CARS"
+  ],
+  "Function of a concession": [
+    "CARS"
+  ],
+  "Interpretation of a metaphor": [
+    "CARS"
+  ],
+  "Application to incentives": [
+    "CARS"
+  ],
+  "Inference from corroborating evidence": [
+    "CARS"
+  ],
+  "Electrochemistry and thermodynamics": [
+    "C/P"
+  ],
+  "Organic stereochemistry": [
+    "C/P"
+  ],
+  "Electric circuits and power": [
+    "C/P"
+  ],
+  "Meiosis and genetic linkage": [
+    "B/B"
+  ],
+  "Protein targeting and secretion": [
+    "B/B"
+  ],
+  "Endocrine feedback": [
+    "B/B"
+  ],
+  "Attribution and situational constraints": [
+    "P/S"
+  ],
+  "Reliability and validity": [
+    "P/S"
+  ]
+}

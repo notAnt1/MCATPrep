@@ -1718,3 +1718,25 @@ small { font-size: 13px; }
 .topic-detail-stats strong { font-size:26px; }
 .topic-detail-stats span { font-size:14px; color:#52616c; }
 @media(max-width:600px) { .heatmap-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .heatmap-tile { padding:12px; } .heatmap-name { overflow-wrap:anywhere; } .topic-detail-stats { grid-template-columns:1fr; } }
+
+.map-priorities { padding:18px; border:1px solid #d8e3dc; border-radius:8px; margin:16px 0 22px; background:#f8faf9; }
+.map-priorities p { margin-top:8px; font-size:14px; }
+.map-recommendations { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin-top:14px; }
+.map-recommendations button { background:white; text-align:left; padding:12px; border:1px solid #d9c6b8; border-left:4px solid #bc6c44; border-radius:6px; }
+.map-recommendations strong,.map-recommendations span { display:block; }
+.map-recommendations span { font-size:13px; margin-top:6px; color:#52616c; }
+.map-controls { display:flex; flex-wrap:wrap; gap:14px; margin-bottom:18px; }
+.map-controls label { flex:1; min-width:170px; display:flex; flex-direction:column; gap:6px; font-size:14px; color:#40584b; }
+.map-controls input,.map-controls select { width:100%; padding:10px; border:1px solid #b9cbbf; border-radius:6px; background:white; color:#20392d; }
+.map-sections { display:grid; gap:14px; margin:18px 0; }
+.map-section { border:1px solid #cedbd2; border-radius:8px; overflow:hidden; }
+.map-section-toggle { display:flex; width:100%; align-items:center; gap:16px; padding:18px; text-align:left; background:#fff; }
+.map-section-toggle > span:first-child { flex:1; }
+.map-section-toggle strong,.map-section-toggle > span:first-child > span { display:block; }
+.map-section-toggle strong { font-size:18px; }
+.map-section-toggle > span:first-child > span,.map-section-counts { font-size:14px; color:#52616c; }
+.map-section-bar { display:flex; height:10px; }
+.map-section-content { padding:18px; }
+.map-section-content .heatmap-grid { grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); }
+.map-section-content > .text-button { margin-top:16px; }
+@media(max-width:600px) { .map-section-toggle { flex-wrap:wrap; gap:8px; } .map-section-counts { width:100%; order:2; } .map-section-content { padding:12px; } .map-section-content .heatmap-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .map-controls label { min-width:100%; } }

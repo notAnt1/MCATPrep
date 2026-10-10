@@ -3,6 +3,10 @@ import { questions } from "../src/lib/questions";
 import { expandedQuestions } from "../src/lib/expanded-questions";
 import { reviewedQuestions } from "../src/lib/reviewed-questions";
 import { pilotQuestions } from '../src/lib/pilot-questions';
+// Keep the heat-map catalog in sync without shipping question content into its component.
+const topicSections: Record<string, string[]> = {};
+for (const q of pilotQuestions) topicSections[q.topic] = [...new Set([...(topicSections[q.topic] || []), q.section])];
+writeFileSync('data/reviewed/topic-sections.json', JSON.stringify(topicSections, null, 2) + '\n');
 const values = pilotQuestions
   .map(
     (q) => `('${q.id}', '${JSON.stringify(q).replaceAll("'", "''")}'::jsonb)`,
